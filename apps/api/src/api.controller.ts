@@ -10,4 +10,3 @@ export class ApiController {
     return this.apiService.getHello();
   }
 }
-var dsasd = 21;
