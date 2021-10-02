@@ -5,3 +5,7 @@ docker
 Dockerenv
 Dockerfile
 *.md
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+.git
+.gitignore
