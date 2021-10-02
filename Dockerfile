@@ -21,4 +21,5 @@ COPY --from=builder /app/dist /app/dist
 COPY yarn.lock package.json /   app/
 COPY config /app/config
 
+EXPOSE $PORT
 CMD yarn start:$SERVICE:prod

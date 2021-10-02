@@ -25,6 +25,7 @@ services:
     <<: *env_file
     environment:
       - SERVICE=api
+      - PORT=3001
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "127.0.0.1:27180:3001"
