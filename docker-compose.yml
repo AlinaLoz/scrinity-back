@@ -7,20 +7,16 @@ x-env-file: &env_file
 #    - ./Dockerenv/${NODE_ENV}.env
 
 services:
-  db:
+  postgres:
     image: mdillon/postgis:11
     <<: *restart_policy
     <<: *env_file
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - TZ=Europe/Minsk
-      - PGTZ=Europe/Minsk
     volumes:
-      - ./_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data/
     ports:
-      - "27187:5432"
+      - "27188:5432"
     restart: always
 
   api:
@@ -32,3 +28,6 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "127.0.0.1:27180:3001"
+
+volumes:
+  postgres_data:

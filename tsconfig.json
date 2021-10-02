@@ -15,12 +15,19 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
     "paths": {
       "libs/constants": [
         "libs/constants/src"
       ],
       "libs/constants/*": [
         "libs/constants/src/*"
+      ],
+      "libs/logger": [
+        "libs/logger/src"
+      ],
+      "libs/logger/*": [
+        "libs/logger/src/*"
       ]
     }
   }

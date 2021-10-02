@@ -1,0 +1,12 @@
+{
+  "API_PORT": 3001,
+  "POSTGRES": {
+    "HOST": "localhost",
+    "USERNAME": "postgres",
+    "PASSWORD": "postgres",
+    "PORT": 5432,
+    "DB": "project-z",
+    "RETRY_ATTEMPTS": 15,
+    "RETRY_DELAY": 1000
+  }
+}
