@@ -1,0 +1,34 @@
+version: '3.4'
+x-restart-policy: &restart_policy
+  restart: unless-stopped
+x-env-file: &env_file
+  env_file:
+    - ./Dockerenv/general.env
+#    - ./Dockerenv/${NODE_ENV}.env
+
+services:
+  db:
+    image: mdillon/postgis:11
+    <<: *restart_policy
+    <<: *env_file
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - TZ=Europe/Minsk
+      - PGTZ=Europe/Minsk
+    volumes:
+      - ./_data:/var/lib/postgresql/data/
+    ports:
+      - "27187:5432"
+    restart: always
+
+  api:
+    build: .
+    <<: *restart_policy
+    <<: *env_file
+    environment:
+      - SERVICE=api
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:27180:3001"
