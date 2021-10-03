@@ -1,4 +1,6 @@
 declare module 'config' {
+	export const NODE_ENV: 'development' | 'production';
+	export const NODE_CONFIG_ENV: 'develop' | 'master' | 'prod';
 	export const API_PORT: number;
 	export const POSTGRES: {
 		readonly HOST: string;

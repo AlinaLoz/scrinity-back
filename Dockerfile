@@ -6,6 +6,7 @@ COPY yarn.lock package.json /app/
 
 RUN yarn install --frozen-lockfile --production=true
 ENV NODE_ENV=production
+ENV NODE_CONFIG_ENV=develop
 
 FROM base as builder
 
