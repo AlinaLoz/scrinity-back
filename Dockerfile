@@ -19,7 +19,7 @@ RUN yarn build:all
 FROM base
 
 COPY --from=builder /app/dist /app/dist
-COPY yarn.lock package.json /   app/
+COPY yarn.lock package.json /  app/
 COPY config /app/config
 
 EXPOSE 3001

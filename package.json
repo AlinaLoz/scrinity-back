@@ -6,6 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "publish:image": "sh ./scripts/docker/build-and-publish.sh",
+    "eb:deploy": "eb deploy",
+    "deploy": "sh ./scripts/docker/deploy.sh",
     "prebuild": "rimraf dist",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "build:api": "nest build api",
