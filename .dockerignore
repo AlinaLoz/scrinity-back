@@ -1,0 +1,11 @@
+node_modules
+.git
+docker-compose.yml
+docker
+Dockerenv
+Dockerfile
+*.md
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+.git
+.gitignore

@@ -1,0 +1,4 @@
+{
+  "NODE_ENV": "production",
+  "NODE_CONFIG_ENV": "master"
+}
