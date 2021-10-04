@@ -4,23 +4,14 @@ WORKDIR /app
 
 COPY yarn.lock package.json /app/
 
-RUN yarn install --frozen-lockfile --production=true
 ENV NODE_ENV=production
 ENV NODE_CONFIG_ENV=develop
 
-FROM base as builder
-
+RUN yarn install --frozen-lockfile --production
 COPY . .
-RUN yarn install --frozen-lockfile --production=false
-RUN yarn global add @nestjs/cli@8.1.2
-
 RUN yarn build:all
-
-FROM base
-
-COPY --from=builder /app/dist /app/dist
-COPY yarn.lock package.json /  app/
-COPY config /app/config
 
 EXPOSE 3001
 CMD yarn start:api:prod
+
+
