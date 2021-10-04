@@ -3,22 +3,12 @@
   "containerDefinitions": [
     {
       "essential": true,
-      "image": "nginx:latest",
-      "mountPoints": [
-        {
-          "containerPath": "/etc/nginx/nginx.conf",
-          "sourceVolume": "_Nginx_Conf"
-        }
-      ],
+      "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-nginx",
       "name": "nginx",
       "portMappings": [
         {
-          "containerPort": 27188,
-          "hostPort": 27188
-        },
-        {
-          "containerPort": 27180,
-          "hostPort": 27180
+          "containerPort": 80,
+          "hostPort": 80
         }
       ]
     },
@@ -71,12 +61,6 @@
   ],
   "family": "",
   "volumes": [
-    {
-      "host": {
-        "sourcePath": "./nginx.conf"
-      },
-      "name": "_Nginx_Conf"
-    },
     {
       "host": {
         "sourcePath": "postgres_data"
