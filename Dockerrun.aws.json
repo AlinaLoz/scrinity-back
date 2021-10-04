@@ -2,6 +2,27 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
+      "essential": true,
+      "image": "nginx:latest",
+      "mountPoints": [
+        {
+          "containerPath": "/etc/nginx/nginx.conf",
+          "sourceVolume": "_Nginx_Conf"
+        }
+      ],
+      "name": "nginx",
+      "portMappings": [
+        {
+          "containerPort": 27188,
+          "hostPort": 27188
+        },
+        {
+          "containerPort": 27180,
+          "hostPort": 27180
+        }
+      ]
+    },
+    {
       "environment": [
         {
           "name": "SERVICE",
@@ -52,19 +73,15 @@
   "volumes": [
     {
       "host": {
+        "sourcePath": "./nginx.conf"
+      },
+      "name": "_Nginx_Conf"
+    },
+    {
+      "host": {
         "sourcePath": "postgres_data"
       },
       "name": "Postgres_Data"
-    }
-  ],
-  "Ports": [
-    {
-      "HostPort": "27180",
-      "ContainerPort": "3001"
-    },
-    {
-      "HostPort": "27188",
-      "ContainerPort": "5432"
     }
   ]
 }

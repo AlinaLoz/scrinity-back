@@ -7,6 +7,15 @@ x-env-file: &env_file
     - ./Dockerenv/${NODE_CONFIG_ENV}.env
 
 services:
+  nginx:
+    image: nginx:latest
+    container_name: production_nginx
+    ports:
+      - "27188:27188"
+      - "27180:27180"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+
   postgres:
     image: mdillon/postgis:11
     <<: *restart_policy

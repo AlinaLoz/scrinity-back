@@ -26,6 +26,7 @@ eb:deploy
 полезный репо=https://github.com/cloudxlab/user-wishlist-app/blob/main/Dockerrun.aws.json
 ```
 eb local run
+docker run --rm -v $(pwd):/data/ micahhausler/container-transform  docker-compose.yml
 ```
 
 
