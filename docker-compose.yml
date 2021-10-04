@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.6'
 x-restart-policy: &restart_policy
   restart: unless-stopped
 x-env-file: &env_file
@@ -7,6 +7,13 @@ x-env-file: &env_file
     - ./Dockerenv/${NODE_CONFIG_ENV}.env
 
 services:
+  nginx:
+    image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
   postgres:
     image: mdillon/postgis:11
     <<: *restart_policy
@@ -20,14 +27,14 @@ services:
     restart: always
 
   api:
-    build: .
+    image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z:latest
     <<: *restart_policy
     <<: *env_file
     environment:
       - SERVICE=api
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
-      - "127.0.0.1:27180:3001"
+      - "27180:3001"
 
 volumes:
   postgres_data:

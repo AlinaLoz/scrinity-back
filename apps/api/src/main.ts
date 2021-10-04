@@ -5,9 +5,10 @@ import { AppLogger } from 'libs/logger';
 import { ApiModule } from './api.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(ApiModule, {
-    logger: new AppLogger('api.service'),
+  const logger = new AppLogger('api.service');
+  const app = await NestFactory.create(ApiModule, { logger });
+  await app.listen(CONFIG.API_PORT, () => {
+    logger.log(`api port: ${CONFIG.API_PORT}`);
   });
-  await app.listen(CONFIG.API_PORT);
 }
 bootstrap();
