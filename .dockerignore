@@ -1,6 +1,6 @@
 node_modules
 .git
-docker-compose-2.yml
+docker-compose.yml
 docker
 Dockerenv
 Dockerfile

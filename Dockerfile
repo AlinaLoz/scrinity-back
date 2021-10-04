@@ -11,7 +11,6 @@ RUN yarn install --frozen-lockfile --production
 COPY . .
 RUN yarn build:all
 
-EXPOSE 3001
-CMD yarn start:api:prod
+CMD yarn start:${SERVICE}:prod
 
 
