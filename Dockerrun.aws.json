@@ -1,0 +1,57 @@
+{
+  "AWSEBDockerrunVersion": "2",
+  "containerDefinitions": [
+    {
+      "environment": [
+        {
+          "name": "SERVICE",
+          "value": "api"
+        },
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "${POSTGRES_PASSWORD}"
+        }
+      ],
+      "essential": true,
+      "name": "api",
+      "portMappings": [
+        {
+          "containerPort": 3001,
+          "hostPort": 27180
+        }
+      ]
+    },
+    {
+      "environment": [
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "${POSTGRES_PASSWORD}"
+        }
+      ],
+      "essential": true,
+      "image": "mdillon/postgis:11",
+      "mountPoints": [
+        {
+          "containerPath": "/var/lib/postgresql/data/",
+          "sourceVolume": "Postgres_Data"
+        }
+      ],
+      "name": "postgres",
+      "portMappings": [
+        {
+          "containerPort": 5432,
+          "hostPort": 27188
+        }
+      ]
+    }
+  ],
+  "family": "",
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "postgres_data"
+      },
+      "name": "Postgres_Data"
+    }
+  ]
+}

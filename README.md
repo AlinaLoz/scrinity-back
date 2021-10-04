@@ -23,4 +23,8 @@ in order to eb deploy
 eb:deploy
 ```
 
+```
+eb local run
+```
+
 
