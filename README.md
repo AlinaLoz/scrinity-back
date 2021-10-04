@@ -23,6 +23,7 @@ in order to eb deploy
 eb:deploy
 ```
 
+полезный репо=https://github.com/cloudxlab/user-wishlist-app/blob/main/Dockerrun.aws.json
 ```
 eb local run
 ```

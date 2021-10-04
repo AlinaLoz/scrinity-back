@@ -56,5 +56,15 @@
       },
       "name": "Postgres_Data"
     }
+  ],
+  "Ports": [
+    {
+      "HostPort": "27180",
+      "ContainerPort": "3001"
+    },
+    {
+      "HostPort": "27188",
+      "ContainerPort": "5432"
+    }
   ]
 }
