@@ -2,18 +2,6 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "essential": true,
-      "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-nginx",
-      "name": "nginx",
-      "memory": 100,
-      "portMappings": [
-        {
-          "containerPort": 80,
-          "hostPort": 80
-        }
-      ]
-    },
-    {
       "environment": [
         {
           "name": "SERVICE",
@@ -32,6 +20,18 @@
         {
           "containerPort": 3001,
           "hostPort": 27180
+        }
+      ]
+    },
+    {
+      "essential": true,
+      "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-nginx",
+      "name": "nginx",
+      "memory": 100,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
         }
       ]
     },
