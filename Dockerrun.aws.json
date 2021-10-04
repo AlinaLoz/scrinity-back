@@ -1,58 +1,62 @@
 {
   "AWSEBDockerrunVersion": 2,
-  "containerDefinitions": [
+  "containerDefinitions": [{
+    "environment": [{
+      "name": "POSTGRES_USER",
+      "value": "hello_flask"
+    },
+      {
+        "name": "POSTGRES_PASSWORD",
+        "value": "hello_flask"
+      },
+      {
+        "name": "POSTGRES_DB",
+        "value": "hello_flask_dev"
+      }
+    ],
+    "essential": true,
+    "image": "postgres:12-alpine",
+    "memory": 100,
+    "mountPoints": [{
+      "containerPath": "/var/lib/postgresql/data/",
+      "sourceVolume": "postgres_data"
+    }],
+    "name": "db",
+    "portMappings": [{
+      "containerPort": 5432,
+      "hostPort": 5432
+    }]
+  },
     {
-      "environment": [
-        {
-          "name": "SERVICE",
-          "value": "api"
-        },
-        {
-          "name": "POSTGRES_PASSWORD",
-          "value": "${POSTGRES_PASSWORD}"
-        }
-      ],
       "essential": true,
+      "image": "redis:6.0.8",
       "memory": 100,
-      "name": "api",
-      "portMappings": [
-        {
-          "containerPort": 3001,
-          "hostPort": 27180
-        }
-      ]
+      "name": "redis",
+      "portMappings": [{
+        "containerPort": 6379,
+        "hostPort": 6379
+      }]
     },
     {
-      "environment": [
-        {
-          "name": "POSTGRES_PASSWORD",
-          "value": "${POSTGRES_PASSWORD}"
-        }
-      ],
       "essential": true,
-      "image": "mdillon/postgis:11",
-      "mountPoints": [
-        {
-          "containerPath": "/var/lib/postgresql/data/",
-          "sourceVolume": "Postgres_Data"
-        }
+      "links": [
+        "redis",
+        "db"
       ],
-      "name": "postgres",
-      "portMappings": [
-        {
-          "containerPort": 5432,
-          "hostPort": 27188
-        }
-      ]
+      "name": "web",
+      "image": "vagdevik/user-wishlist-app",
+      "memory": 100,
+      "portMappings": [{
+        "containerPort": 80,
+        "hostPort": 80
+      }]
     }
   ],
-  "family": "",
-  "volumes": [
-    {
-      "host": {
-        "sourcePath": "postgres_data"
-      },
-      "name": "Postgres_Data"
-    }
+  "volumes": [{
+    "host": {
+      "sourcePath": "postgres_data"
+    },
+    "name": "postgres_data"
+  }
   ]
 }
