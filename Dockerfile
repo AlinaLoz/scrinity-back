@@ -11,11 +11,6 @@ RUN yarn install --frozen-lockfile --production
 COPY . .
 RUN yarn build:all
 
-
-FROM node:12.19.0-alpine3.9 AS application
-RUN yarn install --frozen-lockfile --production
-COPY --from=base /app/dist /app/dist
-
 EXPOSE 3001
 CMD yarn start:api:prod
 
