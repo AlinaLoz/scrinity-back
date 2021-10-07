@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ENV=development
+ENV=debelop
 #ENV=develop
 
 REGION=eu-west-1

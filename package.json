@@ -6,7 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "publish:image": "sh ./scripts/docker/build-and-publish.sh",
+    "publish:api:image": "sh scripts/docker/api-build-and-publish.sh",
+    "publish:nginx:image": "sh scripts/docker/nginx-build-and-publish.sh",
     "eb:deploy": "eb deploy",
     "deploy": "sh ./scripts/docker/deploy.sh",
     "prebuild": "rimraf dist",

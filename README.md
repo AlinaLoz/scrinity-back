@@ -29,4 +29,9 @@ eb local run
 docker run --rm -v $(pwd):/data/ micahhausler/container-transform  docker-compose.yml
 ```
 
+ssh connect
+```
+eb ssh debelop
+INFO: Running ssh -i /home/lozita/.ssh/lozita ec2-user@63.34.40.111
+```
 
