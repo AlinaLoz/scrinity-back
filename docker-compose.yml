@@ -9,6 +9,8 @@ x-env-file: &env_file
 services:
   nginx:
     image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-nginx
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/sites-available/default
     ports:
       - "80:80"
     depends_on:

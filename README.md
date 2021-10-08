@@ -35,3 +35,5 @@ eb ssh debelop
 INFO: Running ssh -i /home/lozita/.ssh/lozita ec2-user@63.34.40.111
 ```
 
+docker build  -t project-z-nginx .
+docker build  -f ./docker/api/Dockerfile -t project-z .
