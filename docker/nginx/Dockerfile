@@ -10,6 +10,7 @@ RUN apt update -y \
 
 EXPOSE 80
 
+COPY nginx.conf /etc/nginx/sites-available/default
 STOPSIGNAL SIGTERM
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -29,12 +29,6 @@
       "name": "nginx",
       "memory": 100,
       "links": ["api"],
-      "mountPoints": [
-        {
-          "containerPath": "/etc/nginx/sites-available/default",
-          "sourceVolume": "_DockerNginxNginx_Conf"
-        }
-      ],
       "portMappings": [
         {
           "containerPort": 80,
@@ -69,12 +63,6 @@
   ],
   "family": "",
   "volumes": [
-    {
-      "host": {
-        "sourcePath": "./docker/nginx/nginx.conf"
-      },
-      "name": "_DockerNginxNginx_Conf"
-    },
     {
       "host": {
         "sourcePath": "postgres_data"
