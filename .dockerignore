@@ -3,9 +3,7 @@ node_modules
 docker-compose.yml
 docker
 Dockerenv
-Dockerfile
 *.md
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
-.git
 .gitignore
