@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.8'
 x-restart-policy: &restart_policy
   restart: unless-stopped
 x-env-file: &env_file
@@ -7,13 +7,6 @@ x-env-file: &env_file
     - ./Dockerenv/${NODE_CONFIG_ENV}.env
 
 services:
-  nginx:
-    image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-nginx
-    ports:
-      - "80:80"
-    depends_on:
-      - api
-
   postgres:
     image: mdillon/postgis:11
     <<: *restart_policy

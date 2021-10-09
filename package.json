@@ -1,13 +1,12 @@
 {
   "name": "project-z",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "project-z",
+  "author": "alina.lozyuk.1999@gmail.com",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "publish:image": "sh ./scripts/docker/build-and-publish.sh",
-    "eb:deploy": "eb deploy",
+    "publish:api:image": "sh scripts/docker/api-build-and-publish.sh",
     "deploy": "sh ./scripts/docker/deploy.sh",
     "prebuild": "rimraf dist",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
