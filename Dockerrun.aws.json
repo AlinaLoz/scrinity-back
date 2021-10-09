@@ -53,7 +53,7 @@
       "name": "client",
       "portMappings": [
         {
-          "containerPort": 3000,
+          "containerPort": 27182,
           "hostPort": 27182
         }
       ]
