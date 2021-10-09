@@ -1,41 +1,46 @@
-in order to push to aws registry
+## Чтобы обновить сервер нужно
+- сбилдить docker image
+- запаблишить в aws service registry
+
+### Микросервисы
+- api 
+
+### Чтобы запушить api сервис в registry
 ```
-yarn publish:image
+yarn publish:api:image
 ```
 
-in order to create eb
+### Создание beanstalk
 ```
-eb create --single
+eb init --regin eu-west-1 // инит
+eb create --single --regin eu-west-1 // создание+деплой
 ```
 
-in order to run eb locally
+### Деплой на сервер делать из master/develop веток.
+### Запуск локально beanstalk сборки
 ```
 eb local run
 ```
 
-in order ro docker deploy to registry
+### Деплой все апы согласно Dockerrun.aws.json
 ```
 yarn deploy
 ```
 
-in order to eb deploy
+На сервере aws запускается не docker-compose.yml, а 
+Dockerrun.aws.json. Генерация Dockerrun.aws.json на основе docker-compose.yaml
 ```
-eb:deploy
-```
-
-полезный репо=https://github.com/cloudxlab/user-wishlist-app/blob/main/Dockerrun.aws.json
-```
-eb local run
 docker run --rm -v $(pwd):/data/ micahhausler/container-transform  docker-compose.yml
 ```
 
-ssh connect
+### управление nginx внутри amazon linux 
 ```
-eb ssh debelop
-INFO: Running ssh -i /home/lozita/.ssh/lozita ec2-user@63.34.40.111
+sudo service nginx start
+sudo service nginx stop
 ```
 
-docker build  -t project-z-nginx .
-publish:nginx:image
-docker build  -f ./docker/api/Dockerfile -t project-z .
-publish:api:image
+### Полезные ресуры
+https://github.com/cloudxlab/user-wishlist-app/blob/main/Dockerrun.aws.json
+https://coderwall.com/p/e7gzbq/https-with-certbot-for-nginx-on-amazon-linux
+https://serverfault.com/questions/1078775/install-certbot-nginx-in-amazon-linux-ami
+https://www.cyberciti.biz/faq/amazon-linux-ami-install-linux-nginx-mysql-php-lemp/
