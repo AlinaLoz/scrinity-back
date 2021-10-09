@@ -16,3 +16,12 @@ STOPSIGNAL SIGTERM
 CMD ["nginx", "-g", "daemon off;"]
 
 
+yum update -y \
+    && apt install nginx curl vim -y \
+    && yum install software-properties-common -y \
+    && add-apt-repository ppa:certbot/certbot -y \
+    && apt-get update -y \
+    && apt-get install python-certbot-nginx -y \
+    && apt-get clean \
+
+
