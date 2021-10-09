@@ -51,6 +51,7 @@
       "essential": true,
       "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-client",
       "name": "client",
+      "memory": 100,
       "portMappings": [
         {
           "containerPort": 27182,
