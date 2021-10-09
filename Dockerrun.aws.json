@@ -24,19 +24,6 @@
       ]
     },
     {
-      "essential": true,
-      "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-nginx",
-      "name": "nginx",
-      "memory": 100,
-      "links": ["api"],
-      "portMappings": [
-        {
-          "containerPort": 80,
-          "hostPort": 80
-        }
-      ]
-    },
-    {
       "environment": [
         {
           "name": "POSTGRES_PASSWORD",
