@@ -18,26 +18,32 @@
     "build:all": "concurrently \"yarn build:api\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config apps/project-z/test/jest-e2e.json",
-    "qw": "husky add .husky/pre-commit \"lint\" "
+    "migrate:run": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run",
+    "migrate:create": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:create -n",
+    "migrate:revert": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:revert"
   },
   "dependencies": {
+    "@nestjs/cli": "^8.0.0",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/swagger": "^5.1.0",
+    "@nestjs/typeorm": "^8.0.2",
     "@types/config": "^0.0.39",
+    "@types/node": "^16.10.2",
+    "class-transformer": "^0.4.0",
     "concurrently": "^6.3.0",
     "config": "^3.3.6",
+    "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "winston": "^3.3.3",
-    "@types/node": "^16.10.2",
+    "swagger-ui-express": "^4.1.6",
     "ts-loader": "^9.2.6",
-    "@nestjs/cli": "^8.0.0"
+    "typeorm": "^0.2.38",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@nestjs/schematics": "^8.0.0",
@@ -81,7 +87,9 @@
     ],
     "moduleNameMapper": {
       "^libs/constants(|/.*)$": "<rootDir>/libs/constants/src/$1",
-      "^libs/logger(|/.*)$": "<rootDir>/libs/logger/src/$1"
+      "^libs/logger(|/.*)$": "<rootDir>/libs/logger/src/$1",
+      "^libs/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
+      "^libs/entities(|/.*)$": "<rootDir>/libs/entities/src/$1"
     }
   },
   "husky": {

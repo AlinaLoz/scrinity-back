@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -18,17 +20,29 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
     "paths": {
-      "libs/constants": [
+      "@libs/constants": [
         "libs/constants/src"
       ],
-      "libs/constants/*": [
+      "@libs/constants/*": [
         "libs/constants/src/*"
       ],
-      "libs/logger": [
+      "@libs/logger": [
         "libs/logger/src"
       ],
-      "libs/logger/*": [
+      "@libs/logger/*": [
         "libs/logger/src/*"
+      ],
+      "@libs/auth": [
+        "libs/auth/src"
+      ],
+      "@libs/auth/*": [
+        "libs/auth/src/*"
+      ],
+      "@libs/entities": [
+        "libs/entities/src"
+      ],
+      "@libs/entities/*": [
+        "libs/entities/src/*"
       ]
     }
   }
