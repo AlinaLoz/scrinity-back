@@ -4,10 +4,10 @@
   "API_PORT": 3001,
   "IS_OPEN_SWAGGER": true,
   "POSTGRES": {
-    "HOST": "localhost",
+    "HOST": "postgres",
     "USERNAME": "postgres",
     "PASSWORD": "postgres",
-    "PORT": 27188,
+    "PORT": 5432,
     "DB": "project-z",
     "RETRY_ATTEMPTS": 15,
     "RETRY_DELAY": 1000

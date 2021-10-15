@@ -7,3 +7,4 @@ Dockerenv
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 .gitignore
+local.json

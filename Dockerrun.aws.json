@@ -8,8 +8,24 @@
           "value": "api"
         },
         {
+          "name": "POSTGRES_HOST",
+          "value": "postgres"
+        },
+        {
+          "name": "POSTGRES_USER",
+          "value": "postgres"
+        },
+        {
           "name": "POSTGRES_PASSWORD",
-          "value": "${POSTGRES_PASSWORD}"
+          "value": "postgres"
+        },
+        {
+          "name": "POSTGRES_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "POSTGRES_DB",
+          "value": "project-z"
         }
       ],
       "essential": true,
@@ -21,13 +37,30 @@
           "containerPort": 3001,
           "hostPort": 27180
         }
-      ]
+      ],
+      "links": ["postgres"]
     },
     {
       "environment": [
         {
+          "name": "POSTGRES_HOST",
+          "value": "postgres"
+        },
+        {
+          "name": "POSTGRES_USER",
+          "value": "postgres"
+        },
+        {
           "name": "POSTGRES_PASSWORD",
-          "value": "${POSTGRES_PASSWORD}"
+          "value": "postgres"
+        },
+        {
+          "name": "POSTGRES_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "POSTGRES_DB",
+          "value": "project-z"
         }
       ],
       "essential": true,
@@ -64,7 +97,7 @@
   "volumes": [
     {
       "host": {
-        "sourcePath": "postgres_data"
+        "sourcePath": "postgres_data_new"
       },
       "name": "Postgres_Data"
     }

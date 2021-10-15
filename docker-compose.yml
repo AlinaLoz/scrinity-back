@@ -1,20 +1,19 @@
 version: '3.8'
 x-restart-policy: &restart_policy
   restart: unless-stopped
-x-env-file: &env_file
-  env_file:
-    - ./Dockerenv/default.env
-    - ./Dockerenv/${NODE_CONFIG_ENV}.env
 
 services:
   postgres:
     image: mdillon/postgis:11
     <<: *restart_policy
-    <<: *env_file
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=$postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=project-z
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data_new:/var/lib/postgresql/data/
     ports:
       - "27188:5432"
     restart: always
@@ -22,10 +21,15 @@ services:
   api:
     image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z:latest
     <<: *restart_policy
-    <<: *env_file
     environment:
       - SERVICE=api
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=project-z
+    depends_on:
+      - postgres
     ports:
       - "27180:3001"
 
@@ -35,4 +39,4 @@ services:
       - "27182:3000"
 
 volumes:
-  postgres_data:
+  postgres_data_new:
