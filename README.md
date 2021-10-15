@@ -61,3 +61,8 @@ sudo service nginx stop
 scp ./docker/nginx/nginx.conf  ec2-user@99.81.215.180:/home/ec2-user/
 scp  ec2-user@99.81.215.180:/etc/nginx/nginx.conf  ~
 ```
+
+Чтобы собрать локально докер
+```
+docker build -f ./docker/api/Dockerfile -t  project-z:latest .
+```
