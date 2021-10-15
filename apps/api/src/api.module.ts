@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ApiController } from './api.controller';
-import { ApiService } from './api.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { AuthModule } from '@libs/auth';
+import { ExceptionModule } from '@libs/exceptions';
+import DB_CONFIG from '../../../ormconfig';
 
 @Module({
-  imports: [],
-  controllers: [ApiController],
-  providers: [ApiService],
+  imports: [ExceptionModule, AuthModule, TypeOrmModule.forRoot(DB_CONFIG)],
+  controllers: [],
+  providers: [],
 })
 export class ApiModule {}

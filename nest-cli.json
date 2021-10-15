@@ -34,6 +34,42 @@
       "compilerOptions": {
         "tsConfigPath": "libs/logger/tsconfig.lib.json"
       }
+    },
+    "auth": {
+      "type": "library",
+      "root": "libs/auth",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth/tsconfig.lib.json"
+      }
+    },
+    "entities": {
+      "type": "library",
+      "root": "libs/entities",
+      "entryFile": "index",
+      "sourceRoot": "libs/entities/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/entities/tsconfig.lib.json"
+      }
+    },
+    "dtos": {
+      "type": "library",
+      "root": "libs/dtos",
+      "entryFile": "index",
+      "sourceRoot": "libs/dtos/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/dtos/tsconfig.lib.json"
+      }
+    },
+    "exceptions": {
+      "type": "library",
+      "root": "libs/exceptions",
+      "entryFile": "index",
+      "sourceRoot": "libs/exceptions/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/exceptions/tsconfig.lib.json"
+      }
     }
   }
 }

@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
@@ -18,18 +22,46 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
     "paths": {
-      "libs/constants": [
+      "@libs/constants": [
         "libs/constants/src"
       ],
-      "libs/constants/*": [
+      "@libs/constants/*": [
         "libs/constants/src/*"
       ],
-      "libs/logger": [
+      "@libs/logger": [
         "libs/logger/src"
       ],
-      "libs/logger/*": [
+      "@libs/logger/*": [
         "libs/logger/src/*"
+      ],
+      "@libs/auth": [
+        "libs/auth/src"
+      ],
+      "@libs/auth/*": [
+        "libs/auth/src/*"
+      ],
+      "@libs/entities": [
+        "libs/entities/src"
+      ],
+      "@libs/entities/*": [
+        "libs/entities/src/*"
+      ],
+      "@libs/dtos": [
+        "libs/dtos/src"
+      ],
+      "@libs/dtos/*": [
+        "libs/dtos/src/*"
+      ],
+      "@libs/exceptions": [
+        "libs/exceptions/src"
+      ],
+      "@libs/exceptions/*": [
+        "libs/exceptions/src/*"
       ]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
