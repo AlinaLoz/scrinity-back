@@ -6,7 +6,14 @@ import { ExceptionModule } from '@libs/exceptions';
 import DB_CONFIG from '../../../ormconfig';
 
 @Module({
-  imports: [ExceptionModule, AuthModule, TypeOrmModule.forRoot(DB_CONFIG)],
+  imports: [
+    ExceptionModule,
+    AuthModule,
+    TypeOrmModule.forRoot({
+      ...DB_CONFIG,
+      migrationsRun: true,
+    }),
+  ],
   controllers: [],
   providers: [],
 })
