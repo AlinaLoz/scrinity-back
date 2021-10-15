@@ -1,2 +1,3 @@
-export * from './constants.module';
-export * from './constants.service';
+import * as ERRORS from './errors';
+
+export { ERRORS };

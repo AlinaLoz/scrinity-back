@@ -5,6 +5,7 @@ import CONFIG from 'config';
 
 import { AppLogger } from '@libs/logger';
 import { ApiModule } from './api.module';
+import packageJson from '../../../package.json';
 
 async function bootstrap() {
   const logger = new AppLogger('api.service');
@@ -17,10 +18,13 @@ async function bootstrap() {
 }
 bootstrap();
 
-function setupSwagger(app: INestApplication) {
+function setupSwagger(app: INestApplication): void {
+  if (!CONFIG.IS_OPEN_SWAGGER) {
+    return;
+  }
   const config = new DocumentBuilder()
-    .setTitle('Project Z')
-    .setVersion('1.0')
+    .setTitle('Documentation API')
+    .setVersion(packageJson.version)
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

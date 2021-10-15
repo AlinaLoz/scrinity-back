@@ -1,18 +1,14 @@
 import { CreateDateColumn, Entity, UpdateDateColumn } from 'typeorm';
-import { plainToClass } from 'class-transformer';
 
 @Entity()
 export class BaseEntity<T> {
   @CreateDateColumn({ type: 'timestamptz', default: 'now()' })
-  createdAt: string = '';
+  createdAt: string;
 
   @UpdateDateColumn({ type: 'timestamptz', default: 'now()' })
-  updateAt: string = '';
+  updateAt: string;
 
   constructor(data: Partial<T>) {
-    Object.assign(
-      {},
-      plainToClass(BaseEntity, data, { excludeExtraneousValues: true }),
-    );
+    Object.assign(this, data);
   }
 }

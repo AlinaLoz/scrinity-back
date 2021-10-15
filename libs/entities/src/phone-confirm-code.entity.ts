@@ -4,14 +4,14 @@ import { BaseEntity } from './base.entity';
 @Entity()
 export class PhoneConfirmCode extends BaseEntity<PhoneConfirmCode> {
   @PrimaryGeneratedColumn()
-  id: number = 0;
+  id: number;
 
   @Column({ type: 'varchar' })
-  phoneNumber: string = '';
+  phoneNumber: string;
 
   @Column({ type: 'varchar' })
-  code: string = '';
+  code: string;
 
-  @Column({ type: 'boolean' })
-  isActive: boolean = false;
+  @Column({ type: 'boolean', default: true })
+  isActive: boolean;
 }

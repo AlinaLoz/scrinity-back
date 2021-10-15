@@ -9,6 +9,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
@@ -43,7 +45,23 @@
       ],
       "@libs/entities/*": [
         "libs/entities/src/*"
+      ],
+      "@libs/dtos": [
+        "libs/dtos/src"
+      ],
+      "@libs/dtos/*": [
+        "libs/dtos/src/*"
+      ],
+      "@libs/exceptions": [
+        "libs/exceptions/src"
+      ],
+      "@libs/exceptions/*": [
+        "libs/exceptions/src/*"
       ]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
