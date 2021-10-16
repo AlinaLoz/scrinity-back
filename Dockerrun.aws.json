@@ -8,24 +8,8 @@
           "value": "api"
         },
         {
-          "name": "POSTGRES_HOST",
-          "value": "${POSTGRES_HOST}"
-        },
-        {
-          "name": "POSTGRES_USER",
-          "value": "${POSTGRES_USER}"
-        },
-        {
           "name": "POSTGRES_PASSWORD",
           "value": "${POSTGRES_PASSWORD}"
-        },
-        {
-          "name": "POSTGRES_PORT",
-          "value": "${POSTGRES_PORT}"
-        },
-        {
-          "name": "POSTGRES_DB",
-          "value": "${POSTGRES_DB}"
         }
       ],
       "essential": true,
@@ -43,24 +27,8 @@
     {
       "environment": [
         {
-          "name": "POSTGRES_HOST",
-          "value": "${POSTGRES_HOST}"
-        },
-        {
-          "name": "POSTGRES_USER",
-          "value": "${POSTGRES_USER}"
-        },
-        {
           "name": "POSTGRES_PASSWORD",
           "value": "${POSTGRES_PASSWORD}"
-        },
-        {
-          "name": "POSTGRES_PORT",
-          "value": "${POSTGRES_PORT}"
-        },
-        {
-          "name": "POSTGRES_DB",
-          "value": "${POSTGRES_DB}"
         }
       ],
       "essential": true,
