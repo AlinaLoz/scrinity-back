@@ -32,7 +32,11 @@
       "environment": [
         {
           "name": "POSTGRES_PASSWORD",
-          "value": "${POSTGRES_PASSWORD}"
+          "value": "postgres"
+        },
+        {
+          "name": "POSTGRES_DB",
+          "value": "project-z"
         }
       ],
       "essential": true,
