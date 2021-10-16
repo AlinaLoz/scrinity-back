@@ -4,15 +4,12 @@
   "API_PORT": 3001,
   "IS_OPEN_SWAGGER": true,
   "POSTGRES": {
-    "HOST": "postgres",
+    "HOST": "127.0.0.1",
     "USERNAME": "postgres",
-    "PASSWORD": "",
-    "PORT": 5432,
+    "PASSWORD": "postgres",
+    "PORT": 27188,
     "DB": "project-z",
     "RETRY_ATTEMPTS": 15,
     "RETRY_DELAY": 1000
-  },
-  "JWT": {
-    "SECRET": "SECRET"
   }
 }

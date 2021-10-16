@@ -9,14 +9,14 @@ export class CreatePhoneNumberCode1634247640991 implements MigrationInterface {
         "code"        varchar(6)  NOT NULL,
         "isActive"    boolean     DEFAULT TRUE,
         "createdAt"   timestamptz DEFAULT now(),
-        "updateAt"    timestamptz DEFAULT now()
+        "updatedAt"    timestamptz DEFAULT now()
       )
     `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-        DROP TABLE IF EXISTS phone_confirm_code;
+      DROP TABLE IF EXISTS phone_confirm_code;
     `);
   }
 }
