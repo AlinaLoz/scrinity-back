@@ -6,6 +6,26 @@
         {
           "name": "SERVICE",
           "value": "api"
+        },
+        {
+          "name": "POSTGRES_HOST",
+          "value": "${POSTGRES_HOST}"
+        },
+        {
+          "name": "POSTGRES_USER",
+          "value": "${POSTGRES_USER}"
+        },
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "${POSTGRES_PASSWORD}"
+        },
+        {
+          "name": "POSTGRES_PORT",
+          "value": "${POSTGRES_PORT}"
+        },
+        {
+          "name": "POSTGRES_DB",
+          "value": "${POSTGRES_DB}"
         }
       ],
       "essential": true,
@@ -21,6 +41,28 @@
       "links": ["postgres"]
     },
     {
+      "environment": [
+        {
+          "name": "POSTGRES_HOST",
+          "value": "${POSTGRES_HOST}"
+        },
+        {
+          "name": "POSTGRES_USER",
+          "value": "${POSTGRES_USER}"
+        },
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "${POSTGRES_PASSWORD}"
+        },
+        {
+          "name": "POSTGRES_PORT",
+          "value": "${POSTGRES_PORT}"
+        },
+        {
+          "name": "POSTGRES_DB",
+          "value": "${POSTGRES_DB}"
+        }
+      ],
       "essential": true,
       "memory": 100,
       "image": "mdillon/postgis:11",
@@ -55,7 +97,7 @@
   "volumes": [
     {
       "host": {
-        "sourcePath": "postgres_data_new"
+        "sourcePath": "postgres_data_new_2"
       },
       "name": "Postgres_Data"
     }
