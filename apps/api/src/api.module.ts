@@ -5,7 +5,6 @@ import { AuthModule } from '@libs/auth';
 import { ExceptionModule } from '@libs/exceptions';
 import DB_CONFIG from '../../../ormconfig';
 
-console.log('DB_CONFIG', DB_CONFIG);
 @Module({
   imports: [
     ExceptionModule,
