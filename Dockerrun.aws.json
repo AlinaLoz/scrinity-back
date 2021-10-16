@@ -6,6 +6,14 @@
         {
           "name": "SERVICE",
           "value": "api"
+        },
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "postgres"
+        },
+        {
+          "name": "POSTGRES_DB",
+          "value": "project-z"
         }
       ],
       "essential": true,
@@ -21,6 +29,24 @@
       "links": ["postgres"]
     },
     {
+      "environment": [
+        {
+          "name": "POSTGRES_USER",
+          "value": "postgres"
+        },
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "postgres"
+        },
+        {
+          "name": "POSTGRES_DB",
+          "value": "project-z"
+        },
+        {
+          "name": "POSTGRES_PORT",
+          "value": "5432"
+        }
+      ],
       "essential": true,
       "memory": 100,
       "image": "mdillon/postgis:11",
@@ -55,7 +81,7 @@
   "volumes": [
     {
       "host": {
-        "sourcePath": "postgres_data_new"
+        "sourcePath": "postgres_data"
       },
       "name": "Postgres_Data"
     }
