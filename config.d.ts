@@ -12,4 +12,7 @@ declare module 'config' {
     readonly RETRY_ATTEMPTS: number;
     readonly RETRY_DELAY: number;
   };
+  export const JWT: {
+    readonly SECRET: string;
+  }
 }

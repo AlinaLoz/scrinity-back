@@ -6,7 +6,7 @@ export class BaseEntity<T> {
   createdAt: string;
 
   @UpdateDateColumn({ type: 'timestamptz', default: 'now()' })
-  updateAt: string;
+  updatedAt: string;
 
   constructor(data: Partial<T>) {
     Object.assign(this, data);

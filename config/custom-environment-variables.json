@@ -5,5 +5,8 @@
   "IS_OPEN_SWAGGER": "IS_OPEN_SWAGGER",
   "POSTGRES": {
     "PASSWORD": "POSTGRES_PASSWORD"
+  },
+  "JWT": {
+    "SECRET": "JWT_SECRET"
   }
 }

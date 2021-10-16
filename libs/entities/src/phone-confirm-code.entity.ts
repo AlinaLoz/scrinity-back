@@ -6,6 +6,9 @@ export class PhoneConfirmCode extends BaseEntity<PhoneConfirmCode> {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  userId: number;
+
   @Column({ type: 'varchar' })
   phoneNumber: string;
 
