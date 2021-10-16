@@ -31,12 +31,20 @@
     {
       "environment": [
         {
+          "name": "POSTGRES_USER",
+          "value": "postgres"
+        },
+        {
           "name": "POSTGRES_PASSWORD",
           "value": "postgres"
         },
         {
           "name": "POSTGRES_DB",
           "value": "project-z"
+        },
+        {
+          "name": "POSTGRES_PORT",
+          "value": "5432"
         }
       ],
       "essential": true,
@@ -73,7 +81,7 @@
   "volumes": [
     {
       "host": {
-        "sourcePath": "postgres_data_new_2"
+        "sourcePath": "postgres_data"
       },
       "name": "Postgres_Data"
     }
