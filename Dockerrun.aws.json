@@ -8,12 +8,20 @@
           "value": "api"
         },
         {
+          "name": "POSTGRES_HOST",
+          "value": "postgres"
+        },
+        {
           "name": "POSTGRES_PASSWORD",
           "value": "postgres"
         },
         {
           "name": "POSTGRES_DB",
           "value": "project-z"
+        },
+        {
+          "name": "POSTGRES_PORT",
+          "value": "5432"
         }
       ],
       "essential": true,
