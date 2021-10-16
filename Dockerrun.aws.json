@@ -6,10 +6,6 @@
         {
           "name": "SERVICE",
           "value": "api"
-        },
-        {
-          "name": "POSTGRES_PASSWORD",
-          "value": "${POSTGRES_PASSWORD}"
         }
       ],
       "essential": true,
@@ -25,12 +21,6 @@
       "links": ["postgres"]
     },
     {
-      "environment": [
-        {
-          "name": "POSTGRES_PASSWORD",
-          "value": "${POSTGRES_PASSWORD}"
-        }
-      ],
       "essential": true,
       "memory": 100,
       "image": "mdillon/postgis:11",

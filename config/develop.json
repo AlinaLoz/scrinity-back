@@ -1,13 +1,4 @@
 {
   "NODE_ENV": "production",
-  "NODE_CONFIG_ENV": "develop",
-  "POSTGRES": {
-    "HOST": "postgres",
-    "USERNAME": "postgres",
-    "PASSWORD": "postgres",
-    "PORT": 5432,
-    "DB": "project-z",
-    "RETRY_ATTEMPTS": 15,
-    "RETRY_DELAY": 1000
-  }
+  "NODE_CONFIG_ENV": "develop"
 }

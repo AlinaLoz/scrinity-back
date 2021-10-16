@@ -6,7 +6,7 @@
   "POSTGRES": {
     "HOST": "postgres",
     "USERNAME": "postgres",
-    "PASSWORD": "postgres",
+    "PASSWORD": "",
     "PORT": 5432,
     "DB": "project-z",
     "RETRY_ATTEMPTS": 15,
