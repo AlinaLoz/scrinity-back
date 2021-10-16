@@ -6,7 +6,7 @@ import { BaseEntity } from './base.entity';
 export class User extends BaseEntity<User> {
   @PrimaryGeneratedColumn()
   id: number;
-  
+
   @Column()
   phoneNumber: string;
 }

@@ -50,7 +50,7 @@ export class AuthService {
     // todo send to sms service
     return true;
   }
-  
+
   async verifyConfirmCode(body: VerifyConfirmCodeBodyDTO): Promise<string> {
     const verificationCode = await this.phoneConfirmCodeRepository.findActiveCodeByPhoneAndCode({
       code: body.code,
@@ -65,10 +65,10 @@ export class AuthService {
     await this.phoneConfirmCodeRepository.updateActivenessCode(verificationCode);
     return this.jwtService.sign({ subId: verificationCode.userId });
   }
-  
+
   private async findUserOrCreate(phoneNumber: string): Promise<User> {
     const user = await this.userRepository.findOne({
-      where: { phoneNumber }
+      where: { phoneNumber },
     });
     if (!user) {
       return this.userRepository.save(new User({ phoneNumber }));

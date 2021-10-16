@@ -29,16 +29,16 @@ export class AuthController {
       status: data ? RESPONSE_STATUS.OK : RESPONSE_STATUS.ERROR,
     });
   }
-  
+
   @Post('verify-confirm-code')
   @ApiResponse({ type: VerifyConfirmCodeResponseDTO })
   async verifyConfirmCode(
     @Body() body: VerifyConfirmCodeBodyDTO,
-    @Res() res: Response,
+      @Res() res: Response,
   ): Promise<void> {
     const token = await this.authService.verifyConfirmCode(body);
     res.cookie(AUTHORIZATION_COOKIE, token, prepareCookiesOptions());
     res.send(new VerifyConfirmCodeResponseDTO({ status: RESPONSE_STATUS.OK }));
   }
-  
+
 }

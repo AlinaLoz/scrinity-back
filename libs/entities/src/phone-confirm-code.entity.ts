@@ -8,7 +8,7 @@ export class PhoneConfirmCode extends BaseEntity<PhoneConfirmCode> {
 
   @Column()
   userId: number;
-  
+
   @Column({ type: 'varchar' })
   phoneNumber: string;
 

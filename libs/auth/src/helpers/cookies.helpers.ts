@@ -7,4 +7,4 @@ export const prepareCookiesOptions = (): Record<string, string | number | Date |
     httpOnly: true,
     sameSite: 'none',
   });
-}
+};
