@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsPhoneNumber } from 'class-validator';
+import { IsPhoneNumber, IsString, MaxLength, MinLength } from 'class-validator';
 
 import { ResponsesDTO } from '@libs/dtos';
-import { ERRORS } from '@libs/constants';
+import { ERRORS, CONFIRM_CODE_LENGTH } from '@libs/constants';
 
 export class RequestSmsCodeBodyDTO {
   @ApiProperty()
@@ -11,3 +11,13 @@ export class RequestSmsCodeBodyDTO {
 }
 
 export class RequestSmsCodeResponseDTO extends ResponsesDTO {}
+
+export class VerifyConfirmCodeBodyDTO extends RequestSmsCodeBodyDTO {
+  @ApiProperty()
+  @MinLength(CONFIRM_CODE_LENGTH, { message: ERRORS.CONFIRM_CODE_INVALID_LENGTH })
+  @MaxLength(CONFIRM_CODE_LENGTH, { message: ERRORS.CONFIRM_CODE_INVALID_LENGTH })
+  @IsString({ message: ERRORS.CONFIRM_CODE_INVALID_LENGTH })
+  code: string;
+}
+
+export class VerifyConfirmCodeResponseDTO extends ResponsesDTO {}
