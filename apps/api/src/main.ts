@@ -14,11 +14,9 @@ async function bootstrap() {
   const app = await NestFactory.create(ApiModule, { logger });
   app.setGlobalPrefix('/api/v1');
   app.enableCors();
-<<<<<<< HEAD
-=======
   app.use(helmet());
-  const corsOptions = {
-    origin: (origin: string, callback: (data: null, value: boolean) => void): void => {
+  // @ts-ignore
+  const corsOptions = { origin: (origin, callback): void => {
       callback(null, true);
     },
     credentials: true,
@@ -26,8 +24,6 @@ async function bootstrap() {
     headers: ['x-user', 'X-Signature', 'accept', 'content-type', 'authorization'],
   };
   app.use(cors(corsOptions));
-
->>>>>>> 6c0df1c64e6a79542a5516976f05dbbabfb42e60
   setupSwagger(app);
   await app.listen(CONFIG.API_PORT, () => {
     logger.log(`api port: ${CONFIG.API_PORT}`);
