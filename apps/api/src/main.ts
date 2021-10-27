@@ -3,7 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
 import CONFIG from 'config';
 import helmet from 'helmet';
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 
 import { AppLogger } from '@libs/logger';
 import { ApiModule } from './api.module';
@@ -13,15 +13,14 @@ async function bootstrap() {
   const logger = new AppLogger('api.service');
   const app = await NestFactory.create(ApiModule, { logger });
   app.setGlobalPrefix('/api/v1');
-  app.enableCors();
   app.use(helmet());
-  // @ts-ignore
-  const corsOptions = { origin: (origin, callback): void => {
+  const corsOptions: CorsOptions = {
+    origin: (origin, callback): void => {
       callback(null, true);
     },
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'OPTIONS', 'DELETE', 'PATCH'],
-    headers: ['x-user', 'X-Signature', 'accept', 'content-type', 'authorization'],
+    allowedHeaders: ['x-user', 'X-Signature', 'accept', 'content-type', 'authorization'],
   };
   app.use(cors(corsOptions));
   setupSwagger(app);
