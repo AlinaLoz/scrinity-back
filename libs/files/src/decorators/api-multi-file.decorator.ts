@@ -1,7 +1,7 @@
 import { ApiBody } from '@nestjs/swagger';
 
 export const ApiMultiFile = (fileName: string = 'files'): MethodDecorator => (
-  target: Object,
+  target: unknown,
   propertyKey: string | symbol,
   descriptor: PropertyDescriptor,
 ) => {

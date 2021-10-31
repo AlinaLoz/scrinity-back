@@ -12,17 +12,17 @@ import { SendFeedbackBodyDTO } from '../dtos/feedback.controller.dtos';
 export class FeedbackService {
   @Inject() private connection: Connection;
   @InjectRepository(Company) private readonly companiesRepository: Repository<Company>;
-  
+
   async sendFeedback(data: SendFeedbackBodyDTO & { userId?: number }): Promise<boolean> {
     const company = await this.findCompanyOrFail(data.companyId);
     this.validateCriterions(data.criterions, company);
-    
+
     await this.connection.transaction(async (manager) => {
       const feedback = await manager.save(Feedback, new Feedback({
         isGood: data.isGood,
         companyId: data.companyId,
         userId: data.userId,
-        message: data.message
+        message: data.message,
       }));
       await manager.save(FeedbackFile, data.filesKeys.map((fileId) => new FeedbackFile({
         feedbackId: feedback.id,
@@ -35,13 +35,13 @@ export class FeedbackService {
     });
     return true;
   }
-  
+
   private async findCompanyOrFail(companyId: string): Promise<Company> {
     const company = await this.companiesRepository.findOne({
       where: {
         id: companyId,
       },
-      relations: ['criterionGroup', 'criterionGroup.criterions']
+      relations: ['criterionGroup', 'criterionGroup.criterions'],
     });
     if (!company) {
       throw new NotFoundError([{
@@ -51,7 +51,7 @@ export class FeedbackService {
     }
     return company;
   }
-  
+
   private validateCriterions(criterions: string[], company: Company): void {
     const companyCriterions = company.criterionGroup.criterions.map(({ key }) => key);
     criterions.forEach((item) => {

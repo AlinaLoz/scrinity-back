@@ -1,6 +1,7 @@
 import { OnModuleInit } from '@nestjs/common';
 import { S3 } from 'aws-sdk';
 import * as CONFIG from 'config';
+/* eslint-disable */
 import Multer from 'multer';
 
 export class S3Service implements OnModuleInit {
@@ -19,7 +20,6 @@ export class S3Service implements OnModuleInit {
     const keys: string[] = [];
     await files.reduce(async (promise, item) => {
       await promise;
-      console.log('item', item);
       const key = `${Date.now().toString()}-${item.originalname || ''}`;
       await this.s3.upload({
         Bucket: 'project-z-feedback',

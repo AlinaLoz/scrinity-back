@@ -9,7 +9,6 @@ import cookieParser from 'cookie-parser';
 import { AppLogger } from '@libs/logger';
 import { ApiModule } from './api.module';
 import packageJson from '../../../package.json';
-import { HttpExceptionFilter } from '@libs/exceptions/filters/exceptions.filter';
 
 async function bootstrap() {
   const logger = new AppLogger('api.service');

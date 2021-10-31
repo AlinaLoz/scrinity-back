@@ -7,7 +7,7 @@ export class FeedbackFile {
 
   @PrimaryColumn({ type: 'varchar' })
   fileId: string;
-  
+
   constructor(data: Partial<FeedbackFile>) {
     Object.assign(this, data);
   }

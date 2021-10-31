@@ -30,7 +30,7 @@ export class FeedbackController {
     });
     return new SendFeedbackResponseDTO({ status: RESPONSE_STATUS.OK });
   }
-  
+
   @UseInterceptors(FilesInterceptor('images', FEEDBACK_IMAGES_COUNT, {
     limits: {
       fileSize: DEFAULT_MULTER_FILE_SIZE_LIMIT_MB,

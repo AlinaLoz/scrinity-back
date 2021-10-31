@@ -14,7 +14,7 @@ export class Feedback extends BaseEntity<Feedback> {
 
   @Column({ type: 'boolean' })
   isGood: boolean;
-  
+
   @Column({ type: 'varchar' })
   message: string;
 }

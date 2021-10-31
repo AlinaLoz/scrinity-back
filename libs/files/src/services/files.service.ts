@@ -7,6 +7,6 @@ export class FilesService {
   @Inject() private readonly s3Service: S3Service;
 
   async uploadImages(files: Express.Multer.File[]): Promise<string[]> {
-    return this.s3Service.uploadFiles(files)
+    return this.s3Service.uploadFiles(files);
   }
 }

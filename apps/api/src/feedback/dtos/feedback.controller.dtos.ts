@@ -1,10 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMinSize, IsArray, IsBoolean, IsNumber, IsString, MaxLength, MinLength } from 'class-validator';
+import { ArrayMinSize, IsArray, IsBoolean, IsString, MaxLength, MinLength } from 'class-validator';
 import { Expose } from 'class-transformer';
 
 import { FEEDBACK_MESSAGE_MAX_LENGTH, FEEDBACK_MESSAGE_MIN_LENGTH, ERRORS } from '@libs/constants';
 import { ResponsesDTO, ConstructableDTO } from '@libs/dtos';
-import { INVALID_BOOLEAN } from '@libs/constants/errors';
 
 export class SendFeedbackBodyDTO {
   @ApiProperty()
@@ -27,7 +26,7 @@ export class SendFeedbackBodyDTO {
   @ArrayMinSize(1, { message: ERRORS.ARRAY_IS_TOO_SHORT })
   @IsString({ each: true, message: ERRORS.INVALID_STRING })
   criterions: string[];
-  
+
   @ApiProperty({ type: Boolean })
   @IsBoolean({ message: ERRORS.INVALID_BOOLEAN })
   isGood: boolean;

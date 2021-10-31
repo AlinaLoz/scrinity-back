@@ -7,7 +7,7 @@ export class FeedbackCriterion {
 
   @PrimaryColumn({ type: 'varchar' })
   criterionKey: string;
-  
+
   constructor(data: Partial<FeedbackCriterion>) {
     Object.assign(this, data);
   }
