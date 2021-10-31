@@ -14,5 +14,11 @@ declare module 'config' {
   };
   export const JWT: {
     readonly SECRET: string;
+    readonly EXPIRES_IN: string;
+  };
+  export const AWS_S3: {
+    readonly ACCESS_KEY_ID: string;
+    readonly SECRET_ACCESS_KEY: string;
+    readonly REGION: string;
   }
 }

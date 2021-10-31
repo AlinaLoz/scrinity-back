@@ -9,16 +9,17 @@ import { ERRORS } from '@libs/constants';
 @Injectable()
 export class CompaniesService {
   @InjectRepository(Company) private readonly companiesRepository: Repository<Company>;
-  
+
   async getCompanyById(id: string): Promise<Company> {
     return await this.getCompanyOrFail(id);
   }
-  
+
   private async getCompanyOrFail(id: string): Promise<Company> {
     const company = await this.companiesRepository.findOne({
       where: { id },
+      relations: ['criterionGroup', 'criterionGroup.criterions'],
     });
-    
+
     if (!company) {
       throw new NotFoundError([{
         field: '',

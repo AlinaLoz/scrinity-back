@@ -5,19 +5,19 @@ import { AuthModule } from '@libs/auth';
 import { ExceptionModule } from '@libs/exceptions';
 import DB_CONFIG from '../../../ormconfig';
 import { CompaniesModule } from './companies/companies.module';
+import { FeedbackModule } from './feedback/feedback.module';
 
-console.log('DB_CONFIG', DB_CONFIG);
+// console.log('DB_CONFIG', DB_CONFIG);
 @Module({
   imports: [
     ExceptionModule,
     AuthModule,
     CompaniesModule,
+    FeedbackModule,
     TypeOrmModule.forRoot({
       ...DB_CONFIG,
       migrationsRun: true,
     }),
   ],
-  controllers: [],
-  providers: [],
 })
 export class ApiModule {}

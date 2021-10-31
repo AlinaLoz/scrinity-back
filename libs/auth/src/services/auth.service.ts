@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as rs from 'randomstring';
-import { NotFoundError, UnprocessableError } from '@libs/exceptions/errors';
+import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions/errors';
 import {
   CONFIRM_CODE_LENGTH,
   CONFIRM_CODE_REQUEST_INTERVAL_DEV_SEC,
@@ -31,12 +31,12 @@ export class AuthService {
       seconds: smsRequestInterval,
     });
     if (activeConfirmCode) {
-      throw new UnprocessableError([{
+      throw new UnprocessableEntityError([{
         field: '',
         message: ERRORS.REQUEST_CONFIRM_CODE_LIMIT,
       }]);
     }
-    const code = isDev ? '000000' : rs.generate({
+    const code = isDev ? '0000' : rs.generate({
       length: CONFIRM_CODE_LENGTH,
       charset: 'numeric',
     });

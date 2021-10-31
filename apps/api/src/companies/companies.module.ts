@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Company } from '@libs/entities';
+import { Company, Criterion, CriterionGroup } from '@libs/entities';
 import { CompaniesController } from './controllers/companies.controller';
 import { CompaniesService } from './services/companies.service';
 
@@ -9,6 +9,8 @@ import { CompaniesService } from './services/companies.service';
   imports: [
     TypeOrmModule.forFeature([
       Company,
+      CriterionGroup,
+      Criterion,
     ]),
   ],
   controllers: [CompaniesController],

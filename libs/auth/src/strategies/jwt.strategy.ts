@@ -1,19 +1,25 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
+import { Request } from 'express';
 import { Injectable } from '@nestjs/common';
+
+import { TJwtPayload, TJwtUser } from '@libs/auth';
 import * as CONFIG from 'config';
+import { AUTHORIZATION_COOKIE } from '@libs/constants';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
+
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
       secretOrKey: CONFIG.JWT.SECRET,
+      jwtFromRequest: ExtractJwt.fromExtractors([(request: Request) => {
+        return request['cookies'][AUTHORIZATION_COOKIE];
+      }]),
     });
   }
 
-  async validate(payload: any) {
-    return { userId: payload.sub, username: payload.username };
+  validate(payload: TJwtPayload): TJwtUser {
+    return { userId: payload.subId };
   }
 }

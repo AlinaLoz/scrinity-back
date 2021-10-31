@@ -3,9 +3,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { RESPONSE_STATUS } from '@libs/dtos';
-import { AUTHORIZATION_COOKIE } from '@libs/constants/errors';
-
-import { AuthService } from '../services/auth.service';
+import { AUTHORIZATION_COOKIE } from '@libs/constants';
 import {
   RequestSmsCodeBodyDTO,
   RequestSmsCodeResponseDTO,
@@ -13,6 +11,7 @@ import {
   VerifyConfirmCodeResponseDTO,
 } from '../dtos/auth.controller.dtos';
 import { prepareCookiesOptions } from '../helpers/cookies.helpers';
+import { AuthService } from '../services/auth.service';
 
 @ApiTags('auth')
 @Controller('auth')

@@ -13,6 +13,12 @@
     "RETRY_DELAY": 1000
   },
   "JWT": {
-    "SECRET": "SECRET"
+    "SECRET": "SECRET",
+    "EXPIRES_IN": "48h"
+  },
+  "AWS_S3": {
+    "ACCESS_KEY_ID": "AKIAU73SO2MCUBTZQJWR",
+    "SECRET_ACCESS_KEY": "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",
+    "REGION": "eu-west-1"
   }
 }

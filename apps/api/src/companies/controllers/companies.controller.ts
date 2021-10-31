@@ -8,13 +8,16 @@ import { CompaniesService } from '../services/companies.service';
 @ApiTags('companies')
 export class CompaniesController {
   @Inject() private readonly companiesService: CompaniesService;
-  
+
   @Get(':id')
   @ApiResponse({ type: GetCompanyResponseDTO })
   async getCompany(
     @Param() params: GetCompanyParamDTO,
   ): Promise<GetCompanyResponseDTO> {
     const company = await this.companiesService.getCompanyById(params.id);
-    return new GetCompanyResponseDTO(company);
+    return new GetCompanyResponseDTO({
+      ...company,
+      criterions: company.criterionGroup.criterions,
+    });
   }
 }
