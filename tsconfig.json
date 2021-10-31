@@ -57,6 +57,12 @@
       ],
       "@libs/exceptions/*": [
         "libs/exceptions/src/*"
+      ],
+      "@libs/files": [
+        "libs/files/src"
+      ],
+      "@libs/files/*": [
+        "libs/files/src/*"
       ]
     }
   },

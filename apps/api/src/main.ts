@@ -4,10 +4,12 @@ import { INestApplication } from '@nestjs/common';
 import CONFIG from 'config';
 import helmet from 'helmet';
 import cors, { CorsOptions } from 'cors';
+import cookieParser from 'cookie-parser';
 
 import { AppLogger } from '@libs/logger';
 import { ApiModule } from './api.module';
 import packageJson from '../../../package.json';
+import { HttpExceptionFilter } from '@libs/exceptions/filters/exceptions.filter';
 
 async function bootstrap() {
   const logger = new AppLogger('api.service');
@@ -22,6 +24,7 @@ async function bootstrap() {
     methods: ['GET', 'PUT', 'POST', 'OPTIONS', 'DELETE', 'PATCH'],
     allowedHeaders: ['x-user', 'X-Signature', 'accept', 'content-type', 'authorization'],
   };
+  app.use(cookieParser());
   app.use(cors(corsOptions));
   setupSwagger(app);
   await app.listen(CONFIG.API_PORT, () => {

@@ -16,7 +16,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     PassportModule,
     JwtModule.register({
       secret: CONFIG.JWT.SECRET,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: CONFIG.JWT.EXPIRES_IN },
     }),
     TypeOrmModule.forFeature([
       UserRepository,
@@ -25,6 +25,9 @@ import { JwtStrategy } from './strategies/jwt.strategy';
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
-  exports: [AuthService],
+  exports: [
+    // PassportModule,
+    // JwtModule,
+  ],
 })
 export class AuthModule {}
