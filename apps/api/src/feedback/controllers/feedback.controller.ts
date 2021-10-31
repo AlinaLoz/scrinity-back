@@ -9,6 +9,7 @@ import { ApiMultiFile, FilesService, imageFileFilter } from '@libs/files';
 
 import { SendFeedbackBodyDTO, SendFeedbackResponseDTO, UploadFeedbackImagesResponseDTO } from '../dtos/feedback.controller.dtos';
 import { FeedbackService } from '../services/feedback.service';
+import { TMulterFile } from '@libs/files/types/files.types';
 
 @Controller('feedback')
 @ApiTags('feedback')
@@ -42,7 +43,7 @@ export class FeedbackController {
   @ApiConsumes('multipart/form-data')
   @ApiResponse({ type: UploadFeedbackImagesResponseDTO })
   async uploadFeedbackImages(
-    @UploadedFiles() files: Express.Multer.File[],
+    @UploadedFiles() files: TMulterFile[],
   ): Promise<UploadFeedbackImagesResponseDTO> {
     const imagesKeys = await this.filesService.uploadImages(files);
     return new UploadFeedbackImagesResponseDTO({ imagesKeys });

@@ -1,8 +1,7 @@
 import { OnModuleInit } from '@nestjs/common';
 import { S3 } from 'aws-sdk';
 import * as CONFIG from 'config';
-/* eslint-disable */
-import Multer from 'multer';
+import { TMulterFile } from '@libs/files/types/files.types';
 
 export class S3Service implements OnModuleInit {
   private s3: S3;
@@ -15,8 +14,8 @@ export class S3Service implements OnModuleInit {
       signatureVersion: 'v4',
     });
   }
-
-  async uploadFiles(files: Express.Multer.File[]): Promise<string[]> {
+  
+  async uploadFiles(files: TMulterFile[]): Promise<string[]> {
     const keys: string[] = [];
     await files.reduce(async (promise, item) => {
       await promise;
