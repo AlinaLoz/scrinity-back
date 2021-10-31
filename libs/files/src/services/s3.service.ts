@@ -14,7 +14,7 @@ export class S3Service implements OnModuleInit {
       signatureVersion: 'v4',
     });
   }
-
+  
   async uploadFiles(files: TMulterFile[]): Promise<string[]> {
     const keys: string[] = [];
     await files.reduce(async (promise, item) => {
