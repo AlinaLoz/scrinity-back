@@ -17,7 +17,7 @@ export class CompaniesService {
   private async getCompanyOrFail(id: string): Promise<Company> {
     const company = await this.companiesRepository.findOne({
       where: { id },
-      relations: ['criteriaGroup', 'criteriaGroup.criterias'],
+      relations: ['criterionGroup', 'criterionGroup.criterions'],
     });
 
     if (!company) {

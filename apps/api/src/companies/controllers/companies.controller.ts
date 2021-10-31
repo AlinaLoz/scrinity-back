@@ -17,7 +17,7 @@ export class CompaniesController {
     const company = await this.companiesService.getCompanyById(params.id);
     return new GetCompanyResponseDTO({
       ...company,
-      criterias: company.criterionGroup.criterions,
+      criterions: company.criterionGroup.criterions,
     });
   }
 }

@@ -11,7 +11,7 @@ export class GetCompanyParamDTO {
   id: string;
 }
 
-export class CriteriaDTO {
+export class CriterionDTO {
   @ApiProperty()
   @Expose() key: string;
 
@@ -35,7 +35,7 @@ export class GetCompanyResponseDTO extends ConstructableDTO<GetCompanyResponseDT
   @ApiProperty()
   @Expose() expiredTime: string;
 
-  @ApiProperty({ type: CriteriaDTO, isArray: true })
-  @Type(() => CriteriaDTO)
-  @Expose() criterias: CriteriaDTO[];
+  @ApiProperty({ type: CriterionDTO, isArray: true })
+  @Type(() => CriterionDTO)
+  @Expose() criterions: CriterionDTO[];
 }
