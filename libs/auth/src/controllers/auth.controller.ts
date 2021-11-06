@@ -10,7 +10,7 @@ import {
   VerifyConfirmCodeBodyDTO,
   VerifyConfirmCodeResponseDTO,
 } from '../dtos/auth.controller.dtos';
-import { prepareCookiesOptions } from '../helpers/cookies.helpers';
+import { prepareCookiesOptions, SAME_SITE_OPTIONS } from '../helpers/cookies.helpers';
 import { AuthService } from '../services/auth.service';
 
 @ApiTags('auth')
@@ -40,4 +40,11 @@ export class AuthController {
     res.send(new VerifyConfirmCodeResponseDTO({ status: RESPONSE_STATUS.OK }));
   }
 
+  @Post('sign-out')
+  signOut(
+    @Res() res: Response,
+  ): void {
+    res.clearCookie(AUTHORIZATION_COOKIE, SAME_SITE_OPTIONS);
+    res.send(new VerifyConfirmCodeResponseDTO({ status: RESPONSE_STATUS.OK }));
+  }
 }
