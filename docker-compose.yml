@@ -33,5 +33,10 @@ services:
     ports:
       - "27182:3000"
 
+  admin:
+    image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-admin
+    ports:
+      - "27183:3003"
+
 volumes:
   postgres_data:
