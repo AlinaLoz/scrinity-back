@@ -4,7 +4,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 
 import { TJwtUser, JwtAuthGuard, Public } from '@libs/auth';
 import { RESPONSE_STATUS } from '@libs/dtos';
-import { FEEDBACK_IMAGES_COUNT, DEFAULT_MULTER_FILE_SIZE_LIMIT_MB } from '@libs/constants';
+import { FEEDBACK_IMAGES_COUNT } from '@libs/constants';
 import { ApiMultiFile, FilesService, imageFileFilter } from '@libs/files';
 
 import { SendFeedbackBodyDTO, SendFeedbackResponseDTO, UploadFeedbackImagesResponseDTO } from '../dtos/feedback.controller.dtos';
@@ -33,9 +33,6 @@ export class FeedbackController {
   }
 
   @UseInterceptors(FilesInterceptor('images', FEEDBACK_IMAGES_COUNT, {
-    limits: {
-      fileSize: DEFAULT_MULTER_FILE_SIZE_LIMIT_MB,
-    },
     fileFilter: imageFileFilter,
   }))
   @Post('images')
