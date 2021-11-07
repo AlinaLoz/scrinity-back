@@ -76,7 +76,7 @@
       "essential": true,
       "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-client",
       "name": "client",
-      "memory": 100,
+      "memory": 200,
       "portMappings": [
         {
           "containerPort": 27182,
@@ -88,7 +88,7 @@
       "essential": true,
       "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-admin",
       "name": "admin",
-      "memory": 100,
+      "memory": 200,
       "portMappings": [
         {
           "containerPort": 27183,
