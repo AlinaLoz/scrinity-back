@@ -15,7 +15,8 @@
   },
   "JWT": {
     "SECRET": "SECRET",
-    "EXPIRES_IN": "48h"
+    "EXPIRES_IN": "48h",
+    "SALT_ROUNDS": 10
   },
   "AWS_S3": {
     "ACCESS_KEY_ID": "AKIAU73SO2MCUBTZQJWR",

@@ -10,7 +10,7 @@ import {
 import { PhoneConfirmCode, User } from '@libs/entities';
 import * as CONFIG from 'config';
 
-import { RequestSmsCodeBodyDTO, VerifyConfirmCodeBodyDTO } from '../dtos/auth.controller.dtos';
+import { RequestSmsCodeBodyDTO, VerifyConfirmCodeBodyDTO } from '../dtos/auth-api.controller.dtos';
 import { PhoneConfirmCodeRepository } from '../repositories/phone-confirm-code.repository';
 import { UserRepository } from '../repositories/user.repository';
 import { JwtService } from '@nestjs/jwt';

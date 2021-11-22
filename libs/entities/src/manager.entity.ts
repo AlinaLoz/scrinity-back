@@ -38,6 +38,7 @@ export class Manager extends BaseEntity<Manager> {
   imageId: number;
 
   @OneToOne(() => File)
+  @JoinColumn({ name: 'imageId' })
   image: File;
 }
 

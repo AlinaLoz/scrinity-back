@@ -9,7 +9,7 @@ import {
   RequestSmsCodeResponseDTO,
   VerifyConfirmCodeBodyDTO,
   VerifyConfirmCodeResponseDTO,
-} from '../dtos/auth.controller.dtos';
+} from '../dtos/auth-api.controller.dtos';
 import { prepareCookiesOptions, SAME_SITE_OPTIONS } from '../helpers/cookies.helpers';
 import { AuthApiService } from '../services/auth-api.service';
 
