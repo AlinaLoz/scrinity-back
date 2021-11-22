@@ -1,28 +1,35 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 import { BaseEntity } from './base.entity';
-import { CriterionGroup } from '@libs/entities/criterion-group.entity';
+import { File } from './file.entity';
+import { Institution } from '@libs/entities/institution.entity';
 
 @Entity()
+@Unique(['slug'])
 export class Company extends BaseEntity<Company> {
-  @PrimaryColumn({ type: 'varchar' })
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar' })
+  slug: string;
 
   @Column({ type: 'varchar', length: 50 })
   name: string;
 
-  @Column({ type: 'varchar', length: 20 })
-  managerTitle: string;
+  @Column({ type: 'integer', default: null })
+  imageId: number;
 
-  @Column({ type: 'boolean', default: false })
-  isActive: boolean;
+  @OneToOne(() => File)
+  @JoinColumn({ name: 'imageId' })
+  image: File;
 
-  @Column({ type: 'timestamptz' })
-  expiredTime: string;
-
-  @Column({ type: 'varchar' })
-  criterionGroupId: string;
-
-  @OneToOne(() => CriterionGroup)
-  @JoinColumn({ name: 'criterionGroupId' })
-  criterionGroup: CriterionGroup;
+  @OneToMany(() => Institution, institution => institution.company)
+  institutions: Institution[];
 }

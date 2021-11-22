@@ -79,6 +79,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/files/tsconfig.lib.json"
       }
+    },
+    "manager": {
+      "type": "application",
+      "root": "apps/manager",
+      "entryFile": "main",
+      "sourceRoot": "apps/manager/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/manager/tsconfig.app.json"
+      }
     }
   }
 }

@@ -1,14 +1,14 @@
 import { Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class FeedbackFile {
+export class ChatCriterion {
   @PrimaryColumn({ type: 'integer' })
-  feedbackId: number;
+  chatId: number;
 
   @PrimaryColumn({ type: 'varchar' })
-  fileId: string;
+  criterionKey: string;
 
-  constructor(data: Partial<FeedbackFile>) {
+  constructor(data: Partial<ChatCriterion>) {
     Object.assign(this, data);
   }
 }

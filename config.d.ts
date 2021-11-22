@@ -2,6 +2,7 @@ declare module 'config' {
   export const NODE_ENV: 'development' | 'production';
   export const NODE_CONFIG_ENV: 'develop' | 'master' | 'prod';
   export const API_PORT: number;
+  export const MANAGER_PORT: number;
   export const IS_OPEN_SWAGGER: boolean;
   export const POSTGRES: {
     readonly HOST: string;

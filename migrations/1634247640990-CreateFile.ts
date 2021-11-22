@@ -1,13 +1,11 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreatePhoneNumberCode1634247640991 implements MigrationInterface {
+export class CreateFile1634247640990 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      CREATE TABLE phone_confirm_code (
+      CREATE TABLE file (
         "id"          serial PRIMARY KEY,
-        "phoneNumber" varchar(20) NOT NULL,
-        "code"        varchar(6)  NOT NULL,
-        "isActive"    boolean     DEFAULT TRUE,
+        "filename" varchar NOT NULL,
         "createdAt"   timestamptz DEFAULT now(),
         "updatedAt"   timestamptz DEFAULT now()
       )
@@ -16,7 +14,7 @@ export class CreatePhoneNumberCode1634247640991 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      DROP TABLE IF EXISTS phone_confirm_code;
+      DROP TABLE IF EXISTS file;
     `);
   }
 }

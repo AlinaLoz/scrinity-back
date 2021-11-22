@@ -2,7 +2,14 @@ import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 
-import { Company, Feedback, FeedbackCriterion, FeedbackFile } from '@libs/entities';
+import {
+  File,
+  Chat,
+  Institution,
+  Message,
+  MessageFile,
+  ChatCriterion,
+} from '@libs/entities';
 import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
 import { ERRORS } from '@libs/constants';
 
@@ -11,49 +18,55 @@ import { SendFeedbackBodyDTO } from '../dtos/feedback.controller.dtos';
 @Injectable()
 export class FeedbackService {
   @Inject() private connection: Connection;
-  @InjectRepository(Company) private readonly companiesRepository: Repository<Company>;
+  @InjectRepository(Institution) private readonly institutionRepository: Repository<Institution>;
 
   async sendFeedback(data: SendFeedbackBodyDTO & { userId?: number }): Promise<boolean> {
-    const company = await this.findCompanyOrFail(data.companyId);
-    this.validateCriterions(data.criterions, company);
+    const institution = await this.findInstitutionOrFail(data.institutionId);
+    this.validateCriterions(data.criterions, institution);
 
     await this.connection.transaction(async (manager) => {
-      const feedback = await manager.save(Feedback, new Feedback({
-        isGood: data.isGood,
-        companyId: data.companyId,
-        userId: data.userId,
-        message: data.message,
-      }));
-      await manager.save(FeedbackFile, data.filesKeys.map((fileId) => new FeedbackFile({
-        feedbackId: feedback.id,
-        fileId,
+      const files = await manager.save(File, data.filesKeys.map((filename) => new File({
+        filename,
       })));
-      await manager.save(FeedbackCriterion, data.criterions.map((criterionKey) => new FeedbackCriterion({
-        feedbackId: feedback.id,
+      const chat = await manager.save(Chat, new Chat({
+        institutionId: institution.id,
+        userId: data.userId,
+        isGood: data.isGood,
+      }));
+      const message = await manager.save(Message, new Message({
+        chatId: chat.id,
+        content: data.message,
+        senderId: data.userId,
+      }));
+      await manager.save(MessageFile, files.map((file, index) => new MessageFile({
+        fileId: file.id,
+        messageId: message.id,
+        index,
+      })));
+      await manager.save(ChatCriterion, data.criterions.map((criterionKey) => new ChatCriterion({
+        chatId: chat.id,
         criterionKey,
       })));
     });
     return true;
   }
 
-  private async findCompanyOrFail(companyId: string): Promise<Company> {
-    const company = await this.companiesRepository.findOne({
-      where: {
-        id: companyId,
-      },
+  private async findInstitutionOrFail(id: number): Promise<Institution> {
+    const institution = await this.institutionRepository.findOne({
+      where: { id },
       relations: ['criterionGroup', 'criterionGroup.criterions'],
     });
-    if (!company) {
+    if (!institution) {
       throw new NotFoundError([{
-        field: 'companyId',
+        field: 'institutionId',
         message: ERRORS.NOT_FOUND,
       }]);
     }
-    return company;
+    return institution;
   }
 
-  private validateCriterions(criterions: string[], company: Company): void {
-    const companyCriterions = company.criterionGroup.criterions.map(({ key }) => key);
+  private validateCriterions(criterions: string[], institution: Institution): void {
+    const companyCriterions = institution.criterionGroup.criterions.map(({ key }) => key);
     criterions.forEach((item) => {
       if (!companyCriterions.includes(item)) {
         throw new UnprocessableEntityError([{
