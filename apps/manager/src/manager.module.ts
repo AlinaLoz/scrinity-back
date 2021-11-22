@@ -4,12 +4,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '@libs/auth';
 import { ExceptionModule } from '@libs/exceptions';
 import DB_CONFIG from '../../../ormconfig';
+import { ManagerModule as ManagerModuleSubModule } from './manager';
 
 @Module({
   imports: [
     ExceptionModule,
     AuthModule.register('manager'),
-    // UserModule,
+    ManagerModuleSubModule,
     // InstitutionModule,
     // FeedbackModule,
     TypeOrmModule.forRoot({

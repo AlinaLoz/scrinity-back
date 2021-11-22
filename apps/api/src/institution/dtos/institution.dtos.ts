@@ -4,6 +4,7 @@ import { Expose, Type } from 'class-transformer';
 
 import { ERRORS } from '@libs/constants';
 import { ConstructableDTO } from '@libs/dtos/constructable.dto';
+import { FileDTO } from '@libs/dtos';
 
 export class GetInstitutionParamDTO {
   @ApiProperty()
@@ -22,11 +23,6 @@ export class CriterionDTO {
 export class ManagerDTO {
   @ApiProperty()
   @Expose() roleTitle: string;
-}
-
-export class FileDTO {
-  @ApiProperty()
-  @Expose() filename: string;
 }
 
 export class CompanyDTO {
