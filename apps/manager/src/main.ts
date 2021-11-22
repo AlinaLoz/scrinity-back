@@ -7,12 +7,12 @@ import cors, { CorsOptions } from 'cors';
 import cookieParser from 'cookie-parser';
 
 import { AppLogger } from '@libs/logger';
-import { ApiModule } from './api.module';
+import { ManagerModule } from './manager.module';
 import packageJson from '../../../package.json';
 
 async function bootstrap() {
-  const logger = new AppLogger('api.service');
-  const app = await NestFactory.create(ApiModule, { logger });
+  const logger = new AppLogger('manager.service');
+  const app = await NestFactory.create(ManagerModule, { logger });
   app.setGlobalPrefix('/api/v1');
   app.use(helmet());
   const corsOptions: CorsOptions = {
@@ -26,8 +26,8 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(cors(corsOptions));
   setupSwagger(app);
-  await app.listen(CONFIG.API_PORT, () => {
-    logger.log(`api port: ${CONFIG.API_PORT}`);
+  await app.listen(CONFIG.MANAGER_PORT, () => {
+    logger.log(`api port: ${CONFIG.MANAGER_PORT}`);
   });
 }
 bootstrap();
@@ -37,7 +37,7 @@ function setupSwagger(app: INestApplication): void {
     return;
   }
   const config = new DocumentBuilder()
-    .setTitle('Documentation Api')
+    .setTitle('Documentation Manager')
     .setVersion(packageJson.version)
     .build();
   const document = SwaggerModule.createDocument(app, config);

@@ -35,20 +35,11 @@ export class AddCriterion1635608888838 implements MigrationInterface {
             ('good_personal_4', 'coffee', true),
             ('good_personal_5', 'coffee', true),
             ('good_personal_6', 'coffee', true);
-    
-            ALTER TABLE company
-                ADD COLUMN "criterionGroupId" varchar NOT NULL DEFAULT 'coffee';
-    
-            ALTER TABLE company
-                ADD CONSTRAINT "fkCriterionGroupId"
-                    FOREIGN KEY ("criterionGroupId")
-                        REFERENCES criterion_group (key);
         `);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            ALTER TABLE company DROP COLUMN "criterionGroupId";
             DROP TABLE IF EXISTS "criterion";
             DROP TABLE IF EXISTS "criterion_group";
         `);

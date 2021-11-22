@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMinSize, IsArray, IsBoolean, IsString, MaxLength, MinLength } from 'class-validator';
+import { ArrayMinSize, IsArray, IsBoolean, IsNumberString, IsString, MaxLength, MinLength } from 'class-validator';
 import { Expose } from 'class-transformer';
 
 import { FEEDBACK_MESSAGE_MAX_LENGTH, FEEDBACK_MESSAGE_MIN_LENGTH, ERRORS } from '@libs/constants';
@@ -18,8 +18,8 @@ export class SendFeedbackBodyDTO {
   filesKeys: string[];
 
   @ApiProperty()
-  @IsString({ message: ERRORS.INVALID_STRING })
-  companyId: string;
+  @IsNumberString({}, { message: ERRORS.INVALID_NUMBER })
+  institutionId: number;
 
   @ApiProperty({ isArray: true, type: String })
   @IsArray({ message: ERRORS.INVALID_ARRAY })

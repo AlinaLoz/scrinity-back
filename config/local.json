@@ -2,6 +2,7 @@
   "NODE_ENV": "production",
   "NODE_CONFIG_ENV": "develop",
   "API_PORT": 3001,
+  "MANAGER_PORT": 3002,
   "IS_OPEN_SWAGGER": true,
   "POSTGRES": {
     "HOST": "127.0.0.1",

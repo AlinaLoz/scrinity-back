@@ -11,12 +11,12 @@ import {
   VerifyConfirmCodeResponseDTO,
 } from '../dtos/auth.controller.dtos';
 import { prepareCookiesOptions, SAME_SITE_OPTIONS } from '../helpers/cookies.helpers';
-import { AuthService } from '../services/auth.service';
+import { AuthApiService } from '../services/auth-api.service';
 
 @ApiTags('auth')
 @Controller('auth')
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+export class AuthApiController {
+  constructor(private readonly authService: AuthApiService) {}
 
   @Post('request-confirm-code')
   @ApiResponse({ type: RequestSmsCodeResponseDTO })

@@ -18,7 +18,7 @@ import { JwtService } from '@nestjs/jwt';
 const isDev = CONFIG.NODE_CONFIG_ENV !== 'prod';
 
 @Injectable()
-export class AuthService {
+export class AuthApiService {
   @Inject() private readonly phoneConfirmCodeRepository: PhoneConfirmCodeRepository;
   @Inject() private readonly userRepository: UserRepository;
   @Inject() private readonly jwtService: JwtService;
