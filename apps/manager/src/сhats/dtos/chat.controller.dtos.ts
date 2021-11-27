@@ -41,7 +41,7 @@ export class GetChatsResponseDTO extends ConstructableDTO<GetChatsResponseDTO> {
 class SenderDTO {
   @ApiProperty()
   @Expose() id: number;
-  
+
   @ApiProperty()
   @Expose() phoneNumber: string;
 }
@@ -54,18 +54,18 @@ export class GetChatParamDTO {
 export class ChatMessageDTO {
   @ApiProperty()
   @Expose() id: number;
-  
+
   @ApiProperty({ type: SenderDTO })
   @Type(() => SenderDTO)
   @Expose() sender: SenderDTO;
-  
+
   @ApiProperty()
   @Expose() content: string;
-  
+
   @ApiProperty({ type: FileDTO, isArray: true })
   @Type(() => FileDTO)
   @Expose() files: FileDTO[];
-  
+
   @ApiProperty()
   @Expose() createdAt: string;
 }

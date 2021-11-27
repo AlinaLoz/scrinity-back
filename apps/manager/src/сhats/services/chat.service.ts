@@ -25,7 +25,7 @@ export class ChatsService {
       })),
     };
   }
-  
+
   async getChat(institutionId: number, chatId: number): Promise<ChatMessageDTO[]> {
     const chat = await this.getChatOrFail(institutionId, chatId);
     return chat.messages.map((item) => ({
@@ -36,7 +36,7 @@ export class ChatsService {
       files: item.files.map((file) => ({ filename: file.file.filename })),
     }));
   }
-  
+
   private async getChatOrFail(institutionId: number, chatId: number): Promise<Chat> {
     const chat = await this.chatsRepository.findOne({
       where: { institutionId, id: chatId },

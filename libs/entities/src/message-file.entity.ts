@@ -13,7 +13,7 @@ export class MessageFile {
 
   @PrimaryColumn({ type: 'integer' })
   fileId: number;
-  
+
   @OneToOne(() => File)
   @JoinColumn({ name: 'fileId', referencedColumnName: 'id' })
   file: File;

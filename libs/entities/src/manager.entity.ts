@@ -41,10 +41,10 @@ export class Manager extends BaseEntity<Manager> {
   @OneToOne(() => File)
   @JoinColumn({ name: 'imageId' })
   image: File;
-  
+
   @Column({ type: 'integer' })
   userId: number;
-  
+
   @OneToOne(() => User)
   user: User;
 }

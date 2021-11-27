@@ -23,7 +23,7 @@ export class Message extends BaseEntity<Message> {
   @OneToOne(() => User)
   @JoinColumn({ name: 'senderId', referencedColumnName: 'id' })
   sender: User;
-  
+
   @Column({ type: 'varchar' })
   content: string;
 

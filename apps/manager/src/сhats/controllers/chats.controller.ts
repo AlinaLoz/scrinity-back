@@ -15,7 +15,7 @@ import { ChatsService } from '../services';
 @UseGuards(ManagerGuard)
 export class ChatsController {
   @Inject() private readonly chatsService: ChatsService;
-  
+
   @Get('/')
   @ApiResponse({ type: GetChatsResponseDTO })
   async getChats(
@@ -24,11 +24,11 @@ export class ChatsController {
   ): Promise<GetChatsResponseDTO> {
     return new GetChatsResponseDTO(await this.chatsService.getChats(user.institutionId, query));
   }
-  
+
   @Get('/:id')
   @ApiResponse({ type: GetChatResponseDTO })
   async getChat(
-    @Request() { user }: { user: TJwtManager },
+  @Request() { user }: { user: TJwtManager },
     @Param() param: GetChatParamDTO,
   ) {
     return new GetChatResponseDTO({
