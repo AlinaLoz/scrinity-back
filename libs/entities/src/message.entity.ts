@@ -1,7 +1,9 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@libs/entities/base.entity';
-import { MessageFile } from '@libs/entities/message-file.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+
+import { BaseEntity } from './base.entity';
+import { MessageFile } from './message-file.entity';
 import { Chat } from './chat.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Message extends BaseEntity<Message> {
@@ -18,6 +20,10 @@ export class Message extends BaseEntity<Message> {
   @Column({ type: 'integer' })
   senderId: number;
 
+  @OneToOne(() => User)
+  @JoinColumn({ name: 'senderId', referencedColumnName: 'id' })
+  sender: User;
+  
   @Column({ type: 'varchar' })
   content: string;
 

@@ -3,7 +3,7 @@ import { BaseEntity } from './base.entity';
 
 @Entity()
 export class File extends BaseEntity<File> {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: 'integer' })
   id: number;
 
   @Column({ type: 'varchar' })
