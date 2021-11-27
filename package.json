@@ -20,7 +20,7 @@
     "start:api:debug": "nest start api --debug --watch",
     "start:manager:debug": "nest start manager --debug --watch",
     "start:api:prod": "node dist/apps/api/main",
-    "start:manager:prod": "node dist/manager/api/main",
+    "start:manager:prod": "node dist/apps/manager/main",
     "build:all": "concurrently \"yarn build:api\" \"yarn build:manager\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",

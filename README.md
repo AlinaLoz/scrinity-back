@@ -67,4 +67,11 @@ scp  ec2-user@99.81.215.180:/etc/nginx/nginx.conf  ~
 Чтобы собрать локально докер
 ```
 docker build -f ./docker/api/Dockerfile -t  project-z:latest .
+docker run -e SERVICE=manager -it project-z:latest 
+docker run -e SERVICE=api -it project-z:latest 
 ```
+
+```
+git remote -f
+git push codecommit-origin -f
+ ```
