@@ -63,6 +63,12 @@
       ],
       "@libs/files/*": [
         "libs/files/src/*"
+      ],
+      "@libs/decorators": [
+        "libs/decorators/src"
+      ],
+      "@libs/decorators/*": [
+        "libs/decorators/src/*"
       ]
     }
   },

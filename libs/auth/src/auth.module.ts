@@ -11,6 +11,7 @@ import { AuthApiController } from './controllers/auth-api.controller';
 import { PhoneConfirmCodeRepository } from './repositories/phone-confirm-code.repository';
 import { UserRepository } from './repositories/user.repository';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { ManagerStrategy } from './strategies/manager.strategy';
 import { AuthManagerController } from './controllers/auth-manager.controller';
 import { AuthManagerService } from './services/auth-manager.service';
 import { ManagerRepository } from './repositories/manger.repository';
@@ -47,7 +48,7 @@ export class AuthModule {
       ...(type === 'manager' ? {
         controllers: [AuthManagerController],
         providers: [
-          JwtStrategy,
+          ManagerStrategy,
           AuthManagerService,
         ],
       } : {}),

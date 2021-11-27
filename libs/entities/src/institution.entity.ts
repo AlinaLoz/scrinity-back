@@ -32,5 +32,6 @@ export class Institution {
   criterionGroup: CriterionGroup;
 
   @OneToOne(() => Manager, manager => manager.institution)
+  @JoinColumn({ name: 'id', referencedColumnName: 'institutionId' })
   manager: Manager;
 }

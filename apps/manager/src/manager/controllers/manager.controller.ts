@@ -5,13 +5,14 @@ import { JwtAuthGuard, TJwtUser } from '@libs/auth';
 import { GetMeResponseDTO } from '../dtos/manager.controller.dtos';
 import { ManagerService } from '../services/manager.service';
 
-@Controller('manager')
-@ApiTags('manager')
+@Controller('managers')
+@ApiTags('managers')
+@UseGuards(JwtAuthGuard)
 export class ManagerController {
   @Inject() private readonly managerService: ManagerService;
-  
+
   @Get('/')
-  @UseGuards(JwtAuthGuard)
+
   async getMe(
     @Request() { user }: { user?: TJwtUser },
   ): Promise<GetMeResponseDTO> {
