@@ -15,7 +15,7 @@ export class ManagerTable1637440680611 implements MigrationInterface {
                 "institutionId" integer NOT NULL,
                 "imageId" integer NOT NULL,
                 "createdAt"   timestamptz DEFAULT now(),
-                "updatedAt"   timestamptz DEFAULT now()
+                "updatedAt"   timestamptz DEFAULT now(),
                 CONSTRAINT "fkImageId"
                     FOREIGN KEY ("imageId")
                         REFERENCES file(id)

@@ -72,6 +72,6 @@ docker run -e SERVICE=api -it project-z:latest
 ```
 
 ```
-git remote -f
+git remote -v
 git push codecommit-origin -f
  ```

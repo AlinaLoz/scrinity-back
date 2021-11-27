@@ -10,7 +10,7 @@ export class AddCompanyTable1634489232576 implements MigrationInterface {
         name varchar(50) NOT NULL,
         "imageId" integer DEFAULT NULL,
         "createdAt"   timestamptz DEFAULT now(),
-        "updatedAt"   timestamptz DEFAULT now()
+        "updatedAt"   timestamptz DEFAULT now(),
         CONSTRAINT "fkImageId"
           FOREIGN KEY ("imageId")
               REFERENCES file(id)
