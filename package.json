@@ -122,7 +122,8 @@
       "@libs/entities": "<rootDir>/libs/entities/src/$1",
       "@libs/dtos": "<rootDir>/libs/dtos/src/$1",
       "@libs/exceptions": "<rootDir>/libs/exceptions/src/$1",
-      "^@libs/files(|/.*)$": "<rootDir>/libs/files/src/$1"
+      "^@libs/files(|/.*)$": "<rootDir>/libs/files/src/$1",
+      "^@libs/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1"
     }
   }
 }

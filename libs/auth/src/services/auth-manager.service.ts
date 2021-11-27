@@ -11,24 +11,23 @@ import { ManagerRepository } from '../repositories/manger.repository';
 export class AuthManagerService {
   @Inject() private readonly managerRepository: ManagerRepository;
   @Inject() private readonly jwtService: JwtService;
-  
+
   async signIn({ login, password }: { login: string, password: string }): Promise<string> {
     const manager = await this.findManagerOrFail(login);
-    
+
     if (!manager.institution.isActive) {
       throw new UnprocessableEntityError([{
         field: '', message: ERRORS.EXPIRED_SUBSCRIPTION,
       }]);
     }
     const isValid = await bcrypt.compare(password, manager.password);
-  
-    
+
     if (!isValid) {
       throw new UnprocessableEntityError([{ field: '', message: ERRORS.INVALID_PASSWORD }]);
     }
     return this.jwtService.sign({ subId: manager.id });
   }
-  
+
   private async findManagerOrFail(login: string): Promise<Manager> {
     const [manager] = await this.managerRepository.find({
       where: { login },

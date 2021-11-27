@@ -12,11 +12,11 @@ import { AuthManagerService } from '../services/auth-manager.service';
 @Controller('auth')
 export class AuthManagerController {
   constructor(private readonly authService: AuthManagerService) {}
-  
+
   @Post('sign-in')
   async signIn(
     @Body() body: SignInBodyDTO,
-    @Res() res: Response,
+      @Res() res: Response,
   ): Promise<void> {
     const token = await this.authService.signIn(body);
     res.cookie(AUTHORIZATION_COOKIE, token, prepareCookiesOptions());

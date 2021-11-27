@@ -1,8 +1,10 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { BaseEntity } from './base.entity';
 import { User } from './user.entity';
 import { Institution } from './institution.entity';
+import { Message } from './message.entity';
+import { ChatCriterion } from '@libs/entities/chat-criterion.entity';
 
 @Entity()
 export class Chat extends BaseEntity<Chat> {
@@ -13,6 +15,7 @@ export class Chat extends BaseEntity<Chat> {
   userId: number | null;
 
   @OneToOne(() => User)
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   @Column({ type: 'boolean' })
@@ -24,6 +27,9 @@ export class Chat extends BaseEntity<Chat> {
   @OneToOne(() => Institution)
   institution: Institution;
 
-  @Column({ type: 'timestamptz' })
-  createdAt: string;
+  @OneToMany(() => Message, item => item.chat)
+  messages: Message[];
+
+  @OneToMany(() => ChatCriterion, item => item.chat)
+  criterions: ChatCriterion[];
 }

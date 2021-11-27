@@ -14,7 +14,7 @@ export class ManagerService {
     }
     const manager = await this.managerRepository.findOne({
       where: { id: userId },
-      relations: ['image']
+      relations: ['image'],
     });
     return manager || null;
   }
