@@ -19,7 +19,7 @@ class ManagerDTO {
   @ApiProperty({ type: FileDTO })
   @Type(() => FileDTO)
   @Expose() image: FileDTO;
-  
+
   @ApiProperty()
   @Expose() institutionId: number;
 }
