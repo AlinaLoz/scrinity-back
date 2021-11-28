@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, Request, UseGuards } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard, TJwtUser } from '@libs/auth';
 import { GetMeResponseDTO } from '../dtos/manager.controller.dtos';
@@ -11,8 +11,8 @@ import { ManagerService } from '../services/manager.service';
 export class ManagerController {
   @Inject() private readonly managerService: ManagerService;
 
-  @Get('/')
-
+  @Get('/me')
+  @ApiResponse({ type: GetMeResponseDTO })
   async getMe(
     @Request() { user }: { user?: TJwtUser },
   ): Promise<GetMeResponseDTO> {

@@ -13,5 +13,5 @@ docker logout $AWS_DOCKER_REGISTRY_URL
 aws ecr get-login-password --profile $PROFILE --region $REGION | docker login --username AWS --password-stdin $AWS_DOCKER_REGISTRY_URL
 
 # Deploy app
-eb deploy $ENV
+eb deploy $ENV --timeout 30
 # npm run deploy -- $ENV

@@ -19,6 +19,9 @@ class ManagerDTO {
   @ApiProperty({ type: FileDTO })
   @Type(() => FileDTO)
   @Expose() image: FileDTO;
+
+  @ApiProperty()
+  @Expose() institutionId: number;
 }
 
 export class GetMeResponseDTO extends ConstructableDTO<GetMeResponseDTO> {
