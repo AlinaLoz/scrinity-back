@@ -35,4 +35,11 @@ export class ChatsController {
       items: await this.chatsService.getChat(user.institutionId, param.id),
     });
   }
+
+  // @Post('')
+  // addMessage(): Promise<void> {
+  //   // chatId
+  //   // senderId
+  //   // content
+  // }
 }

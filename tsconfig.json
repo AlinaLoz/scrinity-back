@@ -69,6 +69,12 @@
       ],
       "@libs/decorators/*": [
         "libs/decorators/src/*"
+      ],
+      "@libs/chat": [
+        "libs/chat/src"
+      ],
+      "@libs/chat/*": [
+        "libs/chat/src/*"
       ]
     }
   },

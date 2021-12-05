@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 
 import { TJwtPayload, TJwtUser } from '@libs/auth';
 import * as CONFIG from 'config';
-import { AUTHORIZATION_COOKIE } from '@libs/constants';
+import { AUTHORIZATION_COOKIE, ROLE } from '@libs/constants';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -20,6 +20,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   validate(payload: TJwtPayload): TJwtUser {
-    return { userId: payload.subId };
+    return { userId: payload.subId, role: ROLE.USER };
   }
 }
