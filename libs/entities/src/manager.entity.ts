@@ -46,6 +46,7 @@ export class Manager extends BaseEntity<Manager> {
   userId: number;
 
   @OneToOne(() => User)
+  @JoinColumn()
   user: User;
 }
 

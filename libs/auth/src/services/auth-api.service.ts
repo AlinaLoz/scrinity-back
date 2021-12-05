@@ -6,6 +6,7 @@ import {
   CONFIRM_CODE_REQUEST_INTERVAL_DEV_SEC,
   CONFIRM_CODE_REQUEST_INTERVAL_PROD_SEC,
   ERRORS,
+  ROLE,
 } from '@libs/constants';
 import { PhoneConfirmCode, User } from '@libs/entities';
 import * as CONFIG from 'config';
@@ -63,7 +64,7 @@ export class AuthApiService {
       }]);
     }
     await this.phoneConfirmCodeRepository.updateActivenessCode(verificationCode);
-    return this.jwtService.sign({ subId: verificationCode.userId });
+    return this.jwtService.sign({ subId: verificationCode.userId, role: ROLE.USER });
   }
 
   private async findUserOrCreate(phoneNumber: string): Promise<User> {

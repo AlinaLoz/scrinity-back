@@ -22,10 +22,13 @@ class ManagerDTO {
 
   @ApiProperty()
   @Expose() institutionId: number;
+
+  @ApiProperty()
+  @Expose() userId: number;
 }
 
 export class GetMeResponseDTO extends ConstructableDTO<GetMeResponseDTO> {
   @ApiProperty({ type: ManagerDTO })
   @Type(() => ManagerDTO)
-  @Expose() user: ManagerDTO | null;
+  @Expose() manager: ManagerDTO | null;
 }

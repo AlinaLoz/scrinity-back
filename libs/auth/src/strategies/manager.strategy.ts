@@ -5,7 +5,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { TJwtManager, TJwtPayload } from '@libs/auth';
 import * as CONFIG from 'config';
-import { AUTHORIZATION_COOKIE, ERRORS } from '@libs/constants';
+import { AUTHORIZATION_COOKIE, ERRORS, ROLE } from '@libs/constants';
 import { ManagerRepository } from '../repositories';
 import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
 
@@ -37,6 +37,6 @@ export class ManagerStrategy extends PassportStrategy(Strategy) {
         field: '', message: ERRORS.EXPIRED_SUBSCRIPTION,
       }]);
     }
-    return { userId: payload.subId, institutionId: manager[0].institutionId };
+    return { userId: payload.subId, institutionId: manager[0].institutionId, role: ROLE.MANAGER };
   }
 }

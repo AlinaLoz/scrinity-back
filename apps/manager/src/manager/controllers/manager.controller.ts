@@ -16,6 +16,6 @@ export class ManagerController {
   async getMe(
     @Request() { user }: { user?: TJwtUser },
   ): Promise<GetMeResponseDTO> {
-    return new GetMeResponseDTO({ user: await this.managerService.getUser(user?.userId) });
+    return new GetMeResponseDTO({ manager: await this.managerService.getUser(user?.userId) });
   }
 }

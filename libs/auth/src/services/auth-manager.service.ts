@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
-import { ERRORS } from '@libs/constants';
+import { ERRORS, ROLE } from '@libs/constants';
 import { Manager } from '@libs/entities';
 import { ManagerRepository } from '../repositories/manger.repository';
 
@@ -25,7 +25,7 @@ export class AuthManagerService {
     if (!isValid) {
       throw new UnprocessableEntityError([{ field: '', message: ERRORS.INVALID_PASSWORD }]);
     }
-    return this.jwtService.sign({ subId: manager.id });
+    return this.jwtService.sign({ subId: manager.id, role: ROLE.MANAGER  });
   }
 
   private async findManagerOrFail(login: string): Promise<Manager> {

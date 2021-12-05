@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Chat, MessageFile, Institution, Manager, Message, ChatCriterion } from '@libs/entities';
+import { Chat, MessageFile, Institution, Manager, Message, ChatCriterion, User } from '@libs/entities';
 import { FilesModule } from '@libs/files/files.module';
+import { LibChatModule } from '@libs/chat';
 
 import { FeedbackController } from './controllers/feedback.controller';
 import { FeedbackService } from './services/feedback.service';
@@ -12,7 +13,9 @@ import { FeedbackService } from './services/feedback.service';
   providers: [FeedbackService],
   imports: [
     FilesModule,
+    LibChatModule,
     TypeOrmModule.forFeature([
+      User,
       ChatCriterion,
       Message,
       Manager,
