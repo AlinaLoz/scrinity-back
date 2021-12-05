@@ -11,8 +11,7 @@ import { SendFeedbackBodyDTO } from '../dtos/feedback.controller.dtos';
 @Injectable()
 export class FeedbackService {
   @Inject() private connection: Connection;
-
-  @InjectRepository(Chat) private readonly chatRepository: Repository<Chat>;
+  
   @InjectRepository(Institution) private readonly institutionRepository: Repository<Institution>;
 
   async sendFeedback(data: SendFeedbackBodyDTO & { userId?: number }): Promise<boolean> {
