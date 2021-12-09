@@ -7,7 +7,7 @@ import { Chat, Manager, Message, User } from '@libs/entities';
 import { ERRORS, ROLE } from '@libs/constants';
 import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
 
-import { ChatMessageDTO, GetChatsResponseDTO, GetPaginationQueryDTO, SendMessageBodyDTO } from '../dtos';
+import { ChatMessageDTO, GetChatsResponseDTO, SendMessageBodyDTO } from '../dtos';
 import { ChatRepository } from '../repositories/';
 
 @Injectable()
@@ -47,7 +47,12 @@ export class LibChatService {
     }));
   }
 
-  async getChats(institutionId: number, query: GetPaginationQueryDTO): Promise<GetChatsResponseDTO> {
+  async getChats(institutionId: number, query: {
+    isAnonymously?: boolean,
+    userId?: number,
+    skip?: number,
+    limit?: number,
+  }): Promise<GetChatsResponseDTO> {
     const [chats, total] = await this.libChatsRepository.getChats(institutionId, query);
 
     return {

@@ -3,7 +3,7 @@ import { IsArray, IsString } from 'class-validator';
 import { Expose } from 'class-transformer';
 
 import { FEEDBACK_MESSAGE_MAX_LENGTH, FEEDBACK_MESSAGE_MIN_LENGTH, ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
-import { ResponsesDTO, ConstructableDTO } from '@libs/dtos';
+import { ResponsesDTO, ConstructableDTO, PaginationDTO } from '@libs/dtos';
 import { ApiPropertyArray, ApiPropertyBoolean, ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
 
 export class SendFeedbackBodyDTO {
@@ -45,4 +45,9 @@ export class GetInfoByLinkResponseDTO extends ConstructableDTO<GetInfoByLinkResp
 
   @ApiProperty()
   @Expose() chatId: number;
+}
+
+export class GetChatsQueryDTO extends PaginationDTO {
+  @ApiPropertyNumber()
+  institutionId: number;
 }

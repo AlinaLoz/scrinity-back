@@ -14,16 +14,18 @@ import {
 import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
 
-import { TJwtUser, JwtAuthGuard, Public } from '@libs/auth';
+import { TJwtUser, JwtAuthGuard, Public, TJwtManager } from '@libs/auth';
 import { RESPONSE_STATUS } from '@libs/dtos';
 import { FEEDBACK_IMAGES_COUNT } from '@libs/constants';
 import { ApiMultiFile, FilesService, imageFileFilter } from '@libs/files';
 
-import { GetInfoByLinkQueryDTO,
-  GetInfoByLinkResponseDTO, SendFeedbackBodyDTO, SendFeedbackResponseDTO, UploadFeedbackImagesResponseDTO } from '../dtos/chats.controller.dtos';
+import {
+  GetChatsQueryDTO, GetInfoByLinkQueryDTO,
+  GetInfoByLinkResponseDTO, SendFeedbackBodyDTO, SendFeedbackResponseDTO, UploadFeedbackImagesResponseDTO,
+} from '../dtos/chats.controller.dtos';
 import { ChatsService } from '../services/chats.service';
 import { TMulterFile } from '@libs/files/types/files.types';
-import { GetChatParamDTO, GetChatResponseDTO } from '@libs/chats';
+import { GetChatParamDTO, GetChatResponseDTO, GetChatsResponseDTO } from '@libs/chats';
 
 @Controller('chats')
 @ApiTags('chats')
@@ -67,6 +69,19 @@ export class ChatsController {
       @Query() query: GetInfoByLinkQueryDTO,
   ): Promise<GetInfoByLinkResponseDTO> {
     return new GetInfoByLinkResponseDTO(await this.chatsService.getInfoByLink(user.userId, query.link));
+  }
+
+  @Get('/list')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({ type: GetChatsResponseDTO })
+  async getChats(
+    @Request() { user }: { user: TJwtManager },
+      @Query() query: GetChatsQueryDTO,
+  ): Promise<GetChatsResponseDTO> {
+    return new GetChatsResponseDTO(await this.chatsService.getChats(query.institutionId, {
+      ...query,
+      userId: user.userId,
+    }));
   }
 
   @Get('/:id')

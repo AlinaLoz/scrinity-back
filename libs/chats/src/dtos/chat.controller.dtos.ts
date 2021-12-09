@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
 
-import { ConstructableDTO, FileDTO, PaginationDTO } from '@libs/dtos';
-import { ApiPropertyBoolean, ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
+import { ConstructableDTO, FileDTO } from '@libs/dtos';
+import { ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
 
 export class SendMessageBodyDTO {
   @ApiPropertyNumber()
@@ -66,11 +66,6 @@ export class GetChatsResponseDTO extends ConstructableDTO<GetChatsResponseDTO> {
   @ApiProperty({ type: ChatDTO, isArray: true })
   @Type(() => ChatDTO)
   @Expose() items: ChatDTO[];
-}
-
-export class GetPaginationQueryDTO extends PaginationDTO {
-  @ApiPropertyBoolean({ isOptional: true })
-  isAnonymously: boolean;
 }
 
 export class GetChatParamDTO {
