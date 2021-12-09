@@ -68,11 +68,6 @@ export class GetChatsResponseDTO extends ConstructableDTO<GetChatsResponseDTO> {
   @Expose() items: ChatDTO[];
 }
 
-export class GetPaginationQueryDTO extends PaginationDTO {
-  @ApiPropertyBoolean({ isOptional: true })
-  isAnonymously: boolean;
-}
-
 export class GetChatParamDTO {
   @ApiPropertyNumber()
   @Expose() id: number;

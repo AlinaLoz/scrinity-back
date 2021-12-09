@@ -5,9 +5,10 @@ import {
   GetChatParamDTO,
   GetChatResponseDTO,
   GetChatsResponseDTO,
-  GetPaginationQueryDTO, LibChatService,
+  LibChatService,
 } from '@libs/chats';
 import { ManagerGuard, TJwtManager } from '@libs/auth';
+import { GetChatsQueryDTO } from '../dtos/chats.controller.dtos';
 
 @Controller('chats')
 @ApiTags('chats')
@@ -19,7 +20,7 @@ export class ChatsController {
   @ApiResponse({ type: GetChatsResponseDTO })
   async getChats(
     @Request() { user }: { user: TJwtManager },
-      @Query() query: GetPaginationQueryDTO,
+      @Query() query: GetChatsQueryDTO,
   ): Promise<GetChatsResponseDTO> {
     return new GetChatsResponseDTO(await this.chatsService.getChats(user.institutionId, query));
   }
