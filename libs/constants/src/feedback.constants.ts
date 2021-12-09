@@ -2,3 +2,5 @@ export const FEEDBACK_MESSAGE_MIN_LENGTH = 10;
 export const FEEDBACK_MESSAGE_MAX_LENGTH = 100;
 export const FEEDBACK_IMAGES_COUNT = 4;
 export const DEFAULT_MULTER_FILE_SIZE_LIMIT_MB = 3495253; //3mb
+
+export const LINK_HASH_LENGTH = 7;

@@ -22,5 +22,13 @@
     "ACCESS_KEY_ID": "AKIAU73SO2MCUBTZQJWR",
     "SECRET_ACCESS_KEY": "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",
     "REGION": "eu-west-1"
-  }
+  },
+  "SMTP": {
+    "HOST": "smtp.gmail.com",
+    "PORT": 587,
+    "SENDER": "scrinity",
+    "USERNAME": "scrinity.by@gmail.com",
+    "PASSWORD": "scrinity2021"
+  },
+  "CLIENT_URL": "https://dev.lozita.click/chat/"
 }

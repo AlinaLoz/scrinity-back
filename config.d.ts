@@ -23,4 +23,12 @@ declare module 'config' {
     readonly SECRET_ACCESS_KEY: string;
     readonly REGION: string;
   }
+  export const SMTP: {
+    HOST: string;
+    PORT: number;
+    SENDER: string;
+    USERNAME: string;
+    PASSWORD: string;
+  }
+  export const CLIENT_URL: string;
 }
