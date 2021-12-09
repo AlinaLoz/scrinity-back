@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
 
-import { ConstructableDTO, FileDTO, PaginationDTO } from '@libs/dtos';
-import { ApiPropertyBoolean, ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
+import { ConstructableDTO, FileDTO } from '@libs/dtos';
+import { ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
 
 export class SendMessageBodyDTO {
   @ApiPropertyNumber()

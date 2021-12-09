@@ -70,20 +70,20 @@ export class ChatsController {
   ): Promise<GetInfoByLinkResponseDTO> {
     return new GetInfoByLinkResponseDTO(await this.chatsService.getInfoByLink(user.userId, query.link));
   }
-  
+
   @Get('/list')
   @UseGuards(JwtAuthGuard)
   @ApiResponse({ type: GetChatsResponseDTO })
   async getChats(
     @Request() { user }: { user: TJwtManager },
-    @Query() query: GetChatsQueryDTO,
+      @Query() query: GetChatsQueryDTO,
   ): Promise<GetChatsResponseDTO> {
     return new GetChatsResponseDTO(await this.chatsService.getChats(query.institutionId, {
       ...query,
       userId: user.userId,
     }));
   }
-  
+
   @Get('/:id')
   @UseGuards(JwtAuthGuard)
   @ApiResponse({ type: GetChatResponseDTO })

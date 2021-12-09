@@ -53,9 +53,6 @@ export class LibChatService {
     skip?: number,
     limit?: number,
   }): Promise<GetChatsResponseDTO> {
-    
-    console.log('query', query);
-    
     const [chats, total] = await this.libChatsRepository.getChats(institutionId, query);
 
     return {
