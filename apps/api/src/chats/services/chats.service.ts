@@ -5,18 +5,19 @@ import * as crypto from 'crypto';
 import { CLIENT_URL } from 'config';
 
 import { Chat, ChatCriterion, File, Institution, Message, MessageFile } from '@libs/entities';
-import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
+import { ForbiddenError, NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
 import { ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
 import { MailService } from '@libs/mail-service';
 import { MAIL_TEMPLATE } from '@libs/mail-service/types/mail.types';
 
-import { SendFeedbackBodyDTO } from '../dtos/feedback.controller.dtos';
+import { SendFeedbackBodyDTO } from '../dtos/chats.controller.dtos';
 
 @Injectable()
-export class FeedbackService {
+export class ChatsService {
   @Inject() private connection: Connection;
 
   @InjectRepository(Institution) private readonly institutionRepository: Repository<Institution>;
+  @InjectRepository(Chat) private readonly chatRepository: Repository<Chat>;
   @Inject() private readonly mailService: MailService;
 
   async sendFeedback(data: SendFeedbackBodyDTO & { userId?: number }): Promise<boolean> {
@@ -54,17 +55,40 @@ export class FeedbackService {
     return true;
   }
 
-  private generateHashLink(): {
-    hash: string,
-    link: string,
-  } {
+  async getInfoByLink(userId: number, link: string): Promise<{
+    chatId: number,
+    institutionId: number,
+  }> {
+    const chat = await this.findChatOrFail(link);
+    await this.validateChatLink(userId, chat.userId);
+    return {
+      chatId: chat.id,
+      institutionId: chat.institutionId,
+    };
+  }
+
+  async validateChatLink(userId: number, chatUserId: number | null): Promise<void> {
+    if (userId !== chatUserId) {
+      throw new ForbiddenError([{
+        field: 'chatId', message: ERRORS.INACCESSIBLE_CHAT,
+      }]);
+    }
+  }
+
+  private async findChatOrFail(link: string): Promise<Chat> {
+    const chat = await this.chatRepository.findOne({ where: { link } });
+    if (!chat) {
+      throw new NotFoundError([{
+        field: 'chatId', message: ERRORS.CHAT_NOT_FOUND,
+      }]);
+    }
+    return chat;
+  }
+
+  private generateHashLink(): { hash: string, link: string } {
     const hash = crypto.randomBytes(LINK_HASH_LENGTH).toString('hex').slice(0, 7);
     const link = `${CLIENT_URL}${hash}`;
-
-    return {
-      hash,
-      link,
-    };
+    return { hash, link };
   }
 
   private async findInstitutionOrFail(id: number): Promise<Institution> {

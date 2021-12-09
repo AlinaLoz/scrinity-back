@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post, Request, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Query, Request, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
 
@@ -7,14 +7,15 @@ import { RESPONSE_STATUS } from '@libs/dtos';
 import { FEEDBACK_IMAGES_COUNT } from '@libs/constants';
 import { ApiMultiFile, FilesService, imageFileFilter } from '@libs/files';
 
-import { SendFeedbackBodyDTO, SendFeedbackResponseDTO, UploadFeedbackImagesResponseDTO } from '../dtos/feedback.controller.dtos';
-import { FeedbackService } from '../services/feedback.service';
+import { GetInfoByLinkQueryDTO,
+  GetInfoByLinkResponseDTO, SendFeedbackBodyDTO, SendFeedbackResponseDTO, UploadFeedbackImagesResponseDTO } from '../dtos/chats.controller.dtos';
+import { ChatsService } from '../services/chats.service';
 import { TMulterFile } from '@libs/files/types/files.types';
 
-@Controller('feedback')
-@ApiTags('feedback')
-export class FeedbackController {
-  @Inject() private readonly feedbackService: FeedbackService;
+@Controller('chats')
+@ApiTags('chats')
+export class ChatsController {
+  @Inject() private readonly chatsService: ChatsService;
   @Inject() private readonly filesService: FilesService;
 
   @Post('/')
@@ -25,7 +26,7 @@ export class FeedbackController {
     @Request() { user }: { user?: TJwtUser },
       @Body() body: SendFeedbackBodyDTO,
   ): Promise<SendFeedbackResponseDTO> {
-    await this.feedbackService.sendFeedback({
+    await this.chatsService.sendFeedback({
       ...body,
       ...(user && { userId: user.userId }),
     });
@@ -44,5 +45,14 @@ export class FeedbackController {
   ): Promise<UploadFeedbackImagesResponseDTO> {
     const imagesKeys = await this.filesService.uploadImages(files);
     return new UploadFeedbackImagesResponseDTO({ imagesKeys });
+  }
+
+  @Get('/')
+  @UseGuards(JwtAuthGuard)
+  async getInfoByLink(
+    @Request() { user }: { user: TJwtUser },
+      @Query() query: GetInfoByLinkQueryDTO,
+  ): Promise<GetInfoByLinkResponseDTO> {
+    return new GetInfoByLinkResponseDTO(await this.chatsService.getInfoByLink(user.userId, query.link));
   }
 }

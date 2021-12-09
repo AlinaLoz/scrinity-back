@@ -14,7 +14,7 @@ import { ChatModule } from './сhats/chat.module';
     ManagerModuleSubModule,
     ChatModule,
     // InstitutionModule,
-    // FeedbackModule,
+    // ChatModule,
     TypeOrmModule.forRoot({
       ...DB_CONFIG,
       migrationsRun: true,

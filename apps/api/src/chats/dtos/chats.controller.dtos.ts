@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsString } from 'class-validator';
 import { Expose } from 'class-transformer';
 
-import { FEEDBACK_MESSAGE_MAX_LENGTH, FEEDBACK_MESSAGE_MIN_LENGTH, ERRORS } from '@libs/constants';
+import { FEEDBACK_MESSAGE_MAX_LENGTH, FEEDBACK_MESSAGE_MIN_LENGTH, ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
 import { ResponsesDTO, ConstructableDTO } from '@libs/dtos';
 import { ApiPropertyArray, ApiPropertyBoolean, ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
 
@@ -32,4 +32,17 @@ export class UploadFeedbackImagesResponseDTO
   extends ConstructableDTO<UploadFeedbackImagesResponseDTO> {
   @ApiProperty()
   @Expose() imagesKeys: string[];
+}
+
+export class GetInfoByLinkQueryDTO {
+  @ApiPropertyString({ minLength: LINK_HASH_LENGTH, maxLength: LINK_HASH_LENGTH })
+  link: string;
+}
+
+export class GetInfoByLinkResponseDTO extends ConstructableDTO<GetInfoByLinkResponseDTO> {
+  @ApiProperty()
+  @Expose() institutionId: number;
+
+  @ApiProperty()
+  @Expose() chatId: number;
 }
