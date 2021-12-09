@@ -1,20 +1,19 @@
 import { Controller, Get, Inject, Param, Query, Request, UseGuards } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { ManagerGuard, TJwtManager } from '@libs/auth';
 import {
   GetChatParamDTO,
   GetChatResponseDTO,
   GetChatsResponseDTO,
-  GetPaginationQueryDTO,
-} from '../dtos/chat.controller.dtos';
-import { ChatsService } from '../services';
+  GetPaginationQueryDTO, LibChatService,
+} from '@libs/chats';
+import { ManagerGuard, TJwtManager } from '@libs/auth';
 
 @Controller('chats')
 @ApiTags('chats')
 @UseGuards(ManagerGuard)
 export class ChatsController {
-  @Inject() private readonly chatsService: ChatsService;
+  @Inject() private readonly chatsService: LibChatService;
 
   @Get('/')
   @ApiResponse({ type: GetChatsResponseDTO })
@@ -32,7 +31,10 @@ export class ChatsController {
     @Param() param: GetChatParamDTO,
   ) {
     return new GetChatResponseDTO({
-      items: await this.chatsService.getChat(user.institutionId, param.id),
+      items: await this.chatsService.getChat({
+        id: param.id,
+        institutionId: user.institutionId,
+      }),
     });
   }
 }

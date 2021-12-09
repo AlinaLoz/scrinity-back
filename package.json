@@ -128,7 +128,7 @@
       "@libs/exceptions": "<rootDir>/libs/exceptions/src/$1",
       "^@libs/files(|/.*)$": "<rootDir>/libs/files/src/$1",
       "^@libs/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1",
-      "^@libs/chat(|/.*)$": "<rootDir>/libs/chat/src/$1",
+      "^@libs/chats(|/.*)$": "<rootDir>/libs/chats/src/$1",
       "^@libs/mail-service(|/.*)$": "<rootDir>/libs/mail-service/src/$1"
     }
   }

@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Chat, Manager, Message, User } from '@libs/entities';
-import { ChatService } from './services/chat.service';
+import { Manager, Message, User } from '@libs/entities';
+import { LibChatService } from './services/chat.service';
 import { ChatController } from './controllers/chat.controller';
+import { ChatRepository } from './repositories';
 
 @Module({
   imports: [
@@ -11,11 +12,11 @@ import { ChatController } from './controllers/chat.controller';
       User,
       Message,
       Manager,
-      Chat,
+      ChatRepository,
     ]),
   ],
   controllers: [ChatController],
-  providers: [ChatService],
-  exports: [ChatService],
+  providers: [LibChatService],
+  exports: [LibChatService],
 })
 export class LibChatModule {}

@@ -2,11 +2,14 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
 
 import { ConstructableDTO, FileDTO, PaginationDTO } from '@libs/dtos';
-import { ApiPropertyBoolean, ApiPropertyNumber } from '@libs/decorators';
+import { ApiPropertyBoolean, ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
 
-export class GetPaginationQueryDTO extends PaginationDTO {
-  @ApiPropertyBoolean({ isOptional: true })
-  isAnonymously: boolean;
+export class SendMessageBodyDTO {
+  @ApiPropertyNumber()
+  chatId: number;
+
+  @ApiPropertyString({ minLength: 1, maxLength: 1000 })
+  message: string;
 }
 
 export class ChatDTO {
@@ -29,26 +32,12 @@ export class ChatDTO {
   @Expose() createdAt: string;
 }
 
-export class GetChatsResponseDTO extends ConstructableDTO<GetChatsResponseDTO> {
-  @ApiProperty()
-  @Expose() total: number;
-
-  @ApiProperty({ type: ChatDTO, isArray: true })
-  @Type(() => ChatDTO)
-  @Expose() items: ChatDTO[];
-}
-
 class SenderDTO {
   @ApiProperty()
   @Expose() id: number;
 
   @ApiProperty()
   @Expose() phoneNumber: string;
-}
-
-export class GetChatParamDTO {
-  @ApiPropertyNumber()
-  @Expose() id: number;
 }
 
 export class ChatMessageDTO {
@@ -70,8 +59,28 @@ export class ChatMessageDTO {
   @Expose() createdAt: string;
 }
 
+export class GetChatsResponseDTO extends ConstructableDTO<GetChatsResponseDTO> {
+  @ApiProperty()
+  @Expose() total: number;
+
+  @ApiProperty({ type: ChatDTO, isArray: true })
+  @Type(() => ChatDTO)
+  @Expose() items: ChatDTO[];
+}
+
+export class GetPaginationQueryDTO extends PaginationDTO {
+  @ApiPropertyBoolean({ isOptional: true })
+  isAnonymously: boolean;
+}
+
+export class GetChatParamDTO {
+  @ApiPropertyNumber()
+  @Expose() id: number;
+}
+
 export class GetChatResponseDTO extends ConstructableDTO<GetChatResponseDTO> {
   @ApiProperty({ type: ChatMessageDTO, isArray: true })
   @Type(() => ChatMessageDTO)
   @Expose() items: ChatMessageDTO[];
 }
+

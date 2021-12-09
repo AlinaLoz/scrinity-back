@@ -70,11 +70,11 @@
       "@libs/decorators/*": [
         "libs/decorators/src/*"
       ],
-      "@libs/chat": [
-        "libs/chat/src"
+      "@libs/chats": [
+        "libs/chats/src"
       ],
-      "@libs/chat/*": [
-        "libs/chat/src/*"
+      "@libs/chats/*": [
+        "libs/chats/src/*"
       ],
       "@libs/mail-service": [
         "libs/mail-service/src"

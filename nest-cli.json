@@ -98,13 +98,13 @@
         "tsConfigPath": "libs/decorators/tsconfig.lib.json"
       }
     },
-    "chat": {
+    "chats": {
       "type": "library",
-      "root": "libs/chat",
+      "root": "libs/chats",
       "entryFile": "index",
-      "sourceRoot": "libs/chat/src",
+      "sourceRoot": "libs/chats/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/chat/tsconfig.lib.json"
+        "tsConfigPath": "libs/chats/tsconfig.lib.json"
       }
     },
     "mail-service": {

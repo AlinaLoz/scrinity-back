@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Chat, MessageFile, Institution, Manager, Message, ChatCriterion, User } from '@libs/entities';
+import { MessageFile, Institution, Manager, Message, ChatCriterion, User } from '@libs/entities';
 import { FilesModule } from '@libs/files/files.module';
-import { LibChatModule } from '@libs/chat';
+import { ChatRepository, LibChatModule } from '@libs/chats';
 import { MailServiceModule } from '@libs/mail-service';
 
 import { ChatsController } from './controllers/chats.controller';
@@ -22,8 +22,8 @@ import { ChatsService } from './services/chats.service';
       Message,
       Manager,
       Institution,
-      Chat,
       MessageFile,
+      ChatRepository,
     ]),
   ],
 })

@@ -1,24 +1,32 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import * as crypto from 'crypto';
 import { CLIENT_URL } from 'config';
 
-import { Chat, ChatCriterion, File, Institution, Message, MessageFile } from '@libs/entities';
+import { Chat, ChatCriterion, File, Institution, Manager, Message, MessageFile, User } from '@libs/entities';
 import { ForbiddenError, NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
 import { ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
-import { MailService } from '@libs/mail-service';
-import { MAIL_TEMPLATE } from '@libs/mail-service/types/mail.types';
+import { MailService, MAIL_TEMPLATE } from '@libs/mail-service';
+import { LibChatService, ChatRepository } from '@libs/chats';
 
 import { SendFeedbackBodyDTO } from '../dtos/chats.controller.dtos';
+import {  } from '@libs/chats';
 
 @Injectable()
-export class ChatsService {
-  @Inject() private connection: Connection;
+export class ChatsService extends LibChatService {
 
-  @InjectRepository(Institution) private readonly institutionRepository: Repository<Institution>;
-  @InjectRepository(Chat) private readonly chatRepository: Repository<Chat>;
-  @Inject() private readonly mailService: MailService;
+  constructor(
+    private readonly chatsRepository: ChatRepository,
+    @InjectRepository(Institution) private readonly institutionRepository: Repository<Institution>,
+    @InjectRepository(User) private readonly guserRepository: Repository<User>,
+    @InjectRepository(Manager) private readonly gmanagerRepository: Repository<Manager>,
+    @InjectRepository(Message) private readonly gmessageRepository: Repository<Message>,
+    private readonly mailService: MailService,
+    private connection: Connection,
+  ) {
+    super(chatsRepository, guserRepository, gmanagerRepository, gmessageRepository);
+  }
 
   async sendFeedback(data: SendFeedbackBodyDTO & { userId?: number }): Promise<boolean> {
     const institution = await this.findInstitutionOrFail(data.institutionId);
@@ -59,7 +67,7 @@ export class ChatsService {
     chatId: number,
     institutionId: number,
   }> {
-    const chat = await this.findChatOrFail(link);
+    const chat = await this.findChatOrFail({ link });
     await this.validateChatLink(userId, chat.userId);
     return {
       chatId: chat.id,
@@ -73,16 +81,6 @@ export class ChatsService {
         field: 'chatId', message: ERRORS.INACCESSIBLE_CHAT,
       }]);
     }
-  }
-
-  private async findChatOrFail(link: string): Promise<Chat> {
-    const chat = await this.chatRepository.findOne({ where: { link } });
-    if (!chat) {
-      throw new NotFoundError([{
-        field: 'chatId', message: ERRORS.CHAT_NOT_FOUND,
-      }]);
-    }
-    return chat;
   }
 
   private generateHashLink(): { hash: string, link: string } {
