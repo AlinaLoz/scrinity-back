@@ -7,3 +7,4 @@ export * from './1635614300360-CreateInstitutionTable';
 export * from './1635614300361-CreateChatTable';
 export * from './1637440680611-ManagerTable';
 export * from './1638018377662-AddUserIdToManager';
+export * from './1638905623699-AddLinkToChat';

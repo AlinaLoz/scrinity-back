@@ -106,6 +106,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/chat/tsconfig.lib.json"
       }
+    },
+    "mail-service": {
+      "type": "library",
+      "root": "libs/mail-service",
+      "entryFile": "index",
+      "sourceRoot": "libs/mail-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mail-service/tsconfig.lib.json"
+      }
     }
   }
 }

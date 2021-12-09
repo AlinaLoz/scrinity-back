@@ -32,4 +32,7 @@ export class Chat extends BaseEntity<Chat> {
 
   @OneToMany(() => ChatCriterion, item => item.chat)
   criterions: ChatCriterion[];
+
+  @Column({ type: 'varchar', default: '' })
+  link: string;
 }
