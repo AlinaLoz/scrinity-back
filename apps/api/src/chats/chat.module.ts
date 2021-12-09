@@ -6,12 +6,12 @@ import { FilesModule } from '@libs/files/files.module';
 import { LibChatModule } from '@libs/chat';
 import { MailServiceModule } from '@libs/mail-service';
 
-import { FeedbackController } from './controllers/feedback.controller';
-import { FeedbackService } from './services/feedback.service';
+import { ChatsController } from './controllers/chats.controller';
+import { ChatsService } from './services/chats.service';
 
 @Module({
-  controllers: [FeedbackController],
-  providers: [FeedbackService],
+  controllers: [ChatsController],
+  providers: [ChatsService],
   imports: [
     MailServiceModule,
     FilesModule,
@@ -27,4 +27,4 @@ import { FeedbackService } from './services/feedback.service';
     ]),
   ],
 })
-export class FeedbackModule {}
+export class ChatModule {}

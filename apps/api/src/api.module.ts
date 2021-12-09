@@ -5,7 +5,7 @@ import { AuthModule } from '@libs/auth';
 import { ExceptionModule } from '@libs/exceptions';
 import DB_CONFIG from '../../../ormconfig';
 import { InstitutionModule } from './institution/institution.module';
-import { FeedbackModule } from './feedback/feedback.module';
+import { ChatModule } from './chats/chat.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -14,7 +14,7 @@ import { UserModule } from './user/user.module';
     AuthModule.register('api'),
     UserModule,
     InstitutionModule,
-    FeedbackModule,
+    ChatModule,
     TypeOrmModule.forRoot({
       ...DB_CONFIG,
       migrationsRun: true,
