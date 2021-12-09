@@ -4,13 +4,13 @@ import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard, TJwtUser } from '@libs/auth';
 import { RESPONSE_STATUS, ResponsesDTO } from '@libs/dtos';
 
-import { ChatService } from '../services/chat.service';
+import { LibChatService } from '../services/chat.service';
 import { SendMessageBodyDTO } from '../dtos/chat.controller.dtos';
 
 @Controller('chats')
 @ApiTags('chats')
 export class ChatController {
-  @Inject() private readonly chatService: ChatService;
+  @Inject() private readonly chatService: LibChatService;
 
   @Post('/message')
   @UseGuards(JwtAuthGuard)

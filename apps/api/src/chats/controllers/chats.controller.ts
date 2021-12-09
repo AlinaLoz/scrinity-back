@@ -1,4 +1,16 @@
-import { Body, Controller, Get, Inject, Post, Query, Request, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Query,
+  Request,
+  UploadedFiles,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
 
@@ -11,6 +23,7 @@ import { GetInfoByLinkQueryDTO,
   GetInfoByLinkResponseDTO, SendFeedbackBodyDTO, SendFeedbackResponseDTO, UploadFeedbackImagesResponseDTO } from '../dtos/chats.controller.dtos';
 import { ChatsService } from '../services/chats.service';
 import { TMulterFile } from '@libs/files/types/files.types';
+import { GetChatParamDTO, GetChatResponseDTO } from '@libs/chats';
 
 @Controller('chats')
 @ApiTags('chats')
@@ -54,5 +67,20 @@ export class ChatsController {
       @Query() query: GetInfoByLinkQueryDTO,
   ): Promise<GetInfoByLinkResponseDTO> {
     return new GetInfoByLinkResponseDTO(await this.chatsService.getInfoByLink(user.userId, query.link));
+  }
+
+  @Get('/:id')
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({ type: GetChatResponseDTO })
+  async getChat(
+  @Request() { user }: { user: TJwtUser },
+    @Param() param: GetChatParamDTO,
+  ) {
+    return new GetChatResponseDTO({
+      items: await this.chatsService.getChat({
+        id: param.id,
+        userId: user.userId,
+      }),
+    });
   }
 }
