@@ -39,41 +39,6 @@
     {
       "environment": [
         {
-          "name": "SERVICE",
-          "value": "manager"
-        },
-        {
-          "name": "POSTGRES_HOST",
-          "value": "postgres"
-        },
-        {
-          "name": "POSTGRES_PASSWORD",
-          "value": "postgres"
-        },
-        {
-          "name": "POSTGRES_DB",
-          "value": "project-z"
-        },
-        {
-          "name": "POSTGRES_PORT",
-          "value": "5432"
-        }
-      ],
-      "essential": true,
-      "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-manager:latest",
-      "name": "manager",
-      "memory": 100,
-      "portMappings": [
-        {
-          "containerPort": 3002,
-          "hostPort": 27181
-        }
-      ],
-      "links": ["postgres"]
-    },
-    {
-      "environment": [
-        {
           "name": "POSTGRES_USER",
           "value": "postgres"
         },
