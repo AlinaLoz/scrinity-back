@@ -5,7 +5,7 @@ import * as crypto from 'crypto';
 import { CLIENT_URL } from 'config';
 
 import { Chat, ChatCriterion, File, Institution, Manager, Message, MessageFile, User } from '@libs/entities';
-import { ForbiddenError, NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
+import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
 import { ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
 import { MailService, MAIL_TEMPLATE } from '@libs/mail-service';
 import { LibChatService, ChatRepository } from '@libs/chats';
@@ -62,25 +62,15 @@ export class ChatsService extends LibChatService {
     await this.mailService.sendMail(MAIL_TEMPLATE.CHAT_LINK, { link, email: 'scrinity.by@gmail.com' });
     return true;
   }
-
-  async getInfoByLink(userId: number, link: string): Promise<{
+  async getInfoByLink(link: string): Promise<{
     chatId: number,
     institutionId: number,
   }> {
     const chat = await this.findChatOrFail({ link });
-    await this.validateChatLink(userId, chat.userId);
     return {
       chatId: chat.id,
       institutionId: chat.institutionId,
     };
-  }
-
-  async validateChatLink(userId: number, chatUserId: number | null): Promise<void> {
-    if (userId !== chatUserId) {
-      throw new ForbiddenError([{
-        field: 'chatId', message: ERRORS.INACCESSIBLE_CHAT,
-      }]);
-    }
   }
 
   private generateHashLink(): { hash: string, link: string } {

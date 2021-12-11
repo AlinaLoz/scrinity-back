@@ -51,7 +51,7 @@ export class LibChatService {
     isAnonymously?: boolean,
     userId?: number,
     skip?: number,
-    limit?: number,
+    limit?: 200,
   }): Promise<GetChatsResponseDTO> {
     const [chats, total] = await this.libChatsRepository.getChats(institutionId, query);
 
@@ -62,8 +62,8 @@ export class LibChatService {
         isGood: item.isGood,
         phoneNumber: item.user?.phoneNumber,
         criterion: item.criterions?.map(({ criterionKey }) => criterionKey),
-        message: item.messages[0].content,
-        createdAt: item.createdAt,
+        message: item.messages[item.messages.length - 1].content,
+        createdAt: item.messages[item.messages.length - 1].createdAt,
       })),
     };
   }
