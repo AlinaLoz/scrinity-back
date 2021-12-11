@@ -11,7 +11,7 @@ export type MAIL_TEMPLATE_PROPS = {
 
 export const MAIL_TEMPLATE_FILE = {
   [MAIL_TEMPLATE.CHAT_LINK]: {
-    FILE_NAME: 'chats-link',
+    FILE_NAME: 'chat-link',
     SUBJECT: 'Ссылка на чат для обратной связи',
   },
 };

@@ -63,12 +63,11 @@ export class ChatsController {
   }
 
   @Get('/')
-  @UseGuards(JwtAuthGuard)
+  @ApiResponse({ type: GetInfoByLinkResponseDTO })
   async getInfoByLink(
-    @Request() { user }: { user: TJwtUser },
       @Query() query: GetInfoByLinkQueryDTO,
   ): Promise<GetInfoByLinkResponseDTO> {
-    return new GetInfoByLinkResponseDTO(await this.chatsService.getInfoByLink(user.userId, query.link));
+    return new GetInfoByLinkResponseDTO(await this.chatsService.getInfoByLink(query.link));
   }
 
   @Get('/list')
