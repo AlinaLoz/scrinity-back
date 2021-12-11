@@ -7,7 +7,7 @@ import { CLIENT_URL } from 'config';
 import { Chat, ChatCriterion, File, Institution, Manager, Message, MessageFile, User } from '@libs/entities';
 import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
 import { ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
-import { MailService, MAIL_TEMPLATE } from '@libs/mail-service';
+// import { MailService, MAIL_TEMPLATE } from '@libs/mail-service';
 import { LibChatService, ChatRepository } from '@libs/chats';
 
 import { SendFeedbackBodyDTO } from '../dtos/chats.controller.dtos';
@@ -22,7 +22,7 @@ export class ChatsService extends LibChatService {
     @InjectRepository(User) private readonly guserRepository: Repository<User>,
     @InjectRepository(Manager) private readonly gmanagerRepository: Repository<Manager>,
     @InjectRepository(Message) private readonly gmessageRepository: Repository<Message>,
-    private readonly mailService: MailService,
+    // private readonly mailService: MailService,
     private connection: Connection,
   ) {
     super(chatsRepository, guserRepository, gmanagerRepository, gmessageRepository);
@@ -31,7 +31,7 @@ export class ChatsService extends LibChatService {
   async sendFeedback(data: SendFeedbackBodyDTO & { userId?: number }): Promise<boolean> {
     const institution = await this.findInstitutionOrFail(data.institutionId);
     this.validateCriterions(data.criterions, institution);
-    const { hash, link } = this.generateHashLink();
+    const { hash } = this.generateHashLink();
     await this.connection.transaction(async (manager) => {
       const files = await manager.save(File, data.filesKeys.map((filename) => new File({
         filename,
@@ -59,7 +59,7 @@ export class ChatsService extends LibChatService {
     });
     // todo create notification service
     // todo сделать ввод почты
-    await this.mailService.sendMail(MAIL_TEMPLATE.CHAT_LINK, { link, email: 'scrinity.by@gmail.com' });
+    // await this.mailService.sendMail(MAIL_TEMPLATE.CHAT_LINK, { link, email: 'scrinity.by@gmail.com' });
     return true;
   }
   async getInfoByLink(link: string): Promise<{
