@@ -51,7 +51,7 @@ export class LibChatService {
     isAnonymously?: boolean,
     userId?: number,
     skip?: number,
-    limit?: 200,
+    limit?: number,
   }): Promise<GetChatsResponseDTO> {
     const [chats, total] = await this.libChatsRepository.getChats(institutionId, query);
 
