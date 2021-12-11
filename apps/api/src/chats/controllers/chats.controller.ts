@@ -65,7 +65,7 @@ export class ChatsController {
   @Get('/')
   @ApiResponse({ type: GetInfoByLinkResponseDTO })
   async getInfoByLink(
-      @Query() query: GetInfoByLinkQueryDTO,
+    @Query() query: GetInfoByLinkQueryDTO,
   ): Promise<GetInfoByLinkResponseDTO> {
     return new GetInfoByLinkResponseDTO(await this.chatsService.getInfoByLink(query.link));
   }
