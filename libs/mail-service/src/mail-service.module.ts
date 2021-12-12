@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { join } from 'path';
 import { SMTP } from 'config';
 
 import { MailService } from './services/mail.service';
+
+// eslint-disable no-console
+console.log('SMTP', SMTP);
 
 @Module({
   imports: [
@@ -22,7 +24,7 @@ import { MailService } from './services/mail.service';
         from: SMTP.SENDER,
       },
       template: {
-        dir: join(__dirname, '../../..', 'templates'),
+        dir: 'templates',
         adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
       },
     }),

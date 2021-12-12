@@ -34,7 +34,7 @@ module.exports = {
     "semi": "off",
     "@typescript-eslint/semi": ["error"],
     "@typescript-eslint/no-unused-vars": ["error"],
-    "no-console": ["error"],
+    // "no-console": [""],
     "comma-dangle": ["error", "always-multiline"],
     "eol-last": ["error", "always"],
     "no-trailing-spaces": ["error"],
