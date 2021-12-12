@@ -23,6 +23,8 @@ services:
     <<: *env_file
     environment:
       - SERVICE=api
+    volumes:
+      - ./templates:/app/templates
     ports:
       - "27180:3001"
     depends_on:

@@ -34,6 +34,12 @@
           "hostPort": 27180
         }
       ],
+      "mountPoints": [
+        {
+          "containerPath": "/app/templates",
+          "sourceVolume": "_Templates"
+        }
+      ],
       "links": ["postgres"]
     },
     {
@@ -139,6 +145,12 @@
         "sourcePath": "postgres_data"
       },
       "name": "Postgres_Data"
+    },
+    {
+      "host": {
+        "sourcePath": "./templates"
+      },
+      "name": "_Templates"
     }
   ]
 }

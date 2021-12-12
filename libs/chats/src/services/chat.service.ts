@@ -57,14 +57,19 @@ export class LibChatService {
 
     return {
       total,
-      items: chats.map((item) => ({
-        id: item.id,
-        isGood: item.isGood,
-        phoneNumber: item.user?.phoneNumber,
-        criterion: item.criterions?.map(({ criterionKey }) => criterionKey),
-        message: item.messages[item.messages.length - 1].content,
-        createdAt: item.messages[item.messages.length - 1].createdAt,
-      })),
+      items: chats.map((item) => {
+        const lastMessage = item.messages
+          .sort(({ id: idA }, { id: idB }) => (idA > idB ? -1 : 1))[0];
+        
+        return ({
+          id: item.id,
+          isGood: item.isGood,
+          phoneNumber: item.user?.phoneNumber,
+          criterion: item.criterions?.map(({ criterionKey }) => criterionKey),
+          message: lastMessage.content,
+          createdAt: lastMessage.createdAt,
+        });
+      }),
     };
   }
 
