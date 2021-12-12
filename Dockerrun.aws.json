@@ -148,7 +148,7 @@
     },
     {
       "host": {
-        "sourcePath": "./templates"
+        "sourcePath": "templates"
       },
       "name": "_Templates"
     }

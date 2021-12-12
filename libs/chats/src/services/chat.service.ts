@@ -60,7 +60,7 @@ export class LibChatService {
       items: chats.map((item) => {
         const lastMessage = item.messages
           .sort(({ id: idA }, { id: idB }) => (idA > idB ? -1 : 1))[0];
-        
+
         return ({
           id: item.id,
           isGood: item.isGood,
