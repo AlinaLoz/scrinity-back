@@ -6,7 +6,6 @@ import * as CONFIG from 'config';
 import { PushSubscriptionRepository } from '../reposotories/push-subscription.repository';
 import { AppLogger } from '@libs/logger';
 
-console.log(CONFIG.SMTP);
 @Injectable()
 export class WebPushService implements OnModuleInit {
   private logger = new AppLogger('web-push.service');
