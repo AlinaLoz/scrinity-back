@@ -35,11 +35,8 @@ export class WebPushService implements OnModuleInit {
         await webpush.sendNotification(
           item.subscription,
           JSON.stringify({
-            title: 'Наканецта усе робиць',
-            // text: "HEY! Take a look at this brand new t-shirt!",
-            // image: "/images/jason-leung-HM6TMmevbZQ-unsplash.jpg",
-            // tag: "new-product",
-            // url: "/new-product-jason-leung-HM6TMmevbZQ-unsplash.html"
+            title: 'Scrinity',
+            text: "Пришел новый отзыв",
           }),
         );
       } catch(err) {
