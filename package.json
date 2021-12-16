@@ -49,6 +49,7 @@
     "@types/passport-jwt": "^3.0.6",
     "@types/passport-local": "^1.0.34",
     "@types/randomstring": "^1.1.7",
+    "@types/web-push": "^3.3.2",
     "aws-sdk": "^2.1018.0",
     "bcrypt": "^5.0.1",
     "class-transformer": "0.4.0",
@@ -73,6 +74,7 @@
     "ts-loader": "9.2.6",
     "ts-node": "10.4.0",
     "typeorm": "^0.2.38",
+    "web-push": "^3.4.5",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -129,7 +131,8 @@
       "^@libs/files(|/.*)$": "<rootDir>/libs/files/src/$1",
       "^@libs/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1",
       "^@libs/chats(|/.*)$": "<rootDir>/libs/chats/src/$1",
-      "^@libs/mail-service(|/.*)$": "<rootDir>/libs/mail-service/src/$1"
+      "^@libs/mail-service(|/.*)$": "<rootDir>/libs/mail-service/src/$1",
+      "^@libs/web-push(|/.*)$": "<rootDir>/libs/web-push/src/$1"
     }
   }
 }

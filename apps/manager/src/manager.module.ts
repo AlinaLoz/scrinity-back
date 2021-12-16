@@ -6,6 +6,7 @@ import { ExceptionModule } from '@libs/exceptions';
 import DB_CONFIG from '../../../ormconfig';
 import { ManagerModule as ManagerModuleSubModule } from './manager';
 import { ChatModule } from './сhats/chat.module';
+import { WebPushModule } from './web-push/web-push.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ChatModule } from './сhats/chat.module';
     ChatModule,
     // InstitutionModule,
     // ChatModule,
+    WebPushModule,
     TypeOrmModule.forRoot({
       ...DB_CONFIG,
       migrationsRun: true,

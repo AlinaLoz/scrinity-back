@@ -30,5 +30,9 @@
     "USERNAME": "scrinity.by@gmail.com",
     "PASSWORD": "scrinity2021"
   },
-  "CLIENT_URL": "https://dev.lozita.click/chat/"
+  "CLIENT_URL": "https://dev.lozita.click/chat/",
+  "WEB_PUSH": {
+    "PRIVATE": "dDwVO-x-FYbxvtEWSQiWxGdTyh_zx_fpOaCsgPlE1Jw",
+    "PUBLIC": "BNejeIQUnJmcU6vcFEypqasOTfk102bAoifvpPKVRvHi3IhG96z3tO1wxAHkcquTvirFBZgipE5nDGraPOvQdjA"
+  }
 }
