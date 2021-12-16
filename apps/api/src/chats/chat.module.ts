@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MessageFile, Institution, Manager, Message, ChatCriterion, User } from '@libs/entities';
 import { FilesModule } from '@libs/files/files.module';
 import { ChatRepository, LibChatModule } from '@libs/chats';
+import { LibWebPushModule } from '@libs/web-push';
 // import { MailServiceModule } from '@libs/mail-service';
 
 import { ChatsController } from './controllers/chats.controller';
@@ -14,6 +15,7 @@ import { ChatsService } from './services/chats.service';
   providers: [ChatsService],
   imports: [
     // MailServiceModule,
+    LibWebPushModule,
     FilesModule,
     LibChatModule,
     TypeOrmModule.forFeature([

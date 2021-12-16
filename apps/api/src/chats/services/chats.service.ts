@@ -11,6 +11,7 @@ import { ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
 import { LibChatService, ChatRepository } from '@libs/chats';
 
 import { SendFeedbackBodyDTO } from '../dtos/chats.controller.dtos';
+import { WebPushService } from '@libs/web-push';
 
 @Injectable()
 export class ChatsService extends LibChatService {
@@ -22,6 +23,7 @@ export class ChatsService extends LibChatService {
     @InjectRepository(Manager) private readonly gmanagerRepository: Repository<Manager>,
     @InjectRepository(Message) private readonly gmessageRepository: Repository<Message>,
     // private readonly mailService: MailService,
+    private readonly webPushService: WebPushService,
     private connection: Connection,
   ) {
     super(chatsRepository, guserRepository, gmanagerRepository, gmessageRepository);
@@ -56,6 +58,7 @@ export class ChatsService extends LibChatService {
         criterionKey,
       })));
     });
+    await this.webPushService.sendNotification(data.institutionId);
     // todo create notification service
     // todo сделать ввод почты
     // await this.mailService.sendMail(MAIL_TEMPLATE.CHAT_LINK, { link, email: 'scrinity.by@gmail.com' });

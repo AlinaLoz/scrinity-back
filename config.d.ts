@@ -31,4 +31,9 @@ declare module 'config' {
     PASSWORD: string;
   }
   export const CLIENT_URL: string;
+  
+  export const WEB_PUSH: {
+    PRIVATE: string;
+    PUBLIC: string;
+  }
 }

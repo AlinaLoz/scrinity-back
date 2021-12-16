@@ -81,6 +81,12 @@
       ],
       "@libs/mail-service/*": [
         "libs/mail-service/src/*"
+      ],
+      "@libs/web-push": [
+        "libs/web-push/src"
+      ],
+      "@libs/web-push/*": [
+        "libs/web-push/src/*"
       ]
     }
   },

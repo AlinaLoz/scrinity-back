@@ -115,6 +115,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/mail-service/tsconfig.lib.json"
       }
+    },
+    "web-push": {
+      "type": "library",
+      "root": "libs/web-push",
+      "entryFile": "index",
+      "sourceRoot": "libs/web-push/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/web-push/tsconfig.lib.json"
+      }
     }
   }
 }
