@@ -1,16 +1,21 @@
-import { Body, Controller, Inject, Post, Request, UseGuards } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Inject, Post, Request, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard, TJwtUser } from '@libs/auth';
 import { RESPONSE_STATUS, ResponsesDTO } from '@libs/dtos';
 
 import { LibChatService } from '../services/chat.service';
-import { SendMessageBodyDTO } from '../dtos/chat.controller.dtos';
+import { SendMessageBodyDTO, UploadFeedbackImagesResponseDTO } from '../dtos/chat.controller.dtos';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { FEEDBACK_IMAGES_COUNT } from '@libs/constants';
+import { ApiMultiFile, FilesService, imageFileFilter } from '@libs/files';
+import { TMulterFile } from '@libs/files/types/files.types';
 
 @Controller('chats')
 @ApiTags('chats')
 export class ChatController {
   @Inject() private readonly chatService: LibChatService;
+  @Inject() private readonly filesService: FilesService;
 
   @Post('/message')
   @UseGuards(JwtAuthGuard)
@@ -20,5 +25,19 @@ export class ChatController {
   ): Promise<ResponsesDTO> {
     await this.chatService.sendMessage({ ...body, user });
     return new ResponsesDTO({ status: RESPONSE_STATUS.OK });
+  }
+
+  @UseInterceptors(FilesInterceptor('images', FEEDBACK_IMAGES_COUNT, {
+    fileFilter: imageFileFilter,
+  }))
+  @Post('images')
+  @ApiMultiFile('images')
+  @ApiConsumes('multipart/form-data')
+  @ApiResponse({ type: UploadFeedbackImagesResponseDTO })
+  async uploadFeedbackImages(
+    @UploadedFiles() files: TMulterFile[],
+  ): Promise<UploadFeedbackImagesResponseDTO> {
+    const imagesKeys = await this.filesService.uploadImages(files);
+    return new UploadFeedbackImagesResponseDTO({ imagesKeys });
   }
 }

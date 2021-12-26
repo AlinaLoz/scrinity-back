@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 
 import { TJwtUser } from '@libs/auth';
 import { Chat, Manager, Message, User } from '@libs/entities';
@@ -14,21 +14,31 @@ import { ChatRepository } from '../repositories/';
 export class LibChatService {
 
   constructor(
+    private connection: Connection,
     private readonly libChatsRepository: ChatRepository,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Manager) private readonly managerRepository: Repository<Manager>,
     @InjectRepository(Message) private readonly messageRepository: Repository<Message>,
   ) {
   }
-  async sendMessage({ message, chatId, user }: SendMessageBodyDTO & { user: TJwtUser }): Promise<void> {
-    const chat = await this.findChatOrFail({ id: chatId });
-    const sender = await this.getSenderOrFail(user);
+  async sendMessage(data: SendMessageBodyDTO & { user: TJwtUser }): Promise<void> {
+    const chat = await this.findChatOrFail({ id: data.chatId });
+    const sender = await this.getSenderOrFail(data.user);
     await this.validateUserBindingToChatOrFail(chat, sender);
-
-    await this.messageRepository.save({
-      chatId,
-      senderId: ('institutionId' in sender) ? sender.userId : sender.id,
-      content: message,
+    await this.connection.transaction(async (manager) => {
+      const files = await manager.save(File, data.filesKeys.map((filename) => new File({
+        filename,
+      })));
+      const message = await this.messageRepository.save({
+        chatId: data.chatId,
+        senderId: ('institutionId' in sender) ? sender.userId : sender.id,
+        content: data.message,
+      });
+      await manager.save(MessageFile, files.map((file, index) => new MessageFile({
+        fileId: file.id,
+        messageId: message.id,
+        index,
+      })));
     });
   }
 
@@ -43,7 +53,10 @@ export class LibChatService {
       content: item.content,
       createdAt: item.createdAt,
       sender: item.sender,
-      files: item.files.map((file) => ({ filename: file.file.filename })),
+      files: item.files.map((file) => ({
+        filename: file.file.filename,
+        index: file.index,
+      })),
     }));
   }
 
