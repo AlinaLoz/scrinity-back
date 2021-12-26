@@ -36,7 +36,7 @@ export class WebPushService implements OnModuleInit {
           item.subscription,
           JSON.stringify({
             title: 'Scrinity',
-            text: "Пришел новый отзыв",
+            text: 'Пришел новый отзыв',
           }),
         );
       } catch(err) {
