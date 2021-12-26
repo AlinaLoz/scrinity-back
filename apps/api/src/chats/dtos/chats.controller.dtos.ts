@@ -28,12 +28,6 @@ export class SendFeedbackBodyDTO {
 
 export class SendFeedbackResponseDTO extends ResponsesDTO {}
 
-export class UploadFeedbackImagesResponseDTO
-  extends ConstructableDTO<UploadFeedbackImagesResponseDTO> {
-  @ApiProperty()
-  @Expose() imagesKeys: string[];
-}
-
 export class GetInfoByLinkQueryDTO {
   @ApiPropertyString({ minLength: LINK_HASH_LENGTH, maxLength: LINK_HASH_LENGTH })
   link: string;

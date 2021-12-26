@@ -21,11 +21,11 @@ import { ApiMultiFile, FilesService, imageFileFilter } from '@libs/files';
 
 import {
   GetChatsQueryDTO, GetInfoByLinkQueryDTO,
-  GetInfoByLinkResponseDTO, SendFeedbackBodyDTO, SendFeedbackResponseDTO, UploadFeedbackImagesResponseDTO,
+  GetInfoByLinkResponseDTO, SendFeedbackBodyDTO, SendFeedbackResponseDTO,
 } from '../dtos/chats.controller.dtos';
 import { ChatsService } from '../services/chats.service';
 import { TMulterFile } from '@libs/files/types/files.types';
-import { GetChatParamDTO, GetChatResponseDTO, GetChatsResponseDTO } from '@libs/chats';
+import { GetChatParamDTO, GetChatResponseDTO, GetChatsResponseDTO, UploadFeedbackImagesResponseDTO } from '@libs/chats';
 
 @Controller('chats')
 @ApiTags('chats')

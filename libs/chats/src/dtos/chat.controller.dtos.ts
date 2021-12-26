@@ -3,13 +3,21 @@ import { Expose, Type } from 'class-transformer';
 
 import { ConstructableDTO, FileDTO } from '@libs/dtos';
 import { ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
+import { IsArray, IsString, ValidateIf } from 'class-validator';
+import { ERRORS } from '@libs/constants';
 
 export class SendMessageBodyDTO {
   @ApiPropertyNumber()
   chatId: number;
 
   @ApiPropertyString({ minLength: 1, maxLength: 1000 })
+  @ValidateIf(data => !data.filesKeys.length)
   message: string;
+
+  @ApiProperty({ isArray: true, type: String })
+  @IsArray({ message: ERRORS.INVALID_ARRAY })
+  @IsString({ message: ERRORS.INVALID_STRING, each: true })
+  filesKeys: string[] = [];
 }
 
 export class ChatDTO {
@@ -77,5 +85,11 @@ export class GetChatResponseDTO extends ConstructableDTO<GetChatResponseDTO> {
   @ApiProperty({ type: ChatMessageDTO, isArray: true })
   @Type(() => ChatMessageDTO)
   @Expose() items: ChatMessageDTO[];
+}
+
+export class UploadFeedbackImagesResponseDTO
+  extends ConstructableDTO<UploadFeedbackImagesResponseDTO> {
+  @ApiProperty()
+  @Expose() imagesKeys: string[];
 }
 
