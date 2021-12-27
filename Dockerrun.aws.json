@@ -115,7 +115,7 @@
     },
     {
       "essential": true,
-      "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-client",
+      "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-client:latest",
       "name": "client",
       "memory": 200,
       "portMappings": [
@@ -127,7 +127,7 @@
     },
     {
       "essential": true,
-      "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-admin",
+      "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-admin:latest",
       "name": "admin",
       "memory": 200,
       "portMappings": [
