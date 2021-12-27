@@ -26,7 +26,7 @@ export class ChatsService extends LibChatService {
     private readonly webPushService: WebPushService,
     private connection: Connection,
   ) {
-    super(chatsRepository, guserRepository, gmanagerRepository, gmessageRepository);
+    super(connection, chatsRepository, guserRepository, gmanagerRepository, gmessageRepository);
   }
 
   async sendFeedback(data: SendFeedbackBodyDTO & { userId?: number }): Promise<boolean> {
