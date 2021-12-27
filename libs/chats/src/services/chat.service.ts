@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 
 import { TJwtUser } from '@libs/auth';
-import { Chat, Manager, Message, User } from '@libs/entities';
+import { Chat, File, Manager, Message, MessageFile, User } from '@libs/entities';
 import { ERRORS, ROLE } from '@libs/constants';
 import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
 
