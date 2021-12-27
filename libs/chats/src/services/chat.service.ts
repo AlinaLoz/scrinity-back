@@ -14,7 +14,7 @@ import { ChatRepository } from '../repositories/';
 export class LibChatService {
 
   constructor(
-    private connection: Connection,
+    private libConnection: Connection,
     private readonly libChatsRepository: ChatRepository,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Manager) private readonly managerRepository: Repository<Manager>,
@@ -25,7 +25,7 @@ export class LibChatService {
     const chat = await this.findChatOrFail({ id: data.chatId });
     const sender = await this.getSenderOrFail(data.user);
     await this.validateUserBindingToChatOrFail(chat, sender);
-    await this.connection.transaction(async (manager) => {
+    await this.libConnection.transaction(async (manager) => {
       const files = await manager.save(File, data.filesKeys.map((filename) => new File({
         filename,
       })));
