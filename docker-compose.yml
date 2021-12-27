@@ -49,7 +49,7 @@ services:
   admin:
     image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-admin
     ports:
-      - "27183:3003"
+      - "27183:27183"
 
 volumes:
   postgres_data:
