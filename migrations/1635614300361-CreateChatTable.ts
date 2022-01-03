@@ -49,7 +49,7 @@ export class CreateChatTable1635614300361 implements MigrationInterface {
             CREATE TABLE message_file
             (
                 "messageId" integer NOT NULL,
-                "fileId"    varchar NOT NULL,
+                "fileId"    integer NOT NULL,
                 index integer DEFAULT 0,
                 PRIMARY KEY ("messageId", "fileId"),
                 CONSTRAINT "fkMessageId"

@@ -7,6 +7,7 @@ import DB_CONFIG from '../../../ormconfig';
 import { ManagerModule as ManagerModuleSubModule } from './manager';
 import { ChatModule } from './сhats/chat.module';
 import { WebPushModule } from './web-push/web-push.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { WebPushModule } from './web-push/web-push.module';
     AuthModule.register('manager'),
     ManagerModuleSubModule,
     ChatModule,
+    AnalyticsModule,
     // InstitutionModule,
     // ChatModule,
     WebPushModule,
