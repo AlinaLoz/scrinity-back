@@ -5,10 +5,10 @@ import { ApiPropertyDate, ApiPropertyEnum } from '@libs/decorators';
 import { ConstructableDTO } from '@libs/dtos';
 
 export enum ANALYTIC_STEP {
-  DAY,
-  WEEK,
-  MONTH,
-  YEAR
+  DAY = 'DAY',
+  WEEK = 'WEEK',
+  MONTH = 'MONTH',
+  YEAR = 'YEAR',
 }
 
 export class GetFeedbackAnalyticsQueryDTO {
@@ -22,7 +22,7 @@ export class GetFeedbackAnalyticsQueryDTO {
   step: ANALYTIC_STEP;
 }
 
-class FeedbackAnalyticsData extends ConstructableDTO<FeedbackAnalyticsData> {
+export class FeedbackAnalyticsData extends ConstructableDTO<FeedbackAnalyticsData> {
   @ApiProperty()
   @Expose() date: string;
 
@@ -36,5 +36,5 @@ export class GetFeedbackAnalyticsResponseDTO extends ConstructableDTO<GetFeedbac
 
   @ApiProperty({ type: FeedbackAnalyticsData })
   @Type(() => FeedbackAnalyticsData)
-  @Expose() data: FeedbackAnalyticsData;
+  @Expose() data: FeedbackAnalyticsData[];
 }
