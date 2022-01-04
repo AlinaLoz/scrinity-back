@@ -2,7 +2,12 @@ import { Controller, Get, Inject, Query, Request, UseGuards } from '@nestjs/comm
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard, TJwtManager } from '@libs/auth';
-import { GetFeedbackAnalyticsQueryDTO, GetFeedbackAnalyticsResponseDTO } from '../dtos/analytics.dtos';
+import {
+  GetCriterionsAnaliticsQueryDTO,
+  GetCriterionsAnaliticsResponseDTO,
+  GetFeedbackAnalyticsQueryDTO,
+  GetFeedbackAnalyticsResponseDTO,
+} from '../dtos/analytics.dtos';
 import { AnalyticsService } from '../services/analytics.service';
 
 @Controller('analytics')
@@ -25,5 +30,17 @@ export class AnalyticsController {
     return result.map((item) => new GetFeedbackAnalyticsResponseDTO(item));
   }
 
-  // getCretirionsAnalitics()
+  @Get('criterions')
+  @ApiResponse({ type: GetCriterionsAnaliticsResponseDTO })
+  async getCriterionsAnalitics(
+    @Request() req: { user?: TJwtManager },
+      @Query() query: GetCriterionsAnaliticsQueryDTO,
+  ): Promise<GetCriterionsAnaliticsResponseDTO[]> {
+    const institutionId = req.user!.institutionId;
+    const result = await this.analyticsService.getCriterionsAnalitics({
+      ...query,
+      institutionId,
+    });
+    return result.map((item) => new GetCriterionsAnaliticsResponseDTO(item));
+  }
 }
