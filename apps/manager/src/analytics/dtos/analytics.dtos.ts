@@ -50,7 +50,7 @@ export class GetFeedbackAnalyticsResponseDTO extends ConstructableDTO<GetFeedbac
 export class CriterionsAnalyticsData {
   @ApiProperty()
   @Expose() criterionKey: string;
-  
+
   @ApiProperty()
   @Expose() value: number;
 }
@@ -58,7 +58,7 @@ export class CriterionsAnalyticsData {
 export class GetCriterionsAnaliticsResponseDTO extends ConstructableDTO<GetCriterionsAnaliticsResponseDTO> {
   @ApiProperty()
   @Expose() isGood: boolean;
-  
+
   @ApiProperty({ type: CriterionsAnalyticsData })
   @Type(() => CriterionsAnalyticsData)
   @Expose() data: CriterionsAnalyticsData[];

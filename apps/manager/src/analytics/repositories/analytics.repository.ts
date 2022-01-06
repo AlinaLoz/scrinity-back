@@ -36,7 +36,7 @@ export class AnalyticsRepository extends Repository<Chat> {
         SELECT * FROM chat c2
         WHERE "institutionId" = $1 AND "createdAt" >= $2 AND "createdAt" <= $3
       )
-      SELECT count(*) as value, chat_criterion."criterionKey", criterion."isGood"
+      SELECT count(*)::int as value, chat_criterion."criterionKey", criterion."isGood"
       FROM chat_criterion
       INNER JOIN filtered ON filtered.id = chat_criterion."chatId"
       INNER JOIN criterion ON criterion."key" = chat_criterion."criterionKey"
