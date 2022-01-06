@@ -4,7 +4,13 @@ import _keyBy from 'lodash.keyby';
 import _values from 'lodash.values';
 import { addDays, addMonths, addWeeks, addYears, format, compareAsc } from 'date-fns';
 
-import { ANALYTIC_STEP, FeedbackAnalyticsData, GetFeedbackAnalyticsQueryDTO, GetFeedbackAnalyticsResponseDTO } from '../dtos/analytics.dtos';
+import {
+  ANALYTIC_STEP,
+  FeedbackAnalyticsData,
+  GetCriterionsAnaliticsQueryDTO, GetCriterionsAnaliticsResponseDTO,
+  GetFeedbackAnalyticsQueryDTO,
+  GetFeedbackAnalyticsResponseDTO,
+} from '../dtos/analytics.dtos';
 import { AnalyticsRepository } from '../repositories/analytics.repository';
 
 @Injectable()
@@ -19,6 +25,18 @@ export class AnalyticsService {
       item.data = _values( _merge(_keyBy(nullifiedList, 'date'), _keyBy(item.data, 'date')));
       return item;
     });
+  }
+
+  async getCriterionsAnalitics(params: GetCriterionsAnaliticsQueryDTO  & { institutionId: number }): Promise<GetCriterionsAnaliticsResponseDTO[]> {
+    const dataFromDB = await this.analyticsRepository.getCriterionsAnalitics(params);
+    const result: GetCriterionsAnaliticsResponseDTO[] = [
+      { isGood: true, data: [] },
+      { isGood: false, data: [] },
+    ];
+    dataFromDB.forEach((item) => {
+      result[item.isGood ? 0 : 1].data.push(item);
+    });
+    return result;
   }
 
   private static getDates(step: ANALYTIC_STEP, startDate: string, stopDate: string): string[] {

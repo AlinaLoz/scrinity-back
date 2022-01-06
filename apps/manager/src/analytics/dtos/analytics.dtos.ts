@@ -22,6 +22,14 @@ export class GetFeedbackAnalyticsQueryDTO {
   step: ANALYTIC_STEP;
 }
 
+export class GetCriterionsAnaliticsQueryDTO {
+  @ApiPropertyDate()
+  fromDate: string;
+
+  @ApiPropertyDate()
+  toDate: string;
+}
+
 export class FeedbackAnalyticsData extends ConstructableDTO<FeedbackAnalyticsData> {
   @ApiProperty()
   @Expose() date: string;
@@ -37,4 +45,21 @@ export class GetFeedbackAnalyticsResponseDTO extends ConstructableDTO<GetFeedbac
   @ApiProperty({ type: FeedbackAnalyticsData })
   @Type(() => FeedbackAnalyticsData)
   @Expose() data: FeedbackAnalyticsData[];
+}
+
+export class CriterionsAnalyticsData {
+  @ApiProperty()
+  @Expose() criterionKey: string;
+
+  @ApiProperty()
+  @Expose() value: number;
+}
+
+export class GetCriterionsAnaliticsResponseDTO extends ConstructableDTO<GetCriterionsAnaliticsResponseDTO> {
+  @ApiProperty()
+  @Expose() isGood: boolean;
+
+  @ApiProperty({ type: CriterionsAnalyticsData })
+  @Type(() => CriterionsAnalyticsData)
+  @Expose() data: CriterionsAnalyticsData[];
 }

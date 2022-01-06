@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from 'typeorm';
 
 import { Chat } from '@libs/entities/chat.entity';
-import { GetFeedbackAnalyticsQueryDTO, GetFeedbackAnalyticsResponseDTO } from '../dtos/analytics.dtos';
+import { GetCriterionsAnaliticsQueryDTO, GetFeedbackAnalyticsQueryDTO, GetFeedbackAnalyticsResponseDTO } from '../dtos/analytics.dtos';
 
 @EntityRepository(Chat)
 export class AnalyticsRepository extends Repository<Chat> {
@@ -27,18 +27,21 @@ export class AnalyticsRepository extends Repository<Chat> {
     `, [institutionId, fromDate, toDate, step]);
   }
 
-  getCretirionsAnalitics(): Promise<any> {
+  getCriterionsAnalitics({
+    institutionId, fromDate, toDate,
+  }: GetCriterionsAnaliticsQueryDTO & { institutionId: number }
+  ): Promise<{ criterionKey: string, value: number, isGood: boolean }[]> {
     return this.query(`
       WITH filtered AS (
         SELECT * FROM chat c2
-        WHERE "institutionId" = $institutionId AND "createdAt" >= $from AND "createdAt" <= $to
+        WHERE "institutionId" = $1 AND "createdAt" >= $2 AND "createdAt" <= $3
       )
-      SELECT date_trunc($step, "createdAt") AS "dateGroup", count(*), chat_criterion."criterionKey"
+      SELECT count(*)::int as value, chat_criterion."criterionKey", criterion."isGood"
       FROM chat_criterion
-      INNER JOIN filtered
-      ON filtered.id = chat_criterion."chatId"
-      GROUP BY "dateGroup", chat_criterion."criterionKey";
-    `, []);
+      INNER JOIN filtered ON filtered.id = chat_criterion."chatId"
+      INNER JOIN criterion ON criterion."key" = chat_criterion."criterionKey"
+      GROUP BY chat_criterion."criterionKey", criterion."isGood";
+    `, [institutionId, fromDate, toDate]);
   }
 
 }
