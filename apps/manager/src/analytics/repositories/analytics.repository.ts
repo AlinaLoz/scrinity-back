@@ -40,7 +40,8 @@ export class AnalyticsRepository extends Repository<Chat> {
       FROM chat_criterion
       INNER JOIN filtered ON filtered.id = chat_criterion."chatId"
       INNER JOIN criterion ON criterion."key" = chat_criterion."criterionKey"
-      GROUP BY chat_criterion."criterionKey", criterion."isGood";
+      GROUP BY chat_criterion."criterionKey", criterion."isGood"
+      ORDER BY "value" DESC;
     `, [institutionId, fromDate, toDate]);
   }
 
