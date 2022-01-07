@@ -47,9 +47,12 @@ export class LibChatService {
     institutionId?: number,
     id?: number,
     userId?: number,
-  }, userId: number): Promise<ChatMessageDTO[]> {
+  }, userId?: number): Promise<ChatMessageDTO[]> {
     const chat = await this.getChatOrFail(where);
-    await this.readAllMessages(chat.id, userId);
+    const preparedUserId = userId || where.userId;
+    if (preparedUserId) {
+      await this.readAllMessages(chat.id, preparedUserId);
+    }
     return chat.messages.map((item) => ({
       id: item.id,
       content: item.content,
