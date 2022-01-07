@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Connection, Repository } from 'typeorm';
+import { Connection, Not, In, Repository } from 'typeorm';
 
 import { TJwtUser } from '@libs/auth';
-import { Chat, File, Manager, Message, MessageFile, User } from '@libs/entities';
+import { Chat, File, Manager, MessageFile, User } from '@libs/entities';
 import { ERRORS, ROLE } from '@libs/constants';
 import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
 
 import { ChatMessageDTO, GetChatsResponseDTO, SendMessageBodyDTO } from '../dtos';
-import { ChatRepository } from '../repositories/';
+import { ChatRepository, MessageRepository } from '../repositories/';
 
 @Injectable()
 export class LibChatService {
@@ -18,7 +18,7 @@ export class LibChatService {
     private readonly libChatsRepository: ChatRepository,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Manager) private readonly managerRepository: Repository<Manager>,
-    @InjectRepository(Message) private readonly messageRepository: Repository<Message>,
+    private readonly messageRepository: MessageRepository,
   ) {
   }
   async sendMessage(data: SendMessageBodyDTO & { user: TJwtUser }): Promise<void> {
@@ -33,6 +33,7 @@ export class LibChatService {
         chatId: data.chatId,
         senderId: ('institutionId' in sender) ? sender.userId : sender.id,
         content: data.message,
+        read: false,
       });
       await manager.save(MessageFile, files.map((file, index) => new MessageFile({
         fileId: file.id,
@@ -46,8 +47,9 @@ export class LibChatService {
     institutionId?: number,
     id?: number,
     userId?: number,
-  }): Promise<ChatMessageDTO[]> {
+  }, userId: number): Promise<ChatMessageDTO[]> {
     const chat = await this.getChatOrFail(where);
+    await this.readAllMessages(chat.id, userId);
     return chat.messages.map((item) => ({
       id: item.id,
       content: item.content,
@@ -71,6 +73,7 @@ export class LibChatService {
     return {
       total,
       items: chats.map((item) => {
+        const numberOfUnread = item.messages.filter(({ read }) => !read).length;
         const lastMessage = item.messages
           .sort(({ id: idA }, { id: idB }) => (idA > idB ? -1 : 1))[0];
 
@@ -81,6 +84,7 @@ export class LibChatService {
           criterion: item.criterions?.map(({ criterionKey }) => criterionKey),
           message: lastMessage.content,
           createdAt: lastMessage.createdAt,
+          numberOfUnread,
         });
       }),
     };
@@ -109,6 +113,10 @@ export class LibChatService {
       }]);
     }
     return chat;
+  }
+
+  private async readAllMessages(chatId: number, userId: number): Promise<void> {
+    await this.messageRepository.update({ chatId, senderId: Not(In([userId])) }, { read: true });
   }
 
   private async getSenderOrFail(user: TJwtUser): Promise<User | Manager> {

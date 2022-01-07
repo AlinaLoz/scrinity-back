@@ -29,4 +29,7 @@ export class Message extends BaseEntity<Message> {
 
   @OneToMany(() => MessageFile, (item) => item.message)
   files: MessageFile[];
+
+  @Column({ type: 'boolean' })
+  read: boolean;
 }

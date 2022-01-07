@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Manager, Message, User } from '@libs/entities';
+import { Manager, User } from '@libs/entities';
 import { LibChatService } from './services/chat.service';
 import { ChatController } from './controllers/chat.controller';
-import { ChatRepository } from './repositories';
+import { ChatRepository, MessageRepository } from './repositories';
 import { FilesModule } from '@libs/files/files.module';
 
 @Module({
@@ -12,9 +12,9 @@ import { FilesModule } from '@libs/files/files.module';
     FilesModule,
     TypeOrmModule.forFeature([
       User,
-      Message,
       Manager,
       ChatRepository,
+      MessageRepository,
     ]),
   ],
   controllers: [ChatController],

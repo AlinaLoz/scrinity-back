@@ -9,3 +9,4 @@ export * from './1637440680611-ManagerTable';
 export * from './1638018377662-AddUserIdToManager';
 export * from './1638905623699-AddLinkToChat';
 export * from './1639684405492-CreatePushSubscriptions';
+export * from './1641556074090-AddColumnReadToMessage';
