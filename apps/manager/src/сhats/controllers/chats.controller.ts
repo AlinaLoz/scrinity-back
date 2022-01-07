@@ -35,7 +35,7 @@ export class ChatsController {
       items: await this.chatsService.getChat({
         id: param.id,
         institutionId: user.institutionId,
-      }),
+      }, user.userId),
     });
   }
 }

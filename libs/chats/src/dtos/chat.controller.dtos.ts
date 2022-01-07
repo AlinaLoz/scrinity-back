@@ -38,6 +38,9 @@ export class ChatDTO {
 
   @ApiProperty()
   @Expose() createdAt: string;
+
+  @ApiProperty()
+  @Expose() numberOfUnread: number;
 }
 
 class SenderDTO {
