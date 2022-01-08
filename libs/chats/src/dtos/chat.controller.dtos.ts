@@ -41,6 +41,10 @@ export class ChatDTO {
 
   @ApiProperty()
   @Expose() numberOfUnread: number;
+
+  @ApiProperty({ type: FileDTO, isArray: true })
+  @Type(() => FileDTO)
+  @Expose() files: FileDTO[];
 }
 
 class SenderDTO {

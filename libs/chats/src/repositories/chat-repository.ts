@@ -17,7 +17,11 @@ export class ChatRepository extends Repository<Chat> {
           query.isAnonymously ? { userId: IsNull() } : { userId: Not(IsNull()) }
         ),
       },
-      relations: ['user', 'criterions', 'messages'],
+      relations: [
+        'user', 'criterions', 'messages',
+        'messages.files',
+        'messages.files.file',
+      ],
       ...(query.skip && { skip: query.skip }),
       ...(query.limit && { take: query.limit }),
       order: {
