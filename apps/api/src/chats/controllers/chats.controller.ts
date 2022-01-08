@@ -80,7 +80,7 @@ export class ChatsController {
     return new GetChatsResponseDTO(await this.chatsService.getChats(query.institutionId, {
       ...query,
       userId: user.userId,
-    }));
+    }, user.userId));
   }
 
   @Get('/:id')
