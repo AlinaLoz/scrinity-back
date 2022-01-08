@@ -22,7 +22,7 @@ export class ChatsController {
     @Request() { user }: { user: TJwtManager },
       @Query() query: GetChatsQueryDTO,
   ): Promise<GetChatsResponseDTO> {
-    return new GetChatsResponseDTO(await this.chatsService.getChats(user.institutionId, query));
+    return new GetChatsResponseDTO(await this.chatsService.getChats(user.institutionId, query, user.userId));
   }
 
   @Get('/:id')

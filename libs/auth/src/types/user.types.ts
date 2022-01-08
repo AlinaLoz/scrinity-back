@@ -7,6 +7,7 @@ export type TJwtUser = {
 
 export type TJwtManager = TJwtUser & {
   institutionId: number;
+  managerId: number;
 };
 
 export type TJwtPayload = {

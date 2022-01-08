@@ -53,6 +53,8 @@ export class LibChatService {
     if (preparedUserId) {
       await this.readAllMessages(chat.id, preparedUserId);
     }
+    chat.messages = chat.messages
+      .sort(({ id: idA }, { id: idB }) => (idA < idB ? -1 : 1));
     return chat.messages.map((item) => ({
       id: item.id,
       content: item.content,
@@ -70,13 +72,15 @@ export class LibChatService {
     userId?: number,
     skip?: number,
     limit?: number,
-  }): Promise<GetChatsResponseDTO> {
+  }, userId: number): Promise<GetChatsResponseDTO> {
     const [chats, total] = await this.libChatsRepository.getChats(institutionId, query);
 
     return {
       total,
       items: chats.map((item) => {
-        const numberOfUnread = item.messages.filter(({ read }) => !read).length;
+        const numberOfUnread = item.messages.filter(({ read, senderId }) => {
+          return userId !== senderId && !read;
+        }).length;
         const lastMessage = item.messages
           .sort(({ id: idA }, { id: idB }) => (idA > idB ? -1 : 1))[0];
 
@@ -88,6 +92,10 @@ export class LibChatService {
           message: lastMessage.content,
           createdAt: lastMessage.createdAt,
           numberOfUnread,
+          files: lastMessage.files.map((fileMessage) => ({
+            ...fileMessage,
+            ...fileMessage.file,
+          })),
         });
       }),
     };
@@ -129,9 +137,9 @@ export class LibChatService {
     return await this.findUserOrFail(user.userId);
   }
 
-  private async findManagerOrFail(id: number): Promise<Manager> {
+  private async findManagerOrFail(userId: number): Promise<Manager> {
     const manager = await this.managerRepository.findOne({
-      where: { id },
+      where: { userId },
       relations: ['user'],
     });
     if (!manager) {

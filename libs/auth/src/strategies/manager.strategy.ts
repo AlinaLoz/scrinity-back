@@ -37,6 +37,6 @@ export class ManagerStrategy extends PassportStrategy(Strategy) {
         field: '', message: ERRORS.EXPIRED_SUBSCRIPTION,
       }]);
     }
-    return { userId: payload.subId, institutionId: manager[0].institutionId, role: ROLE.MANAGER };
+    return { managerId: payload.subId, userId: manager[0].userId, institutionId: manager[0].institutionId, role: ROLE.MANAGER };
   }
 }
