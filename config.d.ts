@@ -22,18 +22,24 @@ declare module 'config' {
     readonly ACCESS_KEY_ID: string;
     readonly SECRET_ACCESS_KEY: string;
     readonly REGION: string;
-  }
+  };
   export const SMTP: {
     HOST: string;
     PORT: number;
     SENDER: string;
     USERNAME: string;
     PASSWORD: string;
-  }
+  };
   export const CLIENT_URL: string;
-  
+
   export const WEB_PUSH: {
     PRIVATE: string;
     PUBLIC: string;
+  };
+  enum LINK_CHANNEL {
+    SMS = 'sms',
+    EMAIL = 'email',
   }
+
+  export const CHAT_LINK_CHANNEL: LINK_CHANNEL;
 }

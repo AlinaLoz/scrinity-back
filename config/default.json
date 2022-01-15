@@ -28,11 +28,12 @@
     "PORT": 587,
     "SENDER": "scrinity",
     "USERNAME": "scrinity.by@gmail.com",
-    "PASSWORD": "scrinity2021"
+    "PASSWORD": "scrinity2022"
   },
   "CLIENT_URL": "https://dev.lozita.click/chat/",
   "WEB_PUSH": {
     "PRIVATE": "dDwVO-x-FYbxvtEWSQiWxGdTyh_zx_fpOaCsgPlE1Jw",
     "PUBLIC": "BNejeIQUnJmcU6vcFEypqasOTfk102bAoifvpPKVRvHi3IhG96z3tO1wxAHkcquTvirFBZgipE5nDGraPOvQdjA"
-  }
+  },
+  "CHAT_LINK_CHANNEL": "email"
 }

@@ -28,7 +28,7 @@ export class ChatDTO {
   @Expose() message: string;
 
   @ApiProperty({ nullable: true })
-  @Expose() phoneNumber: string | number;
+  @Expose() sender: string | number;
 
   @ApiProperty()
   @Expose() isGood: boolean;
@@ -53,6 +53,9 @@ class SenderDTO {
 
   @ApiProperty()
   @Expose() phoneNumber: string;
+
+  @ApiProperty()
+  @Expose() email: string;
 }
 
 export class ChatMessageDTO {

@@ -138,7 +138,8 @@
       "^@libs/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1",
       "^@libs/chats(|/.*)$": "<rootDir>/libs/chats/src/$1",
       "^@libs/mail-service(|/.*)$": "<rootDir>/libs/mail-service/src/$1",
-      "^@libs/web-push(|/.*)$": "<rootDir>/libs/web-push/src/$1"
+      "^@libs/web-push(|/.*)$": "<rootDir>/libs/web-push/src/$1",
+      "^@libs/config(|/.*)$": "<rootDir>/libs/config/src/$1"
     }
   }
 }

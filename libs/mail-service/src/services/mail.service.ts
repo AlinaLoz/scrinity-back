@@ -12,6 +12,12 @@ export class MailService {
 
   async sendMail<T extends MAIL_TEMPLATE>(type: T, context: MAIL_TEMPLATE_PROPS[T]): Promise<boolean> {
     try {
+      console.log({
+        to: context.email,
+        subject: MAIL_TEMPLATE_FILE[type].SUBJECT,
+        template: `./${MAIL_TEMPLATE_FILE[type].FILE_NAME}`, // `.hbs` extension is appended automatically
+        context,
+      });
       await this.mailerService.sendMail({
         to: context.email,
         subject: MAIL_TEMPLATE_FILE[type].SUBJECT,

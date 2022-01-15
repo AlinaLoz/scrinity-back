@@ -4,7 +4,7 @@ import { Expose } from 'class-transformer';
 
 import { FEEDBACK_MESSAGE_MAX_LENGTH, FEEDBACK_MESSAGE_MIN_LENGTH, ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
 import { ResponsesDTO, ConstructableDTO, PaginationDTO } from '@libs/dtos';
-import { ApiPropertyArray, ApiPropertyBoolean, ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
+import { ApiPropertyArray, ApiPropertyBoolean, ApiPropertyEmail, ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
 
 export class SendFeedbackBodyDTO {
   @ApiPropertyString({ minLength: FEEDBACK_MESSAGE_MIN_LENGTH, maxLength: FEEDBACK_MESSAGE_MAX_LENGTH })
@@ -24,6 +24,9 @@ export class SendFeedbackBodyDTO {
 
   @ApiPropertyBoolean()
   isGood: boolean;
+
+  @ApiPropertyEmail({ isOptional: true })
+  email: string;
 }
 
 export class SendFeedbackResponseDTO extends ResponsesDTO {}

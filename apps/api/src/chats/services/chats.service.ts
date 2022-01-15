@@ -7,11 +7,12 @@ import { CLIENT_URL } from 'config';
 import { Chat, ChatCriterion, File, Institution, Manager, Message, MessageFile, User } from '@libs/entities';
 import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
 import { ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
-// import { MailService, MAIL_TEMPLATE } from '@libs/mail-service';
-import { LibChatService, ChatRepository } from '@libs/chats';
+import { ChatRepository, LibChatService } from '@libs/chats';
 
 import { SendFeedbackBodyDTO } from '../dtos/chats.controller.dtos';
 import { WebPushService } from '@libs/web-push';
+import { NotificationService } from '@libs/chats/services/notification.service';
+import { CHAT_AUTH_TYPE } from '../../../../manager/src/сhats/dtos/chats.controller.dtos';
 
 @Injectable()
 export class ChatsService extends LibChatService {
@@ -22,11 +23,14 @@ export class ChatsService extends LibChatService {
     @InjectRepository(User) private readonly guserRepository: Repository<User>,
     @InjectRepository(Manager) private readonly gmanagerRepository: Repository<Manager>,
     @InjectRepository(Message) private readonly gmessageRepository: Repository<Message>,
-    // private readonly mailService: MailService,
     private readonly webPushService: WebPushService,
     private connection: Connection,
+    private readonly gnotificationService: NotificationService,
   ) {
-    super(connection, chatsRepository, guserRepository, gmanagerRepository, gmessageRepository);
+    super(
+      connection, chatsRepository, guserRepository,
+      gmanagerRepository, gmessageRepository, gnotificationService,
+    );
   }
 
   async sendFeedback(data: SendFeedbackBodyDTO & { userId?: number }): Promise<boolean> {
@@ -37,11 +41,18 @@ export class ChatsService extends LibChatService {
       const files = await manager.save(File, data.filesKeys.map((filename) => new File({
         filename,
       })));
+      const authType = typeof data.userId !== 'undefined' ? CHAT_AUTH_TYPE.byNumber :
+        data?.email ? CHAT_AUTH_TYPE.byEmail : CHAT_AUTH_TYPE.anonymously;
+
+      if (authType === CHAT_AUTH_TYPE.byEmail) {
+        data.userId = (await manager.save(User, { email: data.email })).id;
+      }
       const chat = await manager.save(Chat, new Chat({
         institutionId: institution.id,
         userId: data.userId,
         isGood: data.isGood,
         link: hash,
+        authType,
       }));
       const message = await manager.save(Message, new Message({
         chatId: chat.id,
@@ -59,9 +70,6 @@ export class ChatsService extends LibChatService {
       })));
     });
     await this.webPushService.sendNotification(data.institutionId);
-    // todo create notification service
-    // todo сделать ввод почты
-    // await this.mailService.sendMail(MAIL_TEMPLATE.CHAT_LINK, { link, email: 'scrinity.by@gmail.com' });
     return true;
   }
   async getInfoByLink(link: string): Promise<{
