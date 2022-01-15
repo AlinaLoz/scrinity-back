@@ -68,7 +68,7 @@
       "essential": true,
       "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-manager:latest",
       "name": "manager",
-      "memory": 400,
+      "memory": 200,
       "portMappings": [
         {
           "containerPort": 3002,
