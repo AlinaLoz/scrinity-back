@@ -87,6 +87,12 @@
       ],
       "@libs/web-push/*": [
         "libs/web-push/src/*"
+      ],
+      "@libs/config": [
+        "libs/config/src"
+      ],
+      "@libs/config/*": [
+        "libs/config/src/*"
       ]
     }
   },

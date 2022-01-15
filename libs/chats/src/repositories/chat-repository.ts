@@ -1,10 +1,11 @@
-import { EntityRepository, IsNull, Not, Repository } from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 import { Chat } from '@libs/entities';
+import { CHAT_AUTH_TYPE } from '../../../../apps/manager/src/сhats/dtos/chats.controller.dtos';
 
 @EntityRepository(Chat)
 export class ChatRepository extends Repository<Chat> {
   async getChats(institutionId: number, query: {
-    isAnonymously?: boolean,
+    authType?: CHAT_AUTH_TYPE,
     userId?: number,
     skip?: number,
     limit?: number,
@@ -13,9 +14,7 @@ export class ChatRepository extends Repository<Chat> {
       where: {
         institutionId,
         ...(query?.userId && { userId: query.userId }),
-        ...(typeof query.isAnonymously === 'undefined' ? query.isAnonymously :
-          query.isAnonymously ? { userId: IsNull() } : { userId: Not(IsNull()) }
-        ),
+        ...(typeof query.authType === 'undefined' ? query.authType : { authType: query.authType }),
       },
       relations: [
         'user', 'criterions', 'messages',

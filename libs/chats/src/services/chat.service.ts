@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Connection, Not, In, Repository } from 'typeorm';
+import { Connection, In, Not, Repository } from 'typeorm';
 
 import { TJwtUser } from '@libs/auth';
 import { Chat, File, Manager, MessageFile, User } from '@libs/entities';
@@ -9,6 +9,10 @@ import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
 
 import { ChatMessageDTO, GetChatsResponseDTO, SendMessageBodyDTO } from '../dtos';
 import { ChatRepository, MessageRepository } from '../repositories/';
+import { NotificationService } from '@libs/chats/services/notification.service';
+import { LINK_CHANNEL } from '@libs/dtos';
+import { CHAT_AUTH_TYPE } from '../../../../apps/manager/src/сhats/dtos/chats.controller.dtos';
+import { CLIENT_URL } from 'config';
 
 @Injectable()
 export class LibChatService {
@@ -19,12 +23,14 @@ export class LibChatService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Manager) private readonly managerRepository: Repository<Manager>,
     private readonly messageRepository: MessageRepository,
+    private readonly notificationService: NotificationService,
   ) {
   }
   async sendMessage(data: SendMessageBodyDTO & { user: TJwtUser }): Promise<void> {
     const chat = await this.findChatOrFail({ id: data.chatId });
     const sender = await this.getSenderOrFail(data.user);
     await this.validateUserBindingToChatOrFail(chat, sender);
+
     await this.libConnection.transaction(async (manager) => {
       const files = await manager.save(File, data.filesKeys.map((filename) => new File({
         filename,
@@ -41,6 +47,22 @@ export class LibChatService {
         index,
       })));
     });
+    await this.sendNotification(sender, chat);
+  }
+
+  private async sendNotification(sender: User | Manager, chat: Chat): Promise<void> {
+    if (!('institutionId' in sender)) {
+      return;
+    }
+    if (chat.messages.length !== 1) {
+      return;
+    }
+    await this.notificationService.sendNotification(
+      chat.authType === CHAT_AUTH_TYPE.byEmail ? LINK_CHANNEL.EMAIL : LINK_CHANNEL.SMS, {
+        email: chat.user.email,
+        link: `${CLIENT_URL}${chat.link}`,
+        phoneNumber: sender.user.phoneNumber,
+      });
   }
 
   async getChat(where: {
@@ -68,7 +90,7 @@ export class LibChatService {
   }
 
   async getChats(institutionId: number, query: {
-    isAnonymously?: boolean,
+    authType?: CHAT_AUTH_TYPE,
     userId?: number,
     skip?: number,
     limit?: number,
@@ -87,10 +109,10 @@ export class LibChatService {
         return ({
           id: item.id,
           isGood: item.isGood,
-          phoneNumber: item.user?.phoneNumber,
+          sender: item?.user?.email || item?.user?.phoneNumber,
           criterion: item.criterions?.map(({ criterionKey }) => criterionKey),
           message: lastMessage.content,
-          createdAt: lastMessage.createdAt,
+          createdAt: item.createdAt,
           numberOfUnread,
           files: lastMessage.files.map((fileMessage) => ({
             ...fileMessage,
@@ -163,7 +185,7 @@ export class LibChatService {
   }
 
   protected async findChatOrFail(where: { link?: string, id?: number }): Promise<Chat> {
-    const chat = await this.libChatsRepository.findOne({ where });
+    const chat = await this.libChatsRepository.findOne({ where, relations: ['messages', 'user' ] });
 
     if (!chat) {
       throw new UnprocessableEntityError([{

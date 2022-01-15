@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MailerModule } from '@nestjs-modules/mailer';
-// import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { SMTP } from 'config';
 
 import { MailService } from './services/mail.service';
@@ -23,10 +23,10 @@ console.log('SMTP', SMTP);
       defaults: {
         from: SMTP.SENDER,
       },
-      // template: {
-      //   dir: 'templates',
-      //   adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
-      // },
+      template: {
+        dir: 'templates',
+        adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
+      },
     }),
   ],
   providers: [MailService],

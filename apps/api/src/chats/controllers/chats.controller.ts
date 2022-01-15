@@ -14,7 +14,7 @@ import {
 import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
 
-import { TJwtUser, JwtAuthGuard, Public, TJwtManager } from '@libs/auth';
+import { TJwtUser, JwtAuthGuard, Public, TJwtManager, ChatEndpoint } from '@libs/auth';
 import { RESPONSE_STATUS } from '@libs/dtos';
 import { FEEDBACK_IMAGES_COUNT } from '@libs/constants';
 import { ApiMultiFile, FilesService, imageFileFilter } from '@libs/files';
@@ -35,6 +35,7 @@ export class ChatsController {
 
   @Post('/')
   @Public()
+  @ChatEndpoint()
   @UseGuards(JwtAuthGuard)
   @ApiResponse({ type: SendFeedbackResponseDTO })
   async sendFeedback(

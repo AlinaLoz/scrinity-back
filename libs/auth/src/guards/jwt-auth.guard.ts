@@ -2,8 +2,10 @@ import { AUTHORIZATION_COOKIE } from '@libs/constants';
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
+import { CHAT_LINK_CHANNEL } from 'config';
 
-import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
+import { IS_CHAT_ENDPOINT, IS_PUBLIC_KEY } from '../decorators/public.decorator';
+import { LINK_CHANNEL } from '@libs/dtos';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -18,7 +20,12 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       context.getHandler(),
       context.getClass(),
     ]);
-    if (!token && isPublic) {
+    const isChatEndpoint = this.reflector.getAllAndOverride<boolean>(IS_CHAT_ENDPOINT, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+    const isEmailAuth = isChatEndpoint && CHAT_LINK_CHANNEL === LINK_CHANNEL.EMAIL;
+    if (!token && isPublic || isEmailAuth) {
       return true;
     }
     return super.canActivate(context);

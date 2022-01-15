@@ -4,3 +4,4 @@ export * from './string.decorator';
 export * from './array.decorator';
 export * from './enum.decorator';
 export * from './date.decorator';
+export * from './email.decorator';
