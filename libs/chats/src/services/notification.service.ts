@@ -15,7 +15,7 @@ export class NotificationService {
     await this.mailService.sendMail(MAIL_TEMPLATE.CHAT_LINK, data);
     return true;
   }
-  
+
   async sendSms(): Promise<boolean> {
     return Promise.resolve(false);
   }
