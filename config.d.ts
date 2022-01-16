@@ -30,6 +30,7 @@ declare module 'config' {
     USERNAME: string;
     PASSWORD: string;
   };
+  export const CABINET_URL: string;
   export const CLIENT_URL: string;
 
   export const WEB_PUSH: {

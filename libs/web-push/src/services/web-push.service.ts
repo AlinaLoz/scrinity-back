@@ -37,6 +37,7 @@ export class WebPushService implements OnModuleInit {
           JSON.stringify({
             title: 'Scrinity',
             text: 'Пришел новый отзыв',
+            'click_action': CONFIG.CABINET_URL,
           }),
         );
       } catch(err) {
