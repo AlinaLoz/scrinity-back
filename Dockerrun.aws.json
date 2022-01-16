@@ -27,7 +27,7 @@
       "essential": true,
       "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z:latest",
       "name": "api",
-      "memory": 100,
+      "memory": 1000,
       "portMappings": [
         {
           "containerPort": 3001,
@@ -68,7 +68,7 @@
       "essential": true,
       "image": "343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-manager:latest",
       "name": "manager",
-      "memory": 450,
+      "memory": 1000,
       "portMappings": [
         {
           "containerPort": 3002,

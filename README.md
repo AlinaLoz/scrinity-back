@@ -54,12 +54,14 @@ yum install nano
     nano nginx.conf
 mkdir /var/www/html
 sudo ~/.certbot/bin/certbot  certonly -d dev.lozita.click -d www.dev.lozita.click
+sudo ~/.certbot/bin/certbot  certonly -d cabinet.lozita.click -d www.cabinet.lozita.click
 //add aws securyty group with open 443 port
 sudo service nginx start
 sudo service nginx stop
 
-scp ./docker/nginx/nginx.conf  ec2-user@99.81.215.180:/home/ec2-user/
-scp ./docker/nginx/nginx.conf  ec2-user@99.81.215.180:/etc/nginx/
+scp ./docker/nginx/index.html   ec2-user@54.217.151.231:/var/www/html
+scp ./docker/nginx/nginx.conf  ec2-user@954.217.151.231:/home/ec2-user/
+scp ./docker/nginx/nginx.conf  ec2-user@54.217.151.231:/etc/nginx/
 mv nginx.conf /etc/nginx/
 scp  ec2-user@99.81.215.180:/etc/nginx/nginx.conf  ~
 ```
