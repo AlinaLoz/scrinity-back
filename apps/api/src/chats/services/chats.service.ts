@@ -47,7 +47,12 @@ export class ChatsService extends LibChatService {
         data?.email ? CHAT_AUTH_TYPE.byEmail : CHAT_AUTH_TYPE.anonymously;
 
       if (authType === CHAT_AUTH_TYPE.byEmail) {
-        data.userId = (await manager.save(User, { email: data.email })).id;
+        const user = await manager.findOne(User, { email: data.email });
+        if (user) {
+          data.userId = user.id;
+        } else {
+          data.userId = (await manager.save(User, { email: data.email })).id;
+        }
       }
       const chat = await manager.save(Chat, new Chat({
         institutionId: institution.id,

@@ -17,7 +17,7 @@ import { Response } from 'express';
 
 import { TJwtUser, JwtAuthGuard, Public, TJwtManager, ChatEndpoint } from '@libs/auth';
 import { RESPONSE_STATUS } from '@libs/dtos';
-import { AUTHORIZATION_COOKIE, FEEDBACK_IMAGES_COUNT } from '@libs/constants';
+import { FEEDBACK_IMAGES_COUNT } from '@libs/constants';
 import { ApiMultiFile, FilesService, imageFileFilter } from '@libs/files';
 
 import {
@@ -27,7 +27,6 @@ import {
 import { ChatsService } from '../services/chats.service';
 import { TMulterFile } from '@libs/files/types/files.types';
 import { GetChatParamDTO, GetChatResponseDTO, GetChatsResponseDTO, UploadFeedbackImagesResponseDTO } from '@libs/chats';
-import { prepareCookiesOptions } from '@libs/auth/helpers/cookies.helpers';
 
 @Controller('chats')
 @ApiTags('chats')
@@ -73,7 +72,6 @@ export class ChatsController {
       @Res() res: Response,
   ): Promise<void> {
     const data = await this.chatsService.getInfoByLink(query.link);
-    res.cookie(AUTHORIZATION_COOKIE, data.token, prepareCookiesOptions());
     res.send(new GetInfoByLinkResponseDTO(data));
   }
 

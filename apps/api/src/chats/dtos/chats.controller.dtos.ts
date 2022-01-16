@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsString } from 'class-validator';
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 
 import { FEEDBACK_MESSAGE_MAX_LENGTH, FEEDBACK_MESSAGE_MIN_LENGTH, ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
 import { ResponsesDTO, ConstructableDTO, PaginationDTO } from '@libs/dtos';
@@ -26,6 +26,7 @@ export class SendFeedbackBodyDTO {
   isGood: boolean;
 
   @ApiPropertyEmail({ isOptional: true })
+  @Transform(({ value }) => value?.trim())
   email: string;
 }
 
@@ -42,6 +43,9 @@ export class GetInfoByLinkResponseDTO extends ConstructableDTO<GetInfoByLinkResp
 
   @ApiProperty()
   @Expose() chatId: number;
+
+  @ApiProperty()
+  @Expose() token: string | null;
 }
 
 export class GetChatsQueryDTO extends PaginationDTO {
