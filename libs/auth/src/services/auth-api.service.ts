@@ -24,6 +24,10 @@ export class AuthApiService {
   @Inject() private readonly userRepository: UserRepository;
   @Inject() private readonly jwtService: JwtService;
 
+  async generateToken(id: number, role: ROLE): Promise<string> {
+    return this.jwtService.sign({ subId: id, role });
+  }
+
   async requestSmsCode(body: RequestSmsCodeBodyDTO): Promise<boolean> {
     const user = await this.findUserOrCreate(body.phoneNumber);
     const smsRequestInterval = isDev ? CONFIRM_CODE_REQUEST_INTERVAL_DEV_SEC : CONFIRM_CODE_REQUEST_INTERVAL_PROD_SEC;

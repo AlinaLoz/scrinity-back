@@ -6,17 +6,18 @@ import {
   Param,
   Post,
   Query,
-  Request,
+  Request, Res,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
 
 import { TJwtUser, JwtAuthGuard, Public, TJwtManager, ChatEndpoint } from '@libs/auth';
 import { RESPONSE_STATUS } from '@libs/dtos';
-import { FEEDBACK_IMAGES_COUNT } from '@libs/constants';
+import { AUTHORIZATION_COOKIE, FEEDBACK_IMAGES_COUNT } from '@libs/constants';
 import { ApiMultiFile, FilesService, imageFileFilter } from '@libs/files';
 
 import {
@@ -26,6 +27,7 @@ import {
 import { ChatsService } from '../services/chats.service';
 import { TMulterFile } from '@libs/files/types/files.types';
 import { GetChatParamDTO, GetChatResponseDTO, GetChatsResponseDTO, UploadFeedbackImagesResponseDTO } from '@libs/chats';
+import { prepareCookiesOptions } from '@libs/auth/helpers/cookies.helpers';
 
 @Controller('chats')
 @ApiTags('chats')
@@ -64,11 +66,15 @@ export class ChatsController {
   }
 
   @Get('/')
+  // @Public()
   @ApiResponse({ type: GetInfoByLinkResponseDTO })
   async getInfoByLink(
     @Query() query: GetInfoByLinkQueryDTO,
-  ): Promise<GetInfoByLinkResponseDTO> {
-    return new GetInfoByLinkResponseDTO(await this.chatsService.getInfoByLink(query.link));
+      @Res() res: Response,
+  ): Promise<void> {
+    const data = await this.chatsService.getInfoByLink(query.link);
+    res.cookie(AUTHORIZATION_COOKIE, data.token, prepareCookiesOptions());
+    res.send(new GetInfoByLinkResponseDTO(data));
   }
 
   @Get('/list')

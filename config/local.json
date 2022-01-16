@@ -5,7 +5,7 @@
   "MANAGER_PORT": 3002,
   "IS_OPEN_SWAGGER": true,
   "POSTGRES": {
-    "HOST": "127.0.0.1",
+    "HOST": "54.217.151.231",
     "USERNAME": "postgres",
     "PASSWORD": "postgres",
     "PORT": 27188,
