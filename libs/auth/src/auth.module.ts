@@ -44,6 +44,7 @@ export class AuthModule {
           JwtStrategy,
           AuthApiService,
         ],
+        exports: [AuthApiService],
       } : {}),
       ...(type === 'manager' ? {
         controllers: [AuthManagerController],

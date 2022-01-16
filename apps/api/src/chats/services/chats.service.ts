@@ -6,13 +6,14 @@ import { CLIENT_URL } from 'config';
 
 import { Chat, ChatCriterion, File, Institution, Manager, Message, MessageFile, User } from '@libs/entities';
 import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
-import { ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
+import { ERRORS, LINK_HASH_LENGTH, ROLE } from '@libs/constants';
 import { ChatRepository, LibChatService } from '@libs/chats';
 
 import { SendFeedbackBodyDTO } from '../dtos/chats.controller.dtos';
 import { WebPushService } from '@libs/web-push';
 import { NotificationService } from '@libs/chats/services/notification.service';
 import { CHAT_AUTH_TYPE } from '../../../../manager/src/сhats/dtos/chats.controller.dtos';
+import { AuthApiService } from '@libs/auth';
 
 @Injectable()
 export class ChatsService extends LibChatService {
@@ -26,6 +27,7 @@ export class ChatsService extends LibChatService {
     private readonly webPushService: WebPushService,
     private connection: Connection,
     private readonly gnotificationService: NotificationService,
+    private readonly authApiService: AuthApiService,
   ) {
     super(
       connection, chatsRepository, guserRepository,
@@ -75,11 +77,13 @@ export class ChatsService extends LibChatService {
   async getInfoByLink(link: string): Promise<{
     chatId: number,
     institutionId: number,
+    token: string | null,
   }> {
     const chat = await this.findChatOrFail({ link });
     return {
       chatId: chat.id,
       institutionId: chat.institutionId,
+      token: !chat.userId ? null : await this.authApiService.generateToken(chat.userId, ROLE.USER),
     };
   }
 
