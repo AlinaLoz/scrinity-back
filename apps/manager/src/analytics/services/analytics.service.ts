@@ -24,15 +24,15 @@ export class AnalyticsService {
     return dataFromDB.map((item) => {
       const nullifiedList: FeedbackAnalyticsData[] = dates.map((date) => ({ date, value: 0 }));
       if (params.step === ANALYTIC_STEP.WEEK) {
-        item.data.forEach((day) => {
-          const [,, date] = day.date.split('-');
-          const startWeekIndex = nullifiedList.findIndex((startWeek) => {
-            const [,,dateStartWeek] = startWeek.date.split('-');
-            return +date < +dateStartWeek;
-          });
-          nullifiedList[startWeekIndex - 1].value = day.value;
-        });
-        item.data = nullifiedList;
+        // item.data.forEach((day) => {
+        //   const [,, date] = day.date.split('-');
+        //   const startWeekIndex = nullifiedList.findIndex((startWeek) => {
+        //     const [,,dateStartWeek] = startWeek.date.split('-');
+        //     return +date < +dateStartWeek;
+        //   });
+        //   nullifiedList[startWeekIndex - 1].value = day.value;
+        // });
+        // item.data = nullifiedList;
       } else {
         item.data = _values( _merge(_keyBy(nullifiedList, 'date'), _keyBy(item.data, 'date')));
       }
