@@ -9,6 +9,9 @@ class UserDTO {
 
   @ApiProperty()
   @Expose() phoneNumber: string;
+
+  @ApiProperty()
+  @Expose() email: string;
 }
 
 export class GetMeResponseDTO extends ConstructableDTO<GetMeResponseDTO> {
