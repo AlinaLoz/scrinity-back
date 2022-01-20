@@ -17,6 +17,7 @@ export class AnalyticsRepository extends Repository<Chat> {
         SELECT date_trunc($4, "createdAt")::date AS "date", count(*) AS value, "isGood"
         FROM filtered
         GROUP BY "date", "isGood"
+        ORDER BY "date" ASC
       ), mapped AS (
         SELECT *, to_jsonb(grouped_by_date.*) AS "data"
         FROM grouped_by_date

@@ -2,12 +2,13 @@ import { Inject, Injectable } from '@nestjs/common';
 import _merge from 'lodash.merge';
 import _keyBy from 'lodash.keyby';
 import _values from 'lodash.values';
-import { addDays, addMonths, addWeeks, addYears, format, compareAsc } from 'date-fns';
+import { addDays, addMonths, addWeeks, addYears, compareAsc, format } from 'date-fns';
 
 import {
   ANALYTIC_STEP,
   FeedbackAnalyticsData,
-  GetCriterionsAnaliticsQueryDTO, GetCriterionsAnaliticsResponseDTO,
+  GetCriterionsAnaliticsQueryDTO,
+  GetCriterionsAnaliticsResponseDTO,
   GetFeedbackAnalyticsQueryDTO,
   GetFeedbackAnalyticsResponseDTO,
 } from '../dtos/analytics.dtos';
@@ -22,7 +23,19 @@ export class AnalyticsService {
     const dates = AnalyticsService.getDates(params.step, params.fromDate, params.toDate);
     return dataFromDB.map((item) => {
       const nullifiedList: FeedbackAnalyticsData[] = dates.map((date) => ({ date, value: 0 }));
-      item.data = _values( _merge(_keyBy(nullifiedList, 'date'), _keyBy(item.data, 'date')));
+      if (params.step === ANALYTIC_STEP.WEEK) {
+        // item.data.forEach((day) => {
+        //   const [,, date] = day.date.split('-');
+        //   const startWeekIndex = nullifiedList.findIndex((startWeek) => {
+        //     const [,,dateStartWeek] = startWeek.date.split('-');
+        //     return +date < +dateStartWeek;
+        //   });
+        //   nullifiedList[startWeekIndex - 1].value = day.value;
+        // });
+        // item.data = nullifiedList;
+      } else {
+        item.data = _values( _merge(_keyBy(nullifiedList, 'date'), _keyBy(item.data, 'date')));
+      }
       return item;
     });
   }
