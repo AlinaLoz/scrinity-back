@@ -15,4 +15,7 @@ export class Criterion {
 
   @Column({ type: 'boolean', default: false })
   isGood: boolean;
+
+  @Column({ type: 'integer', default: 0 })
+  order: number;
 }
