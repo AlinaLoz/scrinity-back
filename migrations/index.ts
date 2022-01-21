@@ -11,3 +11,4 @@ export * from './1638905623699-AddLinkToChat';
 export * from './1639684405492-CreatePushSubscriptions';
 export * from './1641556074090-AddColumnReadToMessage';
 export * from './1642254292181-AddEmailToChat';
+export * from './1642759000598-AddOrderToCiterions';

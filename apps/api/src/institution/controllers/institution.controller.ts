@@ -17,7 +17,8 @@ export class InstitutionController {
     const institution = await this.institutionService.getInstitutionById(+params.id);
     return new GetInstitutionResponseDTO({
       ...institution,
-      criterions: institution.criterionGroup.criterions,
+      criterions: institution.criterionGroup.criterions
+        .sort(({ order: idA }, { order: idB }) => (idA < idB ? -1 : 1)),
     });
   }
 }
