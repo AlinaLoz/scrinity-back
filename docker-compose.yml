@@ -18,7 +18,9 @@ services:
     restart: always
 
   api:
-    build: ./docker/api
+    build:
+      dockerfile: ./docker/api/Dockerfile
+      context: .
 #    image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z:latest
     <<: *restart_policy
     <<: *env_file
@@ -32,7 +34,9 @@ services:
       - postgres
 
   manager:
-    build: ./docker/api
+    build:
+      dockerfile: ./docker/api/Dockerfile
+      context: .
 #    image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-manager:latest
     <<: *restart_policy
     <<: *env_file
