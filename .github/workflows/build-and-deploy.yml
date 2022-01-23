@@ -9,7 +9,6 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-    needs: [build]
     strategy:
       matrix:
         node-version: [16.x]
