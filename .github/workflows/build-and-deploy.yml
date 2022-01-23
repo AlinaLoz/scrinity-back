@@ -18,5 +18,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-    - name: Build the docker-compose stack
-    - run: ./node_modules/pm2/bin/pm2 restart all
+      - name: Build the docker-compose stack
+      - run: ./node_modules/pm2/bin/pm2 restart all
