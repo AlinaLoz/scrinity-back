@@ -14,5 +14,7 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v2
+      - run: NODE_CONFIG_ENV=local docker-compose build
+      - run: NODE_CONFIG_ENV=local docker-compose up -d
       - run: npm install
       - run: ./node_modules/pm2/bin/pm2 restart all
