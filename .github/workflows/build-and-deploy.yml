@@ -21,8 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build the docker-compose stack
-        run: NODE_CONFIG_ENV=develop docker-compose -f docker-compose.yml up -d
-      - name: Check running containers
-        run: docker ps -a
-      - name: Check logs
-        run: docker logs scrinity-api
+#        run: NODE_CONFIG_ENV=develop docker-compose -f docker-compose.yml up -d
+#      - name: Check running containers
+#        run: docker ps -a
+#      - name: Check logs
+#        run: docker logs scrinity-api
