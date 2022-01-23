@@ -43,9 +43,9 @@ services:
     <<: *restart_policy
     <<: *env_file
     environment:
-      - SERVICE=api
+      - SERVICE=manager
     ports:
-      - "27181:3002"
+      - "27181:3001"
     depends_on:
       - postgres
 
