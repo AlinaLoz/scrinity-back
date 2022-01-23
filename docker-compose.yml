@@ -22,7 +22,6 @@ services:
     build:
       dockerfile: ./docker/api/Dockerfile
       context: .
-#    image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z:latest
     <<: *restart_policy
     <<: *env_file
     environment:
@@ -39,25 +38,14 @@ services:
     build:
       dockerfile: ./docker/api/Dockerfile
       context: .
-#    image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-manager:latest
     <<: *restart_policy
     <<: *env_file
     environment:
       - SERVICE=manager
     ports:
-      - "27181:3001"
+      - "27181:3002"
     depends_on:
       - postgres
-
-#  client:
-#    image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-client
-#    ports:
-#      - "27182:3000"
-#
-#  admin:
-#    image: 343300559621.dkr.ecr.eu-west-1.amazonaws.com/project-z-admin
-#    ports:
-#      - "27183:27183"
 
 volumes:
   postgres_data:
