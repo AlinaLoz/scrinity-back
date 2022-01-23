@@ -18,6 +18,7 @@ services:
     restart: always
 
   api:
+    container_name: scrinity-api
     build:
       dockerfile: ./docker/api/Dockerfile
       context: .
@@ -34,6 +35,7 @@ services:
       - postgres
 
   manager:
+    container_name: scrinity-manager
     build:
       dockerfile: ./docker/api/Dockerfile
       context: .

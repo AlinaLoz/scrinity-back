@@ -24,4 +24,4 @@ jobs:
       - name: Check running containers
         run: docker ps -a
       - name: Check logs
-        run: docker logs api
+        run: docker logs scrinity-api
