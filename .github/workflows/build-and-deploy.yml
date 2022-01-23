@@ -7,13 +7,12 @@ on:
     branches: [ develop ]
 
 jobs:
-  build:
+  deploy:
     runs-on: self-hosted
+    needs: [build]
     strategy:
       matrix:
-        node-version: [ 16.x ]
-    env:
-          NODE_CONFIG_ENV: develop
+        node-version: [16.x]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -21,5 +20,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Build the docker-compose stack
+      - run: npm i
       - run: ./node_modules/pm2/bin/pm2 restart all
