@@ -65,6 +65,7 @@ export class ChatsService extends LibChatService {
         chatId: chat.id,
         content: data.message,
         senderId: data.userId,
+        read: false,
       }));
       await manager.save(MessageFile, files.map((file, index) => new MessageFile({
         fileId: file.id,
