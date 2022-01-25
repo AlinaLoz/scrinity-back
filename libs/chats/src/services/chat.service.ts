@@ -73,7 +73,7 @@ export class LibChatService {
     const chat = await this.getChatOrFail(where);
     const preparedUserId = userId || where.userId;
     if (preparedUserId) {
-      await this.readAllMessages(chat.id, preparedUserId);
+      await this.readAllMessages(chat.id, preparedUserId, chat.authType === CHAT_AUTH_TYPE.anonymously);
     }
     chat.messages = chat.messages
       .sort(({ id: idA }, { id: idB }) => (idA < idB ? -1 : 1));
@@ -148,8 +148,11 @@ export class LibChatService {
     return chat;
   }
 
-  private async readAllMessages(chatId: number, userId: number): Promise<void> {
-    await this.messageRepository.update({ chatId, senderId: Not(In([userId])) }, { read: true });
+  private async readAllMessages(chatId: number, userId: number, forceRead = false): Promise<void> {
+    await this.messageRepository.update({
+      chatId,
+      ...(!forceRead && { senderId: Not(In([userId])) }),
+    }, { read: true });
   }
 
   private async getSenderOrFail(user: TJwtUser): Promise<User | Manager> {
