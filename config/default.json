@@ -19,21 +19,21 @@
     "SALT_ROUNDS": 10
   },
   "AWS_S3": {
-    "ACCESS_KEY_ID": "AKIAU73SO2MCUBTZQJWR",
-    "SECRET_ACCESS_KEY": "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",
+    "ACCESS_KEY_ID": "",
+    "SECRET_ACCESS_KEY": "",
     "REGION": "eu-west-1"
   },
   "SMTP": {
     "HOST": "smtp.gmail.com",
     "PORT": 587,
     "SENDER": "scrinity",
-    "USERNAME": "scrinity.by@gmail.com",
-    "PASSWORD": "scrinity2022"
+    "USERNAME": "",
+    "PASSWORD": ""
   },
-  "CLIENT_URL": "https://dev.lozita.click/chats/",
+  "CLIENT_URL": "https://scrinity.by/chats/",
   "WEB_PUSH": {
-    "PRIVATE": "dDwVO-x-FYbxvtEWSQiWxGdTyh_zx_fpOaCsgPlE1Jw",
-    "PUBLIC": "BNejeIQUnJmcU6vcFEypqasOTfk102bAoifvpPKVRvHi3IhG96z3tO1wxAHkcquTvirFBZgipE5nDGraPOvQdjA"
+    "PUBLIC": "BNejeIQUnJmcU6vcFEypqasOTfk102bAoifvpPKVRvHi3IhG96z3tO1wxAHkcquTvirFBZgipE5nDGraPOvQdjA",
+    "PRIVATE": ""
   },
   "CHAT_LINK_CHANNEL": "email"
 }
