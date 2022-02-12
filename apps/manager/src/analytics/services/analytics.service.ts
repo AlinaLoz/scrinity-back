@@ -20,22 +20,14 @@ export class AnalyticsService {
 
   async getFeedbackAnalytics(params: GetFeedbackAnalyticsQueryDTO & { institutionId: number }): Promise<GetFeedbackAnalyticsResponseDTO[]> {
     const dataFromDB = await this.analyticsRepository.getFeedbackAnalytics(params);
+    const result: GetFeedbackAnalyticsResponseDTO[] = [
+      { isGood: true, data: dataFromDB.find(({ isGood }) => isGood)?.data || [] },
+      { isGood: false, data: dataFromDB.find(({ isGood }) => !isGood)?.data || [] },
+    ];
     const dates = AnalyticsService.getDates(params.step, params.fromDate, params.toDate);
-    return dataFromDB.map((item) => {
+    return result.map((item) => {
       const nullifiedList: FeedbackAnalyticsData[] = dates.map((date) => ({ date, value: 0 }));
-      if (params.step === ANALYTIC_STEP.WEEK) {
-        // item.data.forEach((day) => {
-        //   const [,, date] = day.date.split('-');
-        //   const startWeekIndex = nullifiedList.findIndex((startWeek) => {
-        //     const [,,dateStartWeek] = startWeek.date.split('-');
-        //     return +date < +dateStartWeek;
-        //   });
-        //   nullifiedList[startWeekIndex - 1].value = day.value;
-        // });
-        // item.data = nullifiedList;
-      } else {
-        item.data = _values( _merge(_keyBy(nullifiedList, 'date'), _keyBy(item.data, 'date')));
-      }
+      item.data = _values( _merge(_keyBy(nullifiedList, 'date'), _keyBy(item.data, 'date')));
       return item;
     });
   }
