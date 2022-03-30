@@ -1,6 +1,6 @@
 {
   "name": "project-z",
-  "version": "1.0.2",
+  "version": "0.2.1",
   "description": "project-z",
   "author": "alina.lozyuk.1999@gmail.com",
   "private": true,
@@ -73,7 +73,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^8.7.1",
-    "pm2": "^5.1.2",
+    "pm2": "^5.2.0",
     "randomstring": "^1.2.1",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
