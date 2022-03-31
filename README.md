@@ -53,15 +53,15 @@ cp nginx.conf nginx.conf.org
 yum install nano
     nano nginx.conf
 mkdir /var/www/html
-sudo ~/.certbot/bin/certbot  certonly -d dev.lozita.click -d www.dev.lozita.click
-sudo ~/.certbot/bin/certbot  certonly -d cabinet.lozita.click -d www.cabinet.lozita.click
+sudo ~/.certbot/bin/certbot  certonly -d scrinity.by -d www.scrinity.by
+sudo ~/.certbot/bin/certbot  certonly -d cabinet.scrinity.by -d www.cabinet.scrinity.by
 //add aws securyty group with open 443 port
 sudo service nginx start
 sudo service nginx stop
 
-scp ./docker/nginx/index.html   ec2-user@54.217.151.231:/var/www/html
-scp ./docker/nginx/nginx.conf  ec2-user@954.217.151.231:/home/ec2-user/
-scp ./docker/nginx/nginx.conf  ec2-user@54.217.151.231:/etc/nginx/
+scp ./docker/nginx/index.html   scrinity:/var/www/html
+scp ./docker/nginx/nginx.conf  scrinity:/home/ec2-user/
+scp ./docker/nginx/nginx.conf scrinity:/etc/nginx/
 mv nginx.conf /etc/nginx/
 scp  ec2-user@99.81.215.180:/etc/nginx/nginx.conf  ~
 ```
@@ -77,3 +77,22 @@ docker run -e SERVICE=api -it project-z:latest
 git remote -v
 git push codecommit-origin -f
  ```
+
+Развернуть сервер на ruvds
+```
+chown -R lozita /usr/
+sudo apt-get update && sudo apt-get upgrade
+nvm install --lts
+https://pm2.keymetrics.io/docs/usage/quick-start/
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-ru
+https://phoenixnap.com/kb/install-docker-on-ubuntu-20-04
+sudo chown $USER /var/run/docker.sock
+
+pm2 start npm --name "back" -- deploy:start
+pm2 start npm --name "client" -- start
+pm2 start npm --name "admin" -- start
+
+https://github.com/actions/checkout/issues/211
+server_name  scrinity.by www.scrinity.by cabinet.scrinity.by www.cabinet.scrinity.by;
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04-ru
+```
