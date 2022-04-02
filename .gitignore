@@ -37,5 +37,5 @@ lerna-debug.log*
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
-.local.json
+local.json
 .eslintcache
