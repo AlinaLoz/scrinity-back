@@ -11,21 +11,26 @@ type PropertyStringParams = {
   example?: string;
 };
 
-export function ApiPropertyString({ isOptional, minLength = 0, maxLength = 0, example }: PropertyStringParams = {}) {
+export function ApiPropertyString({ isOptional, minLength = 0, maxLength = 0, example }: PropertyStringParams = {}): <
+  TFunction extends Function,
+  Y,
+>(
+  target: object | TFunction,
+  propertyKey?: string | symbol,
+  descriptor?: TypedPropertyDescriptor<Y>,
+) => void {
   const propertyOptions: ApiPropertyOptions = {
     type: String,
     example,
     minLength,
-    ...maxLength ? [{ maxLength }] : [],
+    ...(maxLength ? [{ maxLength }] : []),
   };
 
   return applyDecorators(
-    ...isOptional
-      ? [IsOptional(), ApiPropertyOptional(propertyOptions)]
-      : [ApiProperty(propertyOptions)],
+    ...(isOptional ? [IsOptional(), ApiPropertyOptional(propertyOptions)] : [ApiProperty(propertyOptions)]),
     MinLength(minLength, { message: ERRORS.STRING_LENGTH_IS_TOO_SHORT, context: { minLength } }),
-    ...!isNaN(maxLength)
+    ...(!isNaN(maxLength)
       ? [MaxLength(maxLength, { message: ERRORS.STRING_LENGTH_IS_TOO_LONG, context: { maxLength } })]
-      : [],
+      : []),
   );
 }

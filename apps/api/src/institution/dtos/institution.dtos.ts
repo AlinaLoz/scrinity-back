@@ -14,45 +14,56 @@ export class GetInstitutionParamDTO {
 
 export class CriterionDTO {
   @ApiProperty()
-  @Expose() key: string;
+  @Expose()
+  key: string;
 
   @ApiProperty()
-  @Expose() isGood: boolean;
+  @Expose()
+  isGood: boolean;
 }
 
 export class ManagerDTO {
   @ApiProperty()
-  @Expose() roleTitle: string;
+  @Expose()
+  roleTitle: string;
 }
 
 export class CompanyDTO {
   @ApiProperty({ type: FileDTO })
   @Type(() => FileDTO)
-  @Expose() image: FileDTO;
+  @Expose()
+  image: FileDTO;
 }
 
 export class GetInstitutionResponseDTO extends ConstructableDTO<GetInstitutionResponseDTO> {
   @ApiProperty()
-  @Expose() id: number;
+  @Expose()
+  id: number;
 
   @ApiProperty()
-  @Expose() name: string;
+  @Expose()
+  name: string;
 
   @ApiProperty({ type: ManagerDTO })
   @Type(() => ManagerDTO)
-  @Expose() manager: ManagerDTO;
+  @Expose()
+  manager: ManagerDTO;
 
   @ApiProperty({ type: CompanyDTO })
   @Type(() => CompanyDTO)
-  @Expose() company: CompanyDTO;
+  @Expose()
+  company: CompanyDTO;
 
   @ApiProperty()
-  @Expose() isActive: boolean;
+  @Expose()
+  isActive: boolean;
 
   @ApiProperty()
-  @Expose() expiredTime: string;
+  @Expose()
+  expiredTime: string;
 
   @ApiProperty({ type: CriterionDTO, isArray: true })
   @Type(() => CriterionDTO)
-  @Expose() criterions: CriterionDTO[];
+  @Expose()
+  criterions: CriterionDTO[];
 }

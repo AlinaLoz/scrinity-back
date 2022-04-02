@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import bcrypt from 'bcrypt';
+import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions';
@@ -12,20 +12,23 @@ export class AuthManagerService {
   @Inject() private readonly managerRepository: ManagerRepository;
   @Inject() private readonly jwtService: JwtService;
 
-  async signIn({ login, password }: { login: string, password: string }): Promise<string> {
+  async signIn({ login, password }: { login: string; password: string }): Promise<string> {
     const manager = await this.findManagerOrFail(login);
 
     if (!manager.institution.isActive) {
-      throw new UnprocessableEntityError([{
-        field: '', message: ERRORS.EXPIRED_SUBSCRIPTION,
-      }]);
+      throw new UnprocessableEntityError([
+        {
+          field: '',
+          message: ERRORS.EXPIRED_SUBSCRIPTION,
+        },
+      ]);
     }
-    const isValid = await bcrypt.compare(password, manager.password);
+    const isValid = await compare(password, manager.password);
 
     if (!isValid) {
       throw new UnprocessableEntityError([{ field: '', message: ERRORS.INVALID_PASSWORD }]);
     }
-    return this.jwtService.sign({ subId: manager.id, role: ROLE.MANAGER  });
+    return this.jwtService.sign({ subId: manager.id, role: ROLE.MANAGER });
   }
 
   private async findManagerOrFail(login: string): Promise<Manager> {
@@ -34,9 +37,12 @@ export class AuthManagerService {
       relations: ['institution', 'institution.company'],
     });
     if (!manager) {
-      throw new NotFoundError([{
-        field: '', message: ERRORS.NOT_FOUND,
-      }]);
+      throw new NotFoundError([
+        {
+          field: '',
+          message: ERRORS.NOT_FOUND,
+        },
+      ]);
     }
     return manager;
   }

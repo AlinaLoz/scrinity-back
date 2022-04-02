@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as rs from 'randomstring';
+import { JwtService } from '@nestjs/jwt';
 import { NotFoundError, UnprocessableEntityError } from '@libs/exceptions/errors';
 import {
   CONFIRM_CODE_LENGTH,
@@ -14,7 +15,6 @@ import * as CONFIG from 'config';
 import { RequestSmsCodeBodyDTO, VerifyConfirmCodeBodyDTO } from '../dtos/auth-api.controller.dtos';
 import { PhoneConfirmCodeRepository } from '../repositories/phone-confirm-code.repository';
 import { UserRepository } from '../repositories/user.repository';
-import { JwtService } from '@nestjs/jwt';
 
 const isDev = CONFIG.NODE_CONFIG_ENV !== 'prod';
 
@@ -24,7 +24,7 @@ export class AuthApiService {
   @Inject() private readonly userRepository: UserRepository;
   @Inject() private readonly jwtService: JwtService;
 
-  async generateToken(id: number, role: ROLE): Promise<string> {
+  generateToken(id: number, role: ROLE): string {
     return this.jwtService.sign({ subId: id, role });
   }
 
@@ -36,15 +36,19 @@ export class AuthApiService {
       seconds: smsRequestInterval,
     });
     if (activeConfirmCode) {
-      throw new UnprocessableEntityError([{
-        field: '',
-        message: ERRORS.REQUEST_CONFIRM_CODE_LIMIT,
-      }]);
+      throw new UnprocessableEntityError([
+        {
+          field: '',
+          message: ERRORS.REQUEST_CONFIRM_CODE_LIMIT,
+        },
+      ]);
     }
-    const code = isDev ? '0000' : rs.generate({
-      length: CONFIRM_CODE_LENGTH,
-      charset: 'numeric',
-    });
+    const code = isDev
+      ? '0000'
+      : rs.generate({
+          length: CONFIRM_CODE_LENGTH,
+          charset: 'numeric',
+        });
     const confirmCode = new PhoneConfirmCode({
       userId: user.id,
       code,
@@ -62,10 +66,12 @@ export class AuthApiService {
       phoneNumber: body.phoneNumber,
     });
     if (!verificationCode) {
-      throw new NotFoundError([{
-        field: 'code',
-        message: ERRORS.CODE_NOT_FOUND,
-      }]);
+      throw new NotFoundError([
+        {
+          field: 'code',
+          message: ERRORS.CODE_NOT_FOUND,
+        },
+      ]);
     }
     await this.phoneConfirmCodeRepository.updateActivenessCode(verificationCode);
     return this.jwtService.sign({ subId: verificationCode.userId, role: ROLE.USER });

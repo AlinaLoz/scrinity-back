@@ -12,9 +12,7 @@ export class UserController {
 
   @Get('/')
   @UseGuards(JwtAuthGuard)
-  async getMe(
-    @Request() { user }: { user?: TJwtUser },
-  ): Promise<GetMeResponseDTO> {
+  async getMe(@Request() { user }: { user?: TJwtUser }): Promise<GetMeResponseDTO> {
     return new GetMeResponseDTO({ user: await this.userService.getUser(user?.userId) });
   }
 }

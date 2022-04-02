@@ -1,7 +1,6 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreatePushSubscriptions1639684405492 implements MigrationInterface {
-
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE push_subscription (
@@ -14,7 +13,7 @@ export class CreatePushSubscriptions1639684405492 implements MigrationInterface 
           FOREIGN KEY("institutionId")
           REFERENCES institution(id)
       );
-    `)
+    `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

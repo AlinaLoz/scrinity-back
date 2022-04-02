@@ -1,10 +1,10 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
-import webpush, { PushSubscription } from 'web-push';
 import * as crypto from 'crypto';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { PushSubscription, setVapidDetails, sendNotification } from 'web-push';
 import * as CONFIG from 'config';
 
-import { PushSubscriptionRepository } from '../reposotories/push-subscription.repository';
 import { AppLogger } from '@libs/logger';
+import { PushSubscriptionRepository } from '../reposotories/push-subscription.repository';
 
 @Injectable()
 export class WebPushService implements OnModuleInit {
@@ -12,7 +12,7 @@ export class WebPushService implements OnModuleInit {
   @Inject() private readonly pushSubscriptionRepository: PushSubscriptionRepository;
 
   onModuleInit(): any {
-    webpush.setVapidDetails('https://cabinet.lozita.click/api', CONFIG.WEB_PUSH.PUBLIC, CONFIG.WEB_PUSH.PRIVATE);
+    setVapidDetails('https://cabinet.lozita.click/api', CONFIG.WEB_PUSH.PUBLIC, CONFIG.WEB_PUSH.PRIVATE);
   }
 
   async handleSubscription(institutionId: number, subscription: PushSubscription): Promise<string> {
@@ -32,15 +32,15 @@ export class WebPushService implements OnModuleInit {
     await subscriptions.reduce(async (promise, item) => {
       try {
         await promise;
-        await webpush.sendNotification(
+        await sendNotification(
           item.subscription,
           JSON.stringify({
             title: 'Scrinity',
             text: 'Пришел новый отзыв',
-            'click_action': CONFIG.CABINET_URL,
+            click_action: CONFIG.CABINET_URL,
           }),
         );
-      } catch(err) {
+      } catch (err) {
         this.logger.error(`error send ${item.id}: ${err.message}`);
       }
     }, Promise.resolve());
@@ -51,6 +51,4 @@ export class WebPushService implements OnModuleInit {
     md5sum.update(Buffer.from(JSON.stringify(input)));
     return md5sum.digest('hex');
   }
-
 }
-

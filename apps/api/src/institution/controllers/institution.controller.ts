@@ -11,14 +11,11 @@ export class InstitutionController {
 
   @Get(':id')
   @ApiResponse({ type: GetInstitutionResponseDTO })
-  async getInstitution(
-    @Param() params: GetInstitutionParamDTO,
-  ): Promise<GetInstitutionResponseDTO> {
+  async getInstitution(@Param() params: GetInstitutionParamDTO): Promise<GetInstitutionResponseDTO> {
     const institution = await this.institutionService.getInstitutionById(+params.id);
     return new GetInstitutionResponseDTO({
       ...institution,
-      criterions: institution.criterionGroup.criterions
-        .sort(({ order: idA }, { order: idB }) => (idA < idB ? -1 : 1)),
+      criterions: institution.criterionGroup.criterions.sort(({ order: idA }, { order: idB }) => (idA < idB ? -1 : 1)),
     });
   }
 }

@@ -1,9 +1,8 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class ManagerTable1637440680611 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             CREATE TABLE manager (
                 id serial PRIMARY KEY,
                 name varchar NOT NULL,
@@ -21,10 +20,9 @@ export class ManagerTable1637440680611 implements MigrationInterface {
                         REFERENCES file(id)
             )
         `);
-    }
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query('DROP TABLE IF EXISTS manager;');
-    }
-
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query('DROP TABLE IF EXISTS manager;');
+  }
 }

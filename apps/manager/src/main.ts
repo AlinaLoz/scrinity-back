@@ -1,16 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
-import CONFIG from 'config';
 import helmet from 'helmet';
 import cors, { CorsOptions } from 'cors';
 import cookieParser from 'cookie-parser';
+import CONFIG from 'config';
 
 import { AppLogger } from '@libs/logger';
-import { ManagerModule } from './manager.module';
 import packageJson from '../../../package.json';
+import { ManagerModule } from './manager.module';
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const logger = new AppLogger('manager.service');
   const app = await NestFactory.create(ManagerModule, { logger });
   app.setGlobalPrefix('/api/v1');
@@ -36,10 +36,7 @@ function setupSwagger(app: INestApplication): void {
   if (!CONFIG.IS_OPEN_SWAGGER) {
     return;
   }
-  const config = new DocumentBuilder()
-    .setTitle('Documentation Manager')
-    .setVersion(packageJson.version)
-    .build();
+  const config = new DocumentBuilder().setTitle('Documentation Manager').setVersion(packageJson.version).build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 }

@@ -7,8 +7,8 @@ export const SAME_SITE_OPTIONS = {
   secure: true,
 };
 export const prepareCookiesOptions = (): Record<string, string | number | Date | boolean> => {
-  return ({
+  return {
     expires: addHours(Date.now(), COOKIE_EXPIRES_HOURS),
     ...SAME_SITE_OPTIONS,
-  });
+  };
 };

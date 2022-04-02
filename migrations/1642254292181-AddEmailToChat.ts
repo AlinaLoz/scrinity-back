@@ -1,7 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddEmailToChat1642254292181 implements MigrationInterface {
-
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
         CREATE TYPE chat_auth_type AS ENUM ('anonymously', 'byNumber', 'byEmail');
@@ -19,5 +18,4 @@ export class AddEmailToChat1642254292181 implements MigrationInterface {
         DROP TYPE chat_auth_type;
     `);
   }
-
 }

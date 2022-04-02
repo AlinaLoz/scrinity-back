@@ -14,21 +14,15 @@ export class AuthManagerController {
   constructor(private readonly authService: AuthManagerService) {}
 
   @Post('sign-in')
-  async signIn(
-    @Body() body: SignInBodyDTO,
-      @Res() res: Response,
-  ): Promise<void> {
+  async signIn(@Body() body: SignInBodyDTO, @Res() res: Response): Promise<void> {
     const token = await this.authService.signIn(body);
     res.cookie(AUTHORIZATION_COOKIE, token, prepareCookiesOptions());
     res.send();
   }
 
   @Post('sign-out')
-  signOut(
-    @Res() res: Response,
-  ): void {
+  signOut(@Res() res: Response): void {
     res.clearCookie(AUTHORIZATION_COOKIE, prepareCookiesOptions());
     res.send();
   }
-
 }

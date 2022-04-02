@@ -15,7 +15,7 @@ export class Institution {
   @Column({ type: 'integer' })
   companyId: number;
 
-  @ManyToOne(() => Company, company => company.institutions)
+  @ManyToOne(() => Company, (company) => company.institutions)
   company: Company;
 
   @Column({ type: 'boolean', default: false })
@@ -31,7 +31,7 @@ export class Institution {
   @JoinColumn({ name: 'criterionGroupId' })
   criterionGroup: CriterionGroup;
 
-  @OneToOne(() => Manager, manager => manager.institution)
+  @OneToOne(() => Manager, (manager) => manager.institution)
   @JoinColumn({ name: 'id', referencedColumnName: 'institutionId' })
   manager: Manager;
 }

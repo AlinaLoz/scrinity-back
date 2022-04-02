@@ -20,9 +20,7 @@ export class AuthApiController {
 
   @Post('request-confirm-code')
   @ApiResponse({ type: RequestSmsCodeResponseDTO })
-  async requestConfirmCode(
-    @Body() body: RequestSmsCodeBodyDTO,
-  ): Promise<RequestSmsCodeResponseDTO> {
+  async requestConfirmCode(@Body() body: RequestSmsCodeBodyDTO): Promise<RequestSmsCodeResponseDTO> {
     const data = await this.authService.requestSmsCode(body);
     return new RequestSmsCodeResponseDTO({
       status: data ? RESPONSE_STATUS.OK : RESPONSE_STATUS.ERROR,
@@ -31,19 +29,14 @@ export class AuthApiController {
 
   @Post('verify-confirm-code')
   @ApiResponse({ type: VerifyConfirmCodeResponseDTO })
-  async verifyConfirmCode(
-    @Body() body: VerifyConfirmCodeBodyDTO,
-      @Res() res: Response,
-  ): Promise<void> {
+  async verifyConfirmCode(@Body() body: VerifyConfirmCodeBodyDTO, @Res() res: Response): Promise<void> {
     const token = await this.authService.verifyConfirmCode(body);
     res.cookie(AUTHORIZATION_COOKIE, token, prepareCookiesOptions());
     res.send(new VerifyConfirmCodeResponseDTO({ status: RESPONSE_STATUS.OK }));
   }
 
   @Post('sign-out')
-  signOut(
-    @Res() res: Response,
-  ): void {
+  signOut(@Res() res: Response): void {
     res.clearCookie(AUTHORIZATION_COOKIE, SAME_SITE_OPTIONS);
     res.send(new VerifyConfirmCodeResponseDTO({ status: RESPONSE_STATUS.OK }));
   }

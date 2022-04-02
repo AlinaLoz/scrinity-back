@@ -13,9 +13,7 @@ export class ManagerController {
 
   @Get('/me')
   @ApiResponse({ type: GetMeResponseDTO })
-  async getMe(
-    @Request() { user }: { user?: TJwtManager },
-  ): Promise<GetMeResponseDTO> {
+  async getMe(@Request() { user }: { user?: TJwtManager }): Promise<GetMeResponseDTO> {
     return new GetMeResponseDTO({ manager: await this.managerService.getUser(user?.managerId) });
   }
 }

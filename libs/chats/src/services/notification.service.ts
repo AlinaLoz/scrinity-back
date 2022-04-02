@@ -3,8 +3,8 @@ import { LINK_CHANNEL } from '@libs/dtos';
 import { MailService, MAIL_TEMPLATE } from '@libs/mail-service';
 
 type NOTIFICATION_PROPS<T extends LINK_CHANNEL> = {
-  [LINK_CHANNEL.SMS]: { phoneNumber: string },
-  [LINK_CHANNEL.EMAIL]: { email: string, link: string, [field: string]: string },
+  [LINK_CHANNEL.SMS]: { phoneNumber: string };
+  [LINK_CHANNEL.EMAIL]: { email: string; link: string; [field: string]: string };
 }[T];
 
 @Injectable()
@@ -16,11 +16,11 @@ export class NotificationService {
     return true;
   }
 
-  async sendSms(): Promise<boolean> {
+  sendSms(): Promise<boolean> {
     return Promise.resolve(false);
   }
 
-  async sendNotification<T extends LINK_CHANNEL>(type: T, data: NOTIFICATION_PROPS<T>): Promise<boolean> {
+  sendNotification<T extends LINK_CHANNEL>(type: T, data: NOTIFICATION_PROPS<T>): Promise<boolean> {
     if (type === LINK_CHANNEL.SMS) {
       return this.sendSms();
     }

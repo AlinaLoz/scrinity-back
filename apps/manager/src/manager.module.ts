@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from '@libs/auth';
 import { ExceptionModule } from '@libs/exceptions';
-import DB_CONFIG from '../../../ormconfig';
+import { DB_CONFIG } from '../../../ormconfig';
 import { ManagerModule as ManagerModuleSubModule } from './manager';
 import { ChatModule } from './сhats/chat.module';
 import { WebPushModule } from './web-push/web-push.module';

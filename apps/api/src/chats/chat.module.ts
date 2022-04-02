@@ -18,15 +18,7 @@ import { ChatsService } from './services/chats.service';
     LibWebPushModule,
     FilesModule,
     LibChatModule,
-    TypeOrmModule.forFeature([
-      User,
-      ChatCriterion,
-      Message,
-      Manager,
-      Institution,
-      MessageFile,
-      ChatRepository,
-    ]),
+    TypeOrmModule.forFeature([User, ChatCriterion, Message, Manager, Institution, MessageFile, ChatRepository]),
   ],
 })
 export class ChatModule {}

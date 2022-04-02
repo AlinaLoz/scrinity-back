@@ -10,24 +10,23 @@ import { ERRORS } from '@libs/constants';
 export class InstitutionService {
   @InjectRepository(Institution) private readonly institutionRepository: Repository<Institution>;
 
-  async getInstitutionById(id: number): Promise<Institution> {
-    return await this.getInstitutionOrFail(id);
+  getInstitutionById(id: number): Promise<Institution> {
+    return this.getInstitutionOrFail(id);
   }
 
   private async getInstitutionOrFail(id: number): Promise<Institution> {
     const institution = await this.institutionRepository.findOne({
       where: { id },
-      relations: [
-        'criterionGroup', 'criterionGroup.criterions',
-        'company', 'company.image', 'manager',
-      ],
+      relations: ['criterionGroup', 'criterionGroup.criterions', 'company', 'company.image', 'manager'],
     });
 
     if (!institution) {
-      throw new NotFoundError([{
-        field: '',
-        message: ERRORS.NOT_FOUND,
-      }]);
+      throw new NotFoundError([
+        {
+          field: '',
+          message: ERRORS.NOT_FOUND,
+        },
+      ]);
     }
     return institution;
   }

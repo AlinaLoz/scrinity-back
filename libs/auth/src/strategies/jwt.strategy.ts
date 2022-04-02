@@ -9,13 +9,14 @@ import { AUTHORIZATION_COOKIE, ROLE } from '@libs/constants';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-
   constructor() {
     super({
       secretOrKey: CONFIG.JWT.SECRET,
-      jwtFromRequest: ExtractJwt.fromExtractors([(request: Request) => {
-        return request['cookies'][AUTHORIZATION_COOKIE];
-      }]),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (request: Request): string => {
+          return request['cookies'][AUTHORIZATION_COOKIE];
+        },
+      ]),
     });
   }
 

@@ -19,4 +19,3 @@ export class ManagerService {
     return manager || null;
   }
 }
-

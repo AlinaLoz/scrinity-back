@@ -18,7 +18,9 @@ import { AnalyticsRepository } from '../repositories/analytics.repository';
 export class AnalyticsService {
   @Inject() private readonly analyticsRepository: AnalyticsRepository;
 
-  async getFeedbackAnalytics(params: GetFeedbackAnalyticsQueryDTO & { institutionId: number }): Promise<GetFeedbackAnalyticsResponseDTO[]> {
+  async getFeedbackAnalytics(
+    params: GetFeedbackAnalyticsQueryDTO & { institutionId: number },
+  ): Promise<GetFeedbackAnalyticsResponseDTO[]> {
     const dataFromDB = await this.analyticsRepository.getFeedbackAnalytics(params);
     const result: GetFeedbackAnalyticsResponseDTO[] = [
       { isGood: true, data: dataFromDB.find(({ isGood }) => isGood)?.data || [] },
@@ -27,12 +29,14 @@ export class AnalyticsService {
     const dates = AnalyticsService.getDates(params.step, params.fromDate, params.toDate);
     return result.map((item) => {
       const nullifiedList: FeedbackAnalyticsData[] = dates.map((date) => ({ date, value: 0 }));
-      item.data = _values( _merge(_keyBy(nullifiedList, 'date'), _keyBy(item.data, 'date')));
+      item.data = _values(_merge(_keyBy(nullifiedList, 'date'), _keyBy(item.data, 'date')));
       return item;
     });
   }
 
-  async getCriterionsAnalitics(params: GetCriterionsAnaliticsQueryDTO  & { institutionId: number }): Promise<GetCriterionsAnaliticsResponseDTO[]> {
+  async getCriterionsAnalitics(
+    params: GetCriterionsAnaliticsQueryDTO & { institutionId: number },
+  ): Promise<GetCriterionsAnaliticsResponseDTO[]> {
     const dataFromDB = await this.analyticsRepository.getCriterionsAnalitics(params);
     const result: GetCriterionsAnaliticsResponseDTO[] = [
       { isGood: true, data: [] },
@@ -45,14 +49,18 @@ export class AnalyticsService {
   }
 
   private static getDates(step: ANALYTIC_STEP, startDate: string, stopDate: string): string[] {
-    const cbAdd = step === ANALYTIC_STEP.DAY ? addDays :
-      step === ANALYTIC_STEP.MONTH ? addMonths :
-        step === ANALYTIC_STEP.YEAR ? addYears :
-          addWeeks;
+    const cbAdd =
+      step === ANALYTIC_STEP.DAY
+        ? addDays
+        : step === ANALYTIC_STEP.MONTH
+        ? addMonths
+        : step === ANALYTIC_STEP.YEAR
+        ? addYears
+        : addWeeks;
     const dateArray = [];
     let currentDate = startDate;
     while (compareAsc(new Date(currentDate), new Date(stopDate)) < 1) {
-      dateArray.push(format(new Date(currentDate),'yyyy-MM-dd') );
+      dateArray.push(format(new Date(currentDate), 'yyyy-MM-dd'));
       currentDate = cbAdd(new Date(currentDate), 1).toDateString();
     }
     return dateArray;

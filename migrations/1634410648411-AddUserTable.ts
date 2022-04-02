@@ -1,7 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddUserTable1634410648411 implements MigrationInterface {
-
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE "user" (
@@ -26,5 +25,4 @@ export class AddUserTable1634410648411 implements MigrationInterface {
       DROP TABLE IF EXISTS "user";
     `);
   }
-
 }

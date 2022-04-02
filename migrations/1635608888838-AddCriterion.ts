@@ -1,9 +1,8 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddCriterion1635608888838 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             CREATE TABLE criterion_group (
                 key varchar PRIMARY KEY
             );
@@ -36,13 +35,12 @@ export class AddCriterion1635608888838 implements MigrationInterface {
             ('good_personal_5', 'coffee', true),
             ('good_personal_6', 'coffee', true);
         `);
-    }
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             DROP TABLE IF EXISTS "criterion";
             DROP TABLE IF EXISTS "criterion_group";
         `);
-    }
-
+  }
 }

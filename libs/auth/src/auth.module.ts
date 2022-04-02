@@ -38,21 +38,19 @@ export class AuthModule {
           ManagerRepository,
         ]),
       ],
-      ...(type === 'api' ? {
-        controllers: [AuthApiController],
-        providers: [
-          JwtStrategy,
-          AuthApiService,
-        ],
-        exports: [AuthApiService],
-      } : {}),
-      ...(type === 'manager' ? {
-        controllers: [AuthManagerController],
-        providers: [
-          ManagerStrategy,
-          AuthManagerService,
-        ],
-      } : {}),
+      ...(type === 'api'
+        ? {
+            controllers: [AuthApiController],
+            providers: [JwtStrategy, AuthApiService],
+            exports: [AuthApiService],
+          }
+        : {}),
+      ...(type === 'manager'
+        ? {
+            controllers: [AuthManagerController],
+            providers: [ManagerStrategy, AuthManagerService],
+          }
+        : {}),
     };
   }
 }

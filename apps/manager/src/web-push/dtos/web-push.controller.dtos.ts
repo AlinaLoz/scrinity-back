@@ -20,8 +20,8 @@ export class HandleSubscriptionBodyDTO {
   keys: Keys;
 }
 
-export class HandleSubscriptionResponseDTO
-  extends ConstructableDTO<HandleSubscriptionResponseDTO> {
+export class HandleSubscriptionResponseDTO extends ConstructableDTO<HandleSubscriptionResponseDTO> {
   @ApiProperty()
-  @Expose() subscriptionId: string;
+  @Expose()
+  subscriptionId: string;
 }
