@@ -1,7 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { POSTGRES } from 'config';
 
-import * as Migrations from './migrations';
+// import * as Migrations from './migrations';
 
 // todo разобраться чего сохраняет не в нужную папку
 export const DB_CONFIG = {
@@ -12,7 +12,7 @@ export const DB_CONFIG = {
   password: POSTGRES.PASSWORD,
   database: POSTGRES.DB,
   migrationsRun: false,
-  migrations: Object.values(Migrations),
-  synchronize: false,
+  // migrations: Object.values(Migrations),
+  synchronize: true,
   autoLoadEntities: true,
 } as TypeOrmModuleOptions;

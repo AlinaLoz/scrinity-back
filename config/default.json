@@ -9,7 +9,7 @@
     "USERNAME": "postgres",
     "PASSWORD": "",
     "PORT": 5432,
-    "DB": "project-z",
+    "DB": "scrinity",
     "RETRY_ATTEMPTS": 15,
     "RETRY_DELAY": 1000
   },
