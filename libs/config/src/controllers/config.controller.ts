@@ -11,7 +11,7 @@ export class ConfigController {
 
   @Get('/')
   @ApiOkResponse({ type: GetConfigResponseDTO })
-  async getConfig(): Promise<GetConfigResponseDTO> {
+  getConfig(): GetConfigResponseDTO {
     return new GetConfigResponseDTO(this.configService.getConfig());
   }
 }

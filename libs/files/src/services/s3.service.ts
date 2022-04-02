@@ -20,14 +20,16 @@ export class S3Service implements OnModuleInit {
     await files.reduce(async (promise, item) => {
       await promise;
       const key = `${Date.now().toString()}-${item.originalname || ''}`;
-      await this.s3.upload({
-        Bucket: 'project-z-feedback',
-        Body: item.buffer,
-        Key: key,
-        ContentType: item.mimetype,
-        ACL: 'public-read',
-        CacheControl: 'max-age=31536000,s-maxage=31536000',
-      }).promise();
+      await this.s3
+        .upload({
+          Bucket: 'project-z-feedback',
+          Body: item.buffer,
+          Key: key,
+          ContentType: item.mimetype,
+          ACL: 'public-read',
+          CacheControl: 'max-age=31536000,s-maxage=31536000',
+        })
+        .promise();
       keys.push(key);
     }, Promise.resolve());
     return keys;

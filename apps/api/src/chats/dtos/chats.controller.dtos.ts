@@ -4,7 +4,13 @@ import { Expose, Transform } from 'class-transformer';
 
 import { FEEDBACK_MESSAGE_MAX_LENGTH, FEEDBACK_MESSAGE_MIN_LENGTH, ERRORS, LINK_HASH_LENGTH } from '@libs/constants';
 import { ResponsesDTO, ConstructableDTO, PaginationDTO } from '@libs/dtos';
-import { ApiPropertyArray, ApiPropertyBoolean, ApiPropertyEmail, ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
+import {
+  ApiPropertyArray,
+  ApiPropertyBoolean,
+  ApiPropertyEmail,
+  ApiPropertyNumber,
+  ApiPropertyString,
+} from '@libs/decorators';
 
 export class SendFeedbackBodyDTO {
   @ApiPropertyString({ minLength: FEEDBACK_MESSAGE_MIN_LENGTH, maxLength: FEEDBACK_MESSAGE_MAX_LENGTH })
@@ -39,13 +45,16 @@ export class GetInfoByLinkQueryDTO {
 
 export class GetInfoByLinkResponseDTO extends ConstructableDTO<GetInfoByLinkResponseDTO> {
   @ApiProperty()
-  @Expose() institutionId: number;
+  @Expose()
+  institutionId: number;
 
   @ApiProperty()
-  @Expose() chatId: number;
+  @Expose()
+  chatId: number;
 
   @ApiProperty()
-  @Expose() token: string | null;
+  @Expose()
+  token: string | null;
 }
 
 export class GetChatsQueryDTO extends PaginationDTO {

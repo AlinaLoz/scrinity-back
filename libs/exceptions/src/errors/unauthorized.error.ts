@@ -8,9 +8,7 @@ const defaultError = [
   },
 ];
 
-export class UnauthorizedError
-  extends UnauthorizedException
-  implements IAbstractError {
+export class UnauthorizedError extends UnauthorizedException implements IAbstractError {
   constructor(public readonly details: ErrorDetail[] = defaultError) {
     super();
   }

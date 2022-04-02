@@ -14,12 +14,7 @@ import { NotificationService } from './services/notification.service';
   imports: [
     FilesModule,
     MailServiceModule,
-    TypeOrmModule.forFeature([
-      User,
-      Manager,
-      ChatRepository,
-      MessageRepository,
-    ]),
+    TypeOrmModule.forFeature([User, Manager, ChatRepository, MessageRepository]),
   ],
   controllers: [ChatController],
   providers: [LibChatService, NotificationService],

@@ -35,26 +35,24 @@ export class AppLogger implements LoggerService {
   }
 
   private customFormat(): Format {
-    return format.printf(
-      ({ level, message, timestamp, ctx, service, durationMs }) => {
-        let log = `${timestamp} [${service}] ${this.getColourByLevel(
-          level,
-        )}${level}\x1b[0m [${ctx}]: ${this.getColourByLevel(level)}`;
-        if ((message as any).msg) {
-          const { msg, ...rest } = message as any;
-          log += `${msg}\u001b[39m`;
-          if (durationMs !== undefined) {
-            log += ` +${(durationMs / 1000).toFixed(3)}s`;
-          }
-          if (Object.keys(rest).length) {
-            log += `\n${Object.values(rest).join('\n')}`;
-          }
-        } else {
-          log += `\u001b[39m\n${JSON.stringify(message, null, 2)}`;
+    return format.printf(({ level, message, timestamp, ctx, service, durationMs }) => {
+      let log = `${timestamp} [${service}] ${this.getColourByLevel(
+        level,
+      )}${level}\x1b[0m [${ctx}]: ${this.getColourByLevel(level)}`;
+      if ((message as any).msg) {
+        const { msg, ...rest } = message as any;
+        log += `${msg}\u001b[39m`;
+        if (durationMs !== undefined) {
+          log += ` +${(durationMs / 1000).toFixed(3)}s`;
         }
-        return log;
-      },
-    );
+        if (Object.keys(rest).length) {
+          log += `\n${Object.values(rest).join('\n')}`;
+        }
+      } else {
+        log += `\u001b[39m\n${JSON.stringify(message, null, 2)}`;
+      }
+      return log;
+    });
   }
 
   private getColourByLevel(level: string): string {

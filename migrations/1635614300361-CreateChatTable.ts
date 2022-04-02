@@ -1,9 +1,8 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateChatTable1635614300361 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             CREATE TABLE chat (
                 id          serial PRIMARY KEY,
                 "userId"    integer DEFAULT NULL,
@@ -57,15 +56,14 @@ export class CreateChatTable1635614300361 implements MigrationInterface {
                         REFERENCES message(id)
             );
         `);
-    }
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             DROP TABLE IF EXISTS "message_file";
             DROP TABLE IF EXISTS "message";
             DROP TABLE IF EXISTS "chat_criterion";
             DROP TABLE IF EXISTS "chat";
         `);
-    }
-
+  }
 }

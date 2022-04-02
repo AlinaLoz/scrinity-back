@@ -4,5 +4,6 @@ import { ConstructableDTO, LINK_CHANNEL } from '@libs/dtos';
 
 export class GetConfigResponseDTO extends ConstructableDTO<GetConfigResponseDTO> {
   @ApiProperty()
-  @Expose() CHAT_LINK_CHANNEL: LINK_CHANNEL;
+  @Expose()
+  CHAT_LINK_CHANNEL: LINK_CHANNEL;
 }

@@ -4,10 +4,12 @@ import { PhoneConfirmCode } from '@libs/entities';
 
 @EntityRepository(PhoneConfirmCode)
 export class PhoneConfirmCodeRepository extends Repository<PhoneConfirmCode> {
-
-  getActiveConfirmCode({ phoneNumber, seconds }: {
-    phoneNumber: string,
-    seconds: number,
+  getActiveConfirmCode({
+    phoneNumber,
+    seconds,
+  }: {
+    phoneNumber: string;
+    seconds: number;
   }): Promise<PhoneConfirmCode | undefined> {
     return this.findOne({
       where: {
@@ -18,17 +20,19 @@ export class PhoneConfirmCodeRepository extends Repository<PhoneConfirmCode> {
     });
   }
 
-  findActiveCodeByPhoneAndCode({ code, phoneNumber }: {
-    phoneNumber: string, code: string,
+  findActiveCodeByPhoneAndCode({
+    code,
+    phoneNumber,
+  }: {
+    phoneNumber: string;
+    code: string;
   }): Promise<PhoneConfirmCode | undefined> {
     return this.findOne({
       where: { phoneNumber, code, isActive: true },
     });
   }
 
-  async updateActivenessCode({ code, phoneNumber }: {
-    phoneNumber: string, code: string,
-  }): Promise<void> {
+  async updateActivenessCode({ code, phoneNumber }: { phoneNumber: string; code: string }): Promise<void> {
     await this.update({ code, phoneNumber, isActive: true }, { isActive: false });
   }
 }

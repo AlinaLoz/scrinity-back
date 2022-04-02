@@ -8,13 +8,15 @@ type PropertyEnumParams = {
   isOptional?: boolean;
 };
 
-export function ApiPropertyDate({ isOptional }: PropertyEnumParams = {}) {
+export function ApiPropertyDate({ isOptional }: PropertyEnumParams = {}): <TFunction extends Function, Y>(
+  target: object | TFunction,
+  propertyKey?: string | symbol,
+  descriptor?: TypedPropertyDescriptor<Y>,
+) => void {
   const propertyOptions: ApiPropertyOptions = { type: String };
 
   return applyDecorators(
-    ...isOptional
-      ? [IsOptional(), ApiPropertyOptional(propertyOptions)]
-      : [ApiProperty(propertyOptions)],
-    IsDateString({ strict: true } as any, { message: ERRORS.INVALID_DATE_VALUE })
+    ...(isOptional ? [IsOptional(), ApiPropertyOptional(propertyOptions)] : [ApiProperty(propertyOptions)]),
+    IsDateString({ strict: true } as any, { message: ERRORS.INVALID_DATE_VALUE }),
   );
 }

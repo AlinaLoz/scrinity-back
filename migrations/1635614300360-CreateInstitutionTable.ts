@@ -1,9 +1,8 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateInstitutionTable1635614300360 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             CREATE TABLE institution (
                 id SERIAL PRIMARY KEY,
                 name varchar(50) NOT NULL,
@@ -20,12 +19,11 @@ export class CreateInstitutionTable1635614300360 implements MigrationInterface {
                     FOREIGN KEY ("criterionGroupId")
                         REFERENCES criterion_group (key);
         `);
-    }
-    
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             DROP TABLE IF EXISTS institution;
         `);
-    }
-
+  }
 }

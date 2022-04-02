@@ -3,5 +3,6 @@ import { Expose } from 'class-transformer';
 
 export class FileDTO {
   @ApiProperty()
-  @Expose() filename: string;
+  @Expose()
+  filename: string;
 }

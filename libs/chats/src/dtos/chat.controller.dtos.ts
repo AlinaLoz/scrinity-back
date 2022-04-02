@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
 
+import { IsArray, IsString, ValidateIf } from 'class-validator';
 import { ConstructableDTO, FileDTO } from '@libs/dtos';
 import { ApiPropertyNumber, ApiPropertyString } from '@libs/decorators';
-import { IsArray, IsString, ValidateIf } from 'class-validator';
 import { ERRORS } from '@libs/constants';
 
 export class SendMessageBodyDTO {
@@ -11,7 +11,7 @@ export class SendMessageBodyDTO {
   chatId: number;
 
   @ApiPropertyString({ minLength: 1, maxLength: 1000 })
-  @ValidateIf(data => !data.filesKeys.length)
+  @ValidateIf((data) => !data.filesKeys.length)
   message: string;
 
   @ApiProperty({ isArray: true, type: String })
@@ -22,84 +22,103 @@ export class SendMessageBodyDTO {
 
 export class ChatDTO {
   @ApiProperty()
-  @Expose() id: number;
+  @Expose()
+  id: number;
 
   @ApiProperty()
-  @Expose() message: string;
+  @Expose()
+  message: string;
 
   @ApiProperty({ nullable: true })
-  @Expose() sender: string | number;
+  @Expose()
+  sender: string | number;
 
   @ApiProperty()
-  @Expose() isGood: boolean;
+  @Expose()
+  isGood: boolean;
 
   @ApiProperty({ isArray: true })
-  @Expose() criterion: string[];
+  @Expose()
+  criterion: string[];
 
   @ApiProperty()
-  @Expose() createdAt: string;
+  @Expose()
+  createdAt: string;
 
   @ApiProperty()
-  @Expose() numberOfUnread: number;
+  @Expose()
+  numberOfUnread: number;
 
   @ApiProperty({ type: FileDTO, isArray: true })
   @Type(() => FileDTO)
-  @Expose() files: FileDTO[];
+  @Expose()
+  files: FileDTO[];
 }
 
 class SenderDTO {
   @ApiProperty()
-  @Expose() id: number;
+  @Expose()
+  id: number;
 
   @ApiProperty()
-  @Expose() phoneNumber: string;
+  @Expose()
+  phoneNumber: string;
 
   @ApiProperty()
-  @Expose() email: string;
+  @Expose()
+  email: string;
 }
 
 export class ChatMessageDTO {
   @ApiProperty()
-  @Expose() id: number;
+  @Expose()
+  id: number;
 
   @ApiProperty({ type: SenderDTO })
   @Type(() => SenderDTO)
-  @Expose() sender: SenderDTO;
+  @Expose()
+  sender: SenderDTO;
 
   @ApiProperty()
-  @Expose() content: string;
+  @Expose()
+  content: string;
 
   @ApiProperty({ type: FileDTO, isArray: true })
   @Type(() => FileDTO)
-  @Expose() files: FileDTO[];
+  @Expose()
+  files: FileDTO[];
 
   @ApiProperty()
-  @Expose() createdAt: string;
+  @Expose()
+  createdAt: string;
 }
 
 export class GetChatsResponseDTO extends ConstructableDTO<GetChatsResponseDTO> {
   @ApiProperty()
-  @Expose() total: number;
+  @Expose()
+  total: number;
 
   @ApiProperty({ type: ChatDTO, isArray: true })
   @Type(() => ChatDTO)
-  @Expose() items: ChatDTO[];
+  @Expose()
+  items: ChatDTO[];
 }
 
 export class GetChatParamDTO {
   @ApiPropertyNumber()
-  @Expose() id: number;
+  @Expose()
+  id: number;
 }
 
 export class GetChatResponseDTO extends ConstructableDTO<GetChatResponseDTO> {
   @ApiProperty({ type: ChatMessageDTO, isArray: true })
   @Type(() => ChatMessageDTO)
-  @Expose() items: ChatMessageDTO[];
+  @Expose()
+  items: ChatMessageDTO[];
 }
 
-export class UploadFeedbackImagesResponseDTO
-  extends ConstructableDTO<UploadFeedbackImagesResponseDTO> {
+export class UploadFeedbackImagesResponseDTO extends ConstructableDTO<UploadFeedbackImagesResponseDTO> {
   @ApiProperty()
-  @Expose() imagesKeys: string[];
+  @Expose()
+  imagesKeys: string[];
 }
-

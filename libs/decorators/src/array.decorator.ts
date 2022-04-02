@@ -13,8 +13,18 @@ class PropertyArrayParams {
   maxSize?: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/explicit-module-boundary-types
-export function ApiPropertyArray({ isOptional, isNotEmpty, isUnique, type, enumValue, maxSize }: PropertyArrayParams) {
+export function ApiPropertyArray({
+  isOptional,
+  isNotEmpty,
+  isUnique,
+  type,
+  enumValue,
+  maxSize,
+}: PropertyArrayParams): <TFunction extends Function, Y>(
+  target: object | TFunction,
+  propertyKey?: string | symbol,
+  descriptor?: TypedPropertyDescriptor<Y>,
+) => void {
   const propertyOptions: ApiPropertyOptions = {
     isArray: true,
     type,
@@ -22,14 +32,10 @@ export function ApiPropertyArray({ isOptional, isNotEmpty, isUnique, type, enumV
   };
 
   return applyDecorators(
-    ...isOptional
-      ? [IsOptional(), ApiPropertyOptional(propertyOptions)]
-      : [ApiProperty(propertyOptions)],
+    ...(isOptional ? [IsOptional(), ApiPropertyOptional(propertyOptions)] : [ApiProperty(propertyOptions)]),
     IsArray({ message: ERRORS.FIELD_MUST_BE_AN_ARRAY }),
-    ...isNotEmpty ? [ArrayNotEmpty({ message: ERRORS.ARRAY_EMPTY })] : [],
-    ...isUnique ? [ArrayUnique({ message: ERRORS.ARRAY_MUST_BE_UNIQUE })] : [],
-    ...maxSize
-      ? [ArrayMaxSize(maxSize, { message: ERRORS.ARRAY_INVALID_SIZE, context: { maxSize } })]
-      : [],
+    ...(isNotEmpty ? [ArrayNotEmpty({ message: ERRORS.ARRAY_EMPTY })] : []),
+    ...(isUnique ? [ArrayUnique({ message: ERRORS.ARRAY_MUST_BE_UNIQUE })] : []),
+    ...(maxSize ? [ArrayMaxSize(maxSize, { message: ERRORS.ARRAY_INVALID_SIZE, context: { maxSize } })] : []),
   );
 }

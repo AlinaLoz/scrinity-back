@@ -20,7 +20,7 @@ export class AnalyticsController {
   @ApiResponse({ type: GetFeedbackAnalyticsResponseDTO })
   async getFeedbackAnalytics(
     @Request() req: { user?: TJwtManager },
-      @Query() query: GetFeedbackAnalyticsQueryDTO,
+    @Query() query: GetFeedbackAnalyticsQueryDTO,
   ): Promise<GetFeedbackAnalyticsResponseDTO[]> {
     const institutionId = req.user!.institutionId;
     const result = await this.analyticsService.getFeedbackAnalytics({
@@ -34,7 +34,7 @@ export class AnalyticsController {
   @ApiResponse({ type: GetCriterionsAnaliticsResponseDTO })
   async getCriterionsAnalitics(
     @Request() req: { user?: TJwtManager },
-      @Query() query: GetCriterionsAnaliticsQueryDTO,
+    @Query() query: GetCriterionsAnaliticsQueryDTO,
   ): Promise<GetCriterionsAnaliticsResponseDTO[]> {
     const institutionId = req.user!.institutionId;
     const result = await this.analyticsService.getCriterionsAnalitics({

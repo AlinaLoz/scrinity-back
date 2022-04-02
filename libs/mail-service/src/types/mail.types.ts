@@ -4,9 +4,9 @@ export enum MAIL_TEMPLATE {
 
 export type MAIL_TEMPLATE_PROPS = {
   [MAIL_TEMPLATE.CHAT_LINK]: {
-    link: string,
-    email: string,
-  }
+    link: string;
+    email: string;
+  };
 };
 
 export const MAIL_TEMPLATE_FILE = {

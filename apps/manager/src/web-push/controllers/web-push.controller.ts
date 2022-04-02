@@ -16,11 +16,10 @@ export class WebPushController {
   @ApiResponse({ type: HandleSubscriptionResponseDTO })
   async handleSubscription(
     @Request() req: { user?: TJwtManager },
-      @Body() body: HandleSubscriptionBodyDTO,
+    @Body() body: HandleSubscriptionBodyDTO,
   ): Promise<HandleSubscriptionResponseDTO> {
     return new HandleSubscriptionResponseDTO({
       subscriptionId: await this.webPushService.handleSubscription(req.user!.institutionId, body),
     });
   }
-
 }

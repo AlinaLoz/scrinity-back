@@ -4,23 +4,22 @@ import { CHAT_AUTH_TYPE } from '../../../../apps/manager/src/сhats/dtos/chats.c
 
 @EntityRepository(Chat)
 export class ChatRepository extends Repository<Chat> {
-  async getChats(institutionId: number, query: {
-    authType?: CHAT_AUTH_TYPE,
-    userId?: number,
-    skip?: number,
-    limit?: number,
-  }): Promise<[Chat[], number]> {
-    return await this.findAndCount({
+  getChats(
+    institutionId: number,
+    query: {
+      authType?: CHAT_AUTH_TYPE;
+      userId?: number;
+      skip?: number;
+      limit?: number;
+    },
+  ): Promise<[Chat[], number]> {
+    return this.findAndCount({
       where: {
         institutionId,
         ...(query?.userId && { userId: query.userId }),
         ...(typeof query.authType === 'undefined' ? query.authType : { authType: query.authType }),
       },
-      relations: [
-        'user', 'criterions', 'messages',
-        'messages.files',
-        'messages.files.file',
-      ],
+      relations: ['user', 'criterions', 'messages', 'messages.files', 'messages.files.file'],
       ...(query.skip && { skip: query.skip }),
       ...(query.limit && { take: query.limit }),
       order: {

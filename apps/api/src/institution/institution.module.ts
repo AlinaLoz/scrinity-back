@@ -6,16 +6,7 @@ import { InstitutionController } from './controllers/institution.controller';
 import { InstitutionService } from './services/institution.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      File,
-      Company,
-      Manager,
-      Institution,
-      CriterionGroup,
-      Criterion,
-    ]),
-  ],
+  imports: [TypeOrmModule.forFeature([File, Company, Manager, Institution, CriterionGroup, Criterion])],
   controllers: [InstitutionController],
   providers: [InstitutionService],
 })

@@ -1,11 +1,11 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
+import { ChatCriterion } from '@libs/entities/chat-criterion.entity';
+import { CHAT_AUTH_TYPE } from '../../../apps/manager/src/сhats/dtos/chats.controller.dtos';
 import { BaseEntity } from './base.entity';
 import { User } from './user.entity';
 import { Institution } from './institution.entity';
 import { Message } from './message.entity';
-import { ChatCriterion } from '@libs/entities/chat-criterion.entity';
-import { CHAT_AUTH_TYPE } from '../../../apps/manager/src/сhats/dtos/chats.controller.dtos';
 
 @Entity()
 export class Chat extends BaseEntity<Chat> {
@@ -28,10 +28,10 @@ export class Chat extends BaseEntity<Chat> {
   @OneToOne(() => Institution)
   institution: Institution;
 
-  @OneToMany(() => Message, item => item.chat)
+  @OneToMany(() => Message, (item) => item.chat)
   messages: Message[];
 
-  @OneToMany(() => ChatCriterion, item => item.chat)
+  @OneToMany(() => ChatCriterion, (item) => item.chat)
   criterions: ChatCriterion[];
 
   @Column({ type: 'varchar', default: '' })

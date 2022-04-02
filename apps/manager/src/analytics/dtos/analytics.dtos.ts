@@ -32,34 +32,42 @@ export class GetCriterionsAnaliticsQueryDTO {
 
 export class FeedbackAnalyticsData extends ConstructableDTO<FeedbackAnalyticsData> {
   @ApiProperty()
-  @Expose() date: string;
+  @Expose()
+  date: string;
 
   @ApiProperty()
-  @Expose() value: number;
+  @Expose()
+  value: number;
 }
 
 export class GetFeedbackAnalyticsResponseDTO extends ConstructableDTO<GetFeedbackAnalyticsResponseDTO> {
   @ApiProperty()
-  @Expose() isGood: boolean;
+  @Expose()
+  isGood: boolean;
 
   @ApiProperty({ type: FeedbackAnalyticsData })
   @Type(() => FeedbackAnalyticsData)
-  @Expose() data: FeedbackAnalyticsData[];
+  @Expose()
+  data: FeedbackAnalyticsData[];
 }
 
 export class CriterionsAnalyticsData {
   @ApiProperty()
-  @Expose() criterionKey: string;
+  @Expose()
+  criterionKey: string;
 
   @ApiProperty()
-  @Expose() value: number;
+  @Expose()
+  value: number;
 }
 
 export class GetCriterionsAnaliticsResponseDTO extends ConstructableDTO<GetCriterionsAnaliticsResponseDTO> {
   @ApiProperty()
-  @Expose() isGood: boolean;
+  @Expose()
+  isGood: boolean;
 
   @ApiProperty({ type: CriterionsAnalyticsData })
   @Type(() => CriterionsAnalyticsData)
-  @Expose() data: CriterionsAnalyticsData[];
+  @Expose()
+  data: CriterionsAnalyticsData[];
 }

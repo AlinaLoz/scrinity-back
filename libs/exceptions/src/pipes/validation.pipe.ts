@@ -6,10 +6,8 @@ import { BadRequestError } from '../errors';
 import { ErrorDetail } from '../errors/abstract.error';
 
 export class ClassValidationPipe implements PipeTransform {
-  async transform(value: any, metadata: ArgumentMetadata) {
-    const object = metadata.metatype
-      ? plainToClass(metadata.metatype, value)
-      : [];
+  async transform(value: unknown, metadata: ArgumentMetadata): Promise<any> {
+    const object = metadata.metatype ? plainToClass(metadata.metatype, value) : [];
 
     const errors = await validate(object);
 

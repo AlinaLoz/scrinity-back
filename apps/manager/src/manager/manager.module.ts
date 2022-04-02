@@ -7,13 +7,7 @@ import { ManagerController } from './controllers/manager.controller';
 import { ManagerService } from './services/manager.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([
-    Message,
-    MessageFile,
-    ChatCriterion,
-    Manager,
-    File,
-  ])],
+  imports: [TypeOrmModule.forFeature([Message, MessageFile, ChatCriterion, Manager, File])],
   controllers: [ManagerController],
   providers: [ManagerService],
 })
