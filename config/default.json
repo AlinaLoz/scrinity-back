@@ -3,7 +3,12 @@
   "NODE_CONFIG_ENV": "develop",
   "API_PORT": 3001,
   "MANAGER_PORT": 3002,
+  "AGGREGATOR_PORT": 3003,
   "IS_OPEN_SWAGGER": true,
+  "SENTRY": {
+    "ENABLED": true,
+    "DSN": "https://9514bb454ffb4155814fff181fb66c38@o1186421.ingest.sentry.io/6306327"
+  },
   "POSTGRES": {
     "HOST": "postgres",
     "USERNAME": "postgres",
@@ -35,5 +40,12 @@
     "PUBLIC": "BNejeIQUnJmcU6vcFEypqasOTfk102bAoifvpPKVRvHi3IhG96z3tO1wxAHkcquTvirFBZgipE5nDGraPOvQdjA",
     "PRIVATE": ""
   },
-  "CHAT_LINK_CHANNEL": "email"
+  "CHAT_LINK_CHANNEL": "email",
+  "PROXY": {
+    "PROTOCOL": "http",
+    "HOST": "p.webshare.io",
+    "PORT": 80,
+    "USERNAME": "",
+    "PASSWORD": ""
+  }
 }

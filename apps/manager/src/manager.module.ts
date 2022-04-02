@@ -8,6 +8,7 @@ import { ManagerModule as ManagerModuleSubModule } from './manager';
 import { ChatModule } from './сhats/chat.module';
 import { WebPushModule } from './web-push/web-push.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { FeedbackModule } from './feedback/feedback.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
     // InstitutionModule,
     // ChatModule,
     WebPushModule,
+    FeedbackModule,
     TypeOrmModule.forRoot({
       ...DB_CONFIG,
       migrationsRun: true,

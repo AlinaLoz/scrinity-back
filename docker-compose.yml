@@ -59,5 +59,23 @@ services:
     depends_on:
       - postgres
 
+  aggregator:
+    container_name: scrinity-aggregator
+    build:
+      dockerfile: ./docker/api/Dockerfile
+      context: .
+    <<: *restart_policy
+    <<: *env_file
+    environment:
+      - SERVICE=aggregator
+      - PROXY_HOST=${PROXY_HOST}
+      - PROXY_PORT=${PROXY_PORT}
+      - PROXY_USERNAME=${PROXY_USERNAME}
+      - PROXY_PASSWORD=${PROXY_PASSWORD}
+    ports:
+      - "27181:3002"
+    depends_on:
+      - postgres
+
 volumes:
   postgres_data:

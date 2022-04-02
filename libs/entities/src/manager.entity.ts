@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Institution } from '@libs/entities/institution.entity';
+import { Institution } from './institution.entity';
 import { BaseEntity } from './base.entity';
 import { File } from './file.entity';
 import { User } from './user.entity';

@@ -133,6 +133,24 @@
       "compilerOptions": {
         "tsConfigPath": "libs/config/tsconfig.lib.json"
       }
+    },
+    "aggregator": {
+      "type": "application",
+      "root": "apps/aggregator",
+      "entryFile": "main",
+      "sourceRoot": "apps/aggregator/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/aggregator/tsconfig.app.json"
+      }
+    },
+    "helpers": {
+      "type": "library",
+      "root": "libs/helpers",
+      "entryFile": "index",
+      "sourceRoot": "libs/helpers/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/helpers/tsconfig.lib.json"
+      }
     }
   }
 }
