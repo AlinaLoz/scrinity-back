@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { AGGREGATION_TYPE, PLATFORM_AGGREGATORS } from '@libs/constants';
+import { UNSUPPORTED_PUBLIC_PLATFORM } from '@libs/constants/errors';
 
-import { AGGREGATION_TYPE, PLATFORM_AGGREGATORS } from '../constants/aggregator.constants';
-import { UNSUPPORTED_PUBLIC_PLATFORM } from '../constants/aggregator.errors';
 import { IClientAggregations } from '../interfaces/client-aggregation.intefaces';
 import { YandexApiService } from './yandex-api.service';
 import { YandexParserService } from './yandex-parser.service';

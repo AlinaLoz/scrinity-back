@@ -27,7 +27,7 @@ jobs:
         node-version: [16.x]
     steps:
       - uses: actions/checkout@v2
-      - run: pm2 stop back
+#      - run: pm2 stop back
       - run: NODE_CONFIG_ENV=${GITHUB_REF##*/} docker-compose up -d --build
-      - run: pm2 start all
+#      - run: pm2 start all
 

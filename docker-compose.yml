@@ -73,7 +73,7 @@ services:
       - PROXY_USERNAME=${PROXY_USERNAME}
       - PROXY_PASSWORD=${PROXY_PASSWORD}
     ports:
-      - "27181:3002"
+      - "27184:3002"
     depends_on:
       - postgres
 
