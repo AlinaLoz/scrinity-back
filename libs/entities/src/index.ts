@@ -11,3 +11,6 @@ export * from './message-file.entity';
 export * from './phone-confirm-code.entity';
 export * from './user.entity';
 export * from './push-subscription.entity';
+export * from './public-platform.entity';
+export * from './institution-public-platform.entity';
+export * from './feedback.entity';

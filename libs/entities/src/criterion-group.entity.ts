@@ -1,5 +1,6 @@
 import { Entity, OneToMany, PrimaryColumn } from 'typeorm';
-import { Criterion } from '@libs/entities/criterion.entity';
+
+import { Criterion } from './criterion.entity';
 
 @Entity()
 export class CriterionGroup {

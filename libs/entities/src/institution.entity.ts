@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
+import { InstitutionPublicPlatformEntity } from '@libs/entities/institution-public-platform.entity';
 import { Company } from './company.entity';
 import { CriterionGroup } from './criterion-group.entity';
 import { Manager } from './manager.entity';
@@ -34,4 +35,7 @@ export class Institution {
   @OneToOne(() => Manager, (manager) => manager.institution)
   @JoinColumn({ name: 'id', referencedColumnName: 'institutionId' })
   manager: Manager;
+
+  @OneToMany(() => InstitutionPublicPlatformEntity, (item) => item.institution)
+  publicPlatforms: InstitutionPublicPlatformEntity[];
 }

@@ -20,6 +20,7 @@ import { UserModule } from './user/user.module';
     ConfigModule,
     TypeOrmModule.forRoot({
       ...DB_CONFIG,
+      synchronize: true,
       migrationsRun: true,
     }),
   ],

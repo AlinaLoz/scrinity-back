@@ -90,6 +90,30 @@
       ],
       "@libs/config/*": [
         "libs/config/src/*"
+      ],
+      "@apps/aggregator": [
+        "apps/aggregator/src"
+      ],
+      "@apps/aggregator/*": [
+        "apps/aggregator/src/*"
+      ],
+      "@apps/manager": [
+        "apps/manager/src"
+      ],
+      "@apps/manager/*": [
+        "apps/manager/src/*"
+      ],
+      "@apps/api": [
+        "apps/api/src"
+      ],
+      "@apps/api/*": [
+        "apps/api/src/*"
+      ],
+      "@libs/helpers": [
+        "libs/helpers/src"
+      ],
+      "@libs/helpers/*": [
+        "libs/helpers/src/*"
       ]
     }
   },

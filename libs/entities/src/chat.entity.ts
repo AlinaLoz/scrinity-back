@@ -1,7 +1,8 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { ChatCriterion } from '@libs/entities/chat-criterion.entity';
-import { CHAT_AUTH_TYPE } from '../../../apps/manager/src/сhats/dtos/chats.controller.dtos';
+import { CHAT_AUTH_TYPE } from '@apps/manager/сhats/dtos/chats.controller.dtos';
+
+import { ChatCriterion } from './chat-criterion.entity';
 import { BaseEntity } from './base.entity';
 import { User } from './user.entity';
 import { Institution } from './institution.entity';

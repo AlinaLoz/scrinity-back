@@ -1,9 +1,14 @@
 declare module 'config' {
   export const NODE_ENV: 'development' | 'production';
-  export const NODE_CONFIG_ENV: 'develop' | 'master' | 'prod';
+  export const NODE_CONFIG_ENV: 'develop' | 'master' | 'prod' | 'local';
   export const API_PORT: number;
   export const MANAGER_PORT: number;
+  export const AGGREGATOR_PORT: number;
   export const IS_OPEN_SWAGGER: boolean;
+  export const SENTRY: {
+    ENABLED: boolean;
+    DSN: string;
+  };
   export const POSTGRES: {
     readonly HOST: string;
     readonly USERNAME: string;
@@ -43,4 +48,12 @@ declare module 'config' {
   }
 
   export const CHAT_LINK_CHANNEL: LINK_CHANNEL;
+
+  export const PROXY: {
+    PROTOCOL: string;
+    HOST: string;
+    PORT: number;
+    USERNAME: string;
+    PASSWORD: string;
+  };
 }

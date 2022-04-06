@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
-import { Institution } from '@libs/entities/institution.entity';
+
+import { Institution } from './institution.entity';
 import { BaseEntity } from './base.entity';
 import { File } from './file.entity';
 

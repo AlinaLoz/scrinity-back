@@ -1,9 +1,13 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { POSTGRES } from 'config';
+import { NODE_CONFIG_ENV, POSTGRES } from 'config';
 
-// import * as Migrations from './migrations';
+import * as Entities from '@libs/entities';
+import * as Migrations from './migrations';
 
-// todo разобраться чего сохраняет не в нужную папку
+const entities = Object.values(Entities);
+const migrations = Object.values(Migrations);
+
+console.log('__dirname + \'/migrations\'', __dirname + '/migrations');
 export const DB_CONFIG = {
   type: 'postgres',
   host: POSTGRES.HOST,
@@ -12,7 +16,12 @@ export const DB_CONFIG = {
   password: POSTGRES.PASSWORD,
   database: POSTGRES.DB,
   migrationsRun: false,
-  // migrations: Object.values(Migrations),
   synchronize: true,
   autoLoadEntities: true,
+  entities,
+  migrations,
+  logging: NODE_CONFIG_ENV === 'local',
+  cli: {
+    migrationsDir: __dirname + '/migrations',
+  },
 } as TypeOrmModuleOptions;

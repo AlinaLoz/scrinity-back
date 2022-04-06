@@ -7,9 +7,10 @@ import cookieParser from 'cookie-parser';
 import CONFIG from 'config';
 
 import { AppLogger } from '@libs/logger';
+import { sentryService } from '@libs/exceptions/services/sentry.service';
 import packageJson from '../package.json';
 
-export async function bootstrap(service: string, application: any, port: number): Promise<void> {
+export async function bootstrap(service: string, application: object, port: number): Promise<void> {
   const logger = new AppLogger(service);
   const app = await NestFactory.create(application, { logger });
   app.setGlobalPrefix('/api/v1');
@@ -25,6 +26,7 @@ export async function bootstrap(service: string, application: any, port: number)
   app.use(cookieParser());
   app.use(cors(corsOptions));
   setupSwagger(app, service);
+  sentryService.init(service);
   await app.listen(port, () => {
     logger.log(`${service} port: ${port}`);
   });
