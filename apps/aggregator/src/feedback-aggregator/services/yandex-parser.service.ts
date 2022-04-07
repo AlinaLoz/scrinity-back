@@ -1,15 +1,15 @@
 import cheerio from 'cheerio';
 import { Injectable } from '@nestjs/common';
-import { Connection } from 'typeorm';
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
-import config from 'config';
 
 import { FeedbackEntity } from '@libs/entities';
 import { AppLogger } from '@libs/logger';
 import { sentryService } from '@libs/exceptions/services/sentry.service';
 
+import { BaseParserService } from '@apps/aggregator/feedback-aggregator/services/base-parser.service';
 import { IClientAggregations } from '../interfaces/client-aggregation.intefaces';
+import { FeedbackRepository } from '../repositories/feedback.repository';
 
 axiosRetry(axios, { retries: 3 });
 
@@ -22,14 +22,17 @@ type YandexFeedback = {
   stars: number;
 };
 
-// брать страницу, но сохранять только последние
 // если сообщений много, то показать больше
 
 @Injectable()
-export class YandexParserService implements IClientAggregations {
+export class YandexParserService extends BaseParserService implements IClientAggregations {
   private logger = new AppLogger(YandexParserService.name);
 
-  constructor(private readonly connection: Connection) {}
+  constructor(
+    private readonly feedbacksRepository: FeedbackRepository, // private readonly connection: Connection,
+  ) {
+    super();
+  }
 
   async aggregate({
     url,
@@ -45,15 +48,12 @@ export class YandexParserService implements IClientAggregations {
       return;
     }
     const feedbacks = await this.parseFeedbacks(html);
-    await this.connection.transaction(async (manager) => {
-      const feedbacksToSave: Partial<FeedbackEntity>[] = feedbacks.map((feedback) => ({
-        ...feedback,
-        institutionId,
-        platformId,
-      }));
-      const feedbackRepository = manager.getRepository(FeedbackEntity);
-      await feedbackRepository.save(feedbacksToSave);
-    });
+    const feedbacksToSave: Partial<FeedbackEntity>[] = feedbacks.map((feedback) => ({
+      ...feedback,
+      institutionId,
+      platformId,
+    }));
+    await this.feedbacksRepository.saveFeedbacks(feedbacksToSave);
   }
 
   private async parseFeedbacks(buffer: Buffer): Promise<YandexFeedback[]> {
@@ -82,27 +82,6 @@ export class YandexParserService implements IClientAggregations {
       this.logger.error(`error parseFeedbacks: ${JSON.stringify(err)}`);
       sentryService.message(`error parseFeedbacks: ${JSON.stringify(err)}`);
       return [];
-    }
-  }
-
-  private async getPageContent(url: string): Promise<Buffer | null> {
-    try {
-      const { data } = await axios.get(url, {
-        proxy: {
-          protocol: config.PROXY.PROTOCOL,
-          host: config.PROXY.HOST,
-          port: config.PROXY.PORT,
-          auth: {
-            username: config.PROXY.USERNAME,
-            password: config.PROXY.PASSWORD,
-          },
-        },
-      });
-      return data;
-    } catch (err) {
-      this.logger.error(`error get page - ${url}: ${JSON.stringify(err)}`);
-      sentryService.message(`error get page - ${url}: ${JSON.stringify(err)}`);
-      return null;
     }
   }
 }

@@ -17,7 +17,7 @@ export class Message extends BaseEntity<Message> {
   @ManyToOne(() => Chat)
   chat: Chat;
 
-  @Column({ type: 'integer' })
+  @Column({ type: 'integer', nullable: true })
   senderId: number;
 
   @OneToOne(() => User)
