@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { IClientAggregations } from '../interfaces/client-aggregation.intefaces';
+import { IClientAggregations } from '../../interfaces/client-aggregation.intefaces';
 
 @Injectable()
 export class YandexApiService implements IClientAggregations {

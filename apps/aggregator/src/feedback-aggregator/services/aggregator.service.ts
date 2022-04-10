@@ -35,7 +35,7 @@ export class AggregatorService {
     { publicPlatform, url }: InstitutionPublicPlatformEntity,
   ): Promise<void> {
     this.logger.log(
-      `start aggregating feedbacks for ${institution.name} on platform = ${publicPlatform.name}, aggregation type ${publicPlatform.aggregationType}`,
+      `start aggregating feedbacks for ${institution.name}, id ${institution.id} on platform = ${publicPlatform.name}, aggregation type ${publicPlatform.aggregationType}`,
     );
     const aggregationClient = await this.mediatorAggregatingClientsService.getClient(
       publicPlatform.name,
