@@ -5,7 +5,8 @@ import { Company } from './company.entity';
 import { CriterionGroup } from './criterion-group.entity';
 import { Manager } from './manager.entity';
 
-@Entity()
+// todo разобраться с  synchronize: false
+@Entity({ synchronize: false })
 export class Institution {
   @PrimaryGeneratedColumn()
   id: number;

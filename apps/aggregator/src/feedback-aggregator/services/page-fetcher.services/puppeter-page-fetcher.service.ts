@@ -1,4 +1,4 @@
-import { Page, launch } from 'puppeteer';
+import puppeteer, { Page } from 'puppeteer';
 import { Injectable } from '@nestjs/common';
 import { PROXY } from 'config';
 
@@ -8,9 +8,10 @@ const VIEWPORT_HEIGHT = 920;
 @Injectable()
 export class PuppeterPageFetcherService {
   async getPage(url: string): Promise<Page> {
-    const browser = await launch({
+    const browser = await puppeteer.launch({
       headless: true,
-      args: [`--proxy-server=${PROXY.PROTOCOL}://${PROXY.HOST}:${PROXY.PORT}`],
+      executablePath: '/usr/lib/chromium/chrome',
+      args: ['--no-sandbox', `--proxy-server=${PROXY.PROTOCOL}://${PROXY.HOST}:${PROXY.PORT}`],
     });
     const page = await browser.newPage();
     await page.setViewport({

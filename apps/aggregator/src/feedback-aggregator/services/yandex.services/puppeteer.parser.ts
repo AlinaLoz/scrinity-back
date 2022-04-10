@@ -38,8 +38,8 @@ export class YandexPuppeteerParser implements IParser {
 
       return this.parseFeedbacksByDocument(page, dateLastFeedback);
     } catch (error) {
-      this.logger.error(`parseFeedbacksByDocument: ${JSON.stringify(error)}`);
-      sentryService.error(`parseFeedbacksByDocument - ${JSON.stringify(error)}`);
+      this.logger.error(`parseFeedbacksByDocument: ${error}`);
+      sentryService.error(`parseFeedbacksByDocument - ${error}`);
       return this.getFeedbacks(url, { institutionId, platformId });
     }
   }
@@ -98,7 +98,7 @@ export class YandexPuppeteerParser implements IParser {
           .replace(/">/, ''),
         profession: element.getElementsByClassName('business-review-view__author-profession')[0].textContent || '',
         text: element.getElementsByClassName('business-review-view__body-text')[0].textContent || '',
-        stars: 5 - element.getElementsByClassName('business-rating-badge-view__star._empty').length,
+        stars: 5 - element.querySelectorAll('.business-rating-badge-view__star._empty').length,
       };
     });
   }

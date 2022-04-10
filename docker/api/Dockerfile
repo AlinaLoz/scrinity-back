@@ -8,6 +8,7 @@ ENV NODE_ENV=production
 ENV NODE_CONFIG_ENV=develop
 
 RUN yarn install --frozen-lockfile --production
+RUN apk add chromium
 COPY . .
 RUN yarn build:all
 

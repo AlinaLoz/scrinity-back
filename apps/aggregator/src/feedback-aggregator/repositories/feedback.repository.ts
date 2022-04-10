@@ -23,4 +23,3 @@ export class FeedbackRepository extends Repository<FeedbackEntity> {
     return !feedback ? null : new Date(feedback.date).toISOString();
   }
 }
-// 2022-01-04 11:33:46
