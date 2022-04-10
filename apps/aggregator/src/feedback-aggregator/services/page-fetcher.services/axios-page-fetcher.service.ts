@@ -1,13 +1,18 @@
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
+import { Injectable } from '@nestjs/common';
 import config from 'config';
+
 import { sentryService } from '@libs/exceptions/services/sentry.service';
 import { AppLogger } from '@libs/logger';
 
-// @Injectable()
-export class BaseParserService {
-  private localLogger = new AppLogger(BaseParserService.name);
+axiosRetry(axios, { retries: 3 });
 
-  protected async getPageContent(url: string): Promise<Buffer | null> {
+@Injectable()
+export class AxiosPageFetcherService {
+  private localLogger = new AppLogger(AxiosPageFetcherService.name);
+
+  async getPageContent(url: string): Promise<Buffer | null> {
     try {
       const { data } = await axios.get(url, {
         proxy: {
@@ -23,7 +28,7 @@ export class BaseParserService {
       return data;
     } catch (err) {
       this.localLogger.error(`error get page - ${url}: ${JSON.stringify(err)}`);
-      sentryService.message(`error get page - ${url}: ${JSON.stringify(err)}`);
+      sentryService.error(`error get page - ${url}: ${JSON.stringify(err)}`);
       return null;
     }
   }
