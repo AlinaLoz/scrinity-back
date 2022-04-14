@@ -7,3 +7,5 @@ export class GetConfigResponseDTO extends ConstructableDTO<GetConfigResponseDTO>
   @Expose()
   CHAT_LINK_CHANNEL: LINK_CHANNEL;
 }
+
+export type GetCriterionsResponseDTO = Record<string, string>;

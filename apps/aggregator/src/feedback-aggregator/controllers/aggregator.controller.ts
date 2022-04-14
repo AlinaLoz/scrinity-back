@@ -11,7 +11,7 @@ export class AggregatorController implements OnModuleInit {
     this.aggregate();
   }
 
-  @Cron(CronExpression.EVERY_10_MINUTES)
+  @Cron(CronExpression.EVERY_12_HOURS)
   private aggregate(): Promise<void> {
     return this.aggregatorService.aggregate();
   }

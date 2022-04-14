@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from '@libs/auth';
 import { ExceptionModule } from '@libs/exceptions';
+import { ConfigModule } from '@libs/config';
+
 import { DB_CONFIG } from '../../../ormconfig';
 import { ManagerModule as ManagerModuleSubModule } from './manager';
 import { ChatModule } from './сhats/chat.module';
@@ -19,6 +21,7 @@ import { FeedbackModule } from './feedback/feedback.module';
     AnalyticsModule,
     // InstitutionModule,
     // ChatModule,
+    ConfigModule,
     WebPushModule,
     FeedbackModule,
     TypeOrmModule.forRoot({

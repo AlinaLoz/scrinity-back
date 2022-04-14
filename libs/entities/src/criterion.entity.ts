@@ -1,9 +1,12 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { CriterionGroup } from './criterion-group.entity';
 
 @Entity()
 export class Criterion {
-  @PrimaryColumn({ type: 'varchar' })
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'varchar' })
   key: string;
 
   @Column({ type: 'varchar' })

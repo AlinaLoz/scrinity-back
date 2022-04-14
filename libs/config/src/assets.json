@@ -1,0 +1,16 @@
+{
+  "atmosphere_good": "Атмосфера",
+  "atmosphere_bad": "Атмосфера",
+  "pricing_good": "Ценовая политика",
+  "pricing_bad": "Ценовая политика",
+  "service_good": "Сервис",
+  "service_bad": "Сервис",
+  "menu_good": "Меню",
+  "menu_bad": "Меню",
+  "kitchen_good": "Кухня",
+  "kitchen_bad": "Кухня",
+  "additional_good": "Дополнительные удобства",
+  "additional_bad": "Дополнительные удобства",
+  "location_good": "Расположение",
+  "location_bad": "Расположение"
+}
