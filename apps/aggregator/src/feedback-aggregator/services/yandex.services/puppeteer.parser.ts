@@ -6,11 +6,11 @@ import { sentryService } from '@libs/exceptions/services/sentry.service';
 
 import { FeedbackRepository } from '../../repositories/feedback.repository';
 import { PuppeterPageFetcherService } from '../page-fetcher.services/puppeter-page-fetcher.service';
+import { FEEDBACK_LIMIT } from '../../constants/aggregator.constants';
 import { IParser, YandexFeedback } from './parser.interfaces';
 
 const SCROLL_DELAY_MS = 2000;
 const STEP_SIZE_PX = 1000000;
-const LIMIT_ITEMS = 100;
 
 @Injectable()
 export class YandexPuppeteerParser implements IParser {
@@ -50,7 +50,7 @@ export class YandexPuppeteerParser implements IParser {
   ): Promise<YandexFeedback[]> {
     await this.changeRankingView(page);
     const items = [];
-    while (items.length < LIMIT_ITEMS) {
+    while (items.length < FEEDBACK_LIMIT) {
       const parsedItems: YandexFeedback[] = await page.evaluate(YandexPuppeteerParser.extractItems, items.length);
 
       const indexPrevSaved = parsedItems.findIndex((item) => item.date === dateLastFeedback);
@@ -89,7 +89,7 @@ export class YandexPuppeteerParser implements IParser {
       return {
         // @ts-ignore
         icon: element.getElementsByClassName('business-review-view__user-icon')[0]?.href || '',
-        name:
+        author:
           element.getElementsByClassName('business-review-view__author')[0].getElementsByTagName('span')[0]
             .textContent || '',
         date: element
@@ -98,7 +98,7 @@ export class YandexPuppeteerParser implements IParser {
           .replace(/">/, ''),
         profession: element.getElementsByClassName('business-review-view__author-profession')[0].textContent || '',
         text: element.getElementsByClassName('business-review-view__body-text')[0].textContent || '',
-        stars: 5 - element.querySelectorAll('.business-rating-badge-view__star._empty').length,
+        rating: 5 - element.querySelectorAll('.business-rating-badge-view__star._empty').length,
       };
     });
   }

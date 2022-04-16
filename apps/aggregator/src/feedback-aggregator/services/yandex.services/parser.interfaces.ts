@@ -1,10 +1,10 @@
 export type YandexFeedback = {
   icon: string;
-  name: string;
   profession: string;
-  date: string;
+  author: string;
   text: string;
-  stars: number;
+  date: string;
+  rating: number;
 };
 
 export interface IParser {

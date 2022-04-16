@@ -4,7 +4,7 @@ import { Institution } from './institution.entity';
 import { PublicPlatformEntity } from './public-platform.entity';
 import { BaseEntity } from './base.entity';
 
-@Unique(['date', 'name'])
+@Unique(['date', 'author'])
 @Entity({ name: 'feedback' })
 export class FeedbackEntity extends BaseEntity<FeedbackEntity> {
   @PrimaryGeneratedColumn()
@@ -22,13 +22,13 @@ export class FeedbackEntity extends BaseEntity<FeedbackEntity> {
   @ManyToOne(() => PublicPlatformEntity)
   platform: PublicPlatformEntity;
 
+  @Column({ type: 'varchar', nullable: false })
+  author: string;
+
   @Column({ type: 'varchar', nullable: true })
   icon: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  name: string;
-
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
   profession: string;
 
   @Column({ type: 'timestamptz', nullable: false })
@@ -38,5 +38,5 @@ export class FeedbackEntity extends BaseEntity<FeedbackEntity> {
   text: string;
 
   @Column({ type: 'smallint', default: 0 })
-  stars: number;
+  rating: number;
 }

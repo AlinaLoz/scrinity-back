@@ -13,7 +13,7 @@ export class GetFeedbacksBodyDTO extends PaginationDTO {
 
 export class FeedbackDTO
   // eslint-disable-next-line prettier/prettier
-  implements Pick<FeedbackEntity, 'id' | 'icon' | 'name' | 'profession' | 'date' | 'text' | 'stars'> {
+  implements Pick<FeedbackEntity, 'id' | 'icon' | 'name' | 'profession' | 'date' | 'text' | 'rating'> {
   @ApiProperty()
   @Expose()
   date: string;
@@ -35,7 +35,7 @@ export class FeedbackDTO
 
   @ApiProperty()
   @Expose()
-  stars: number;
+  rating: number;
 
   @ApiProperty()
   @Expose()

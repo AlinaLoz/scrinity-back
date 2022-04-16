@@ -9,6 +9,8 @@ import { YandexApiService } from './yandex.services/api.service';
 import { AggregatorService } from './aggregator.service';
 import { MediatorAggregatingClientsService } from './mediator-aggregating-clients.service';
 
+import { RelaxApiService } from './relax.services/api.service';
+
 export const Services = [
   PuppeterPageFetcherService,
   AxiosPageFetcherService,
@@ -18,4 +20,5 @@ export const Services = [
   YandexApiService,
   AggregatorService,
   MediatorAggregatingClientsService,
+  RelaxApiService,
 ];

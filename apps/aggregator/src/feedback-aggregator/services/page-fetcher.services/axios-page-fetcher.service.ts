@@ -12,18 +12,20 @@ axiosRetry(axios, { retries: 3 });
 export class AxiosPageFetcherService {
   private localLogger = new AppLogger(AxiosPageFetcherService.name);
 
-  async getPageContent(url: string): Promise<Buffer | null> {
+  async getPageContent<T>(url: string, withProxy = true): Promise<T | null> {
     try {
       const { data } = await axios.get(url, {
-        proxy: {
-          protocol: config.PROXY.PROTOCOL,
-          host: config.PROXY.HOST,
-          port: config.PROXY.PORT,
-          auth: {
-            username: config.PROXY.USERNAME,
-            password: config.PROXY.PASSWORD,
+        ...(withProxy && {
+          proxy: {
+            protocol: config.PROXY.PROTOCOL,
+            host: config.PROXY.HOST,
+            port: config.PROXY.PORT,
+            auth: {
+              username: config.PROXY.USERNAME,
+              password: config.PROXY.PASSWORD,
+            },
           },
-        },
+        }),
       });
       return data;
     } catch (err) {

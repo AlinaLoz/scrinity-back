@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import cheerio from 'cheerio';
-import { sentryService } from '@libs/exceptions/services/sentry.service';
 
+import { sentryService } from '@libs/exceptions/services/sentry.service';
 import { AppLogger } from '@libs/logger';
+
 import { AxiosPageFetcherService } from '../page-fetcher.services/axios-page-fetcher.service';
 import { YandexFeedback, IParser } from './parser.interfaces';
 
@@ -13,7 +14,7 @@ export class YandexCheerioParser implements IParser {
   constructor(private readonly axiosPageFetcherService: AxiosPageFetcherService) {}
 
   async getFeedbacks(url: string): Promise<YandexFeedback[]> {
-    const page = await this.axiosPageFetcherService.getPageContent(url);
+    const page = await this.axiosPageFetcherService.getPageContent<Buffer>(url);
     if (!page) {
       return [];
     }
@@ -28,7 +29,7 @@ export class YandexCheerioParser implements IParser {
       $('.business-reviews-card-view__review').each((i, elem) => {
         data.push({
           icon: $(elem).find('.business-review-view__user-icon').attr('href') || '',
-          name: $(elem).find('.business-review-view__author span').text(),
+          author: $(elem).find('.business-review-view__author span').text(),
           profession: $(elem).find('.business-review-view__author-profession').text(),
           date:
             $(elem)
@@ -37,7 +38,7 @@ export class YandexCheerioParser implements IParser {
               ?.replace(/^.*content="/, '')
               .replace(/">/, '') || '',
           text: $(elem).find('.business-review-view__body-text').text(),
-          stars: 5 - $(elem).find('.business-rating-badge-view__star._empty').length,
+          rating: 5 - $(elem).find('.business-rating-badge-view__star._empty').length,
         });
       });
       this.logger.log(`found ${data.length} new feedbacks`);
