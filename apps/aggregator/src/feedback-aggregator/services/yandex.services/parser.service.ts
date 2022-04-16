@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { FeedbackEntity } from '@libs/entities';
 import { AppLogger } from '@libs/logger';
 
 import { IClientAggregations } from '../../interfaces/client-aggregation.intefaces';
@@ -39,29 +38,12 @@ export class YandexParserService implements IClientAggregations {
       institutionId,
       platformId,
     });
-    await this.saveFeedbacks({
+    await this.feedbacksRepository.prepareAndSaveFeedbacks({
       feedbacks,
       platformId,
       institutionId,
     });
     this.logger.log(`institutionId: ${institutionId}, newFeedbacksCount: ${feedbacks.length}`);
-  }
-
-  private async saveFeedbacks({
-    institutionId,
-    platformId,
-    feedbacks,
-  }: {
-    feedbacks: YandexFeedback[];
-    institutionId: number;
-    platformId: number;
-  }): Promise<void> {
-    const feedbacksToSave: Partial<FeedbackEntity>[] = feedbacks.map((feedback) => ({
-      ...feedback,
-      institutionId,
-      platformId,
-    }));
-    await this.feedbacksRepository.saveFeedbacks(feedbacksToSave);
   }
 
   private getFeedbacks(
