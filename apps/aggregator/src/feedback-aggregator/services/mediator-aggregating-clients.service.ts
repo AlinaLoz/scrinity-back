@@ -8,6 +8,7 @@ import { YandexApiService } from './yandex.services/api.service';
 import { YandexParserService } from './yandex.services/parser.service';
 
 import { RelaxApiService } from './relax.services/api.service';
+import { GoogleParserService } from './google/parser.service';
 
 @Injectable()
 export class MediatorAggregatingClientsService {
@@ -15,6 +16,7 @@ export class MediatorAggregatingClientsService {
     private readonly yandexParserService: YandexParserService,
     private readonly yandexApiService: YandexApiService,
     private readonly relaxApiService: RelaxApiService,
+    private readonly googleParserService: GoogleParserService,
   ) {}
 
   getClient(platform: PLATFORM_AGGREGATORS, aggregationType: AGGREGATION_TYPE): IClientAggregations {
@@ -29,6 +31,11 @@ export class MediatorAggregatingClientsService {
           return this.relaxApiService;
         }
         throw new Error(UNSUPPORTED_PUBLIC_PLATFORM);
+      case PLATFORM_AGGREGATORS.GOOGLE:
+        if (aggregationType === AGGREGATION_TYPE.API) {
+          throw new Error(UNSUPPORTED_PUBLIC_PLATFORM);
+        }
+        return this.googleParserService;
       default:
         throw new Error(UNSUPPORTED_PUBLIC_PLATFORM);
     }
