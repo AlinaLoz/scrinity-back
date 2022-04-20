@@ -10,7 +10,9 @@ import { AggregatorService } from './aggregator.service';
 import { MediatorAggregatingClientsService } from './mediator-aggregating-clients.service';
 
 import { RelaxApiService } from './relax.services/api.service';
+
 import { GoogleParserService } from './google/parser.service';
+import { GooglePuppeteerParser } from './google/puppeteer.parser';
 
 export const Services = [
   PuppeterPageFetcherService,
@@ -23,4 +25,5 @@ export const Services = [
   MediatorAggregatingClientsService,
   RelaxApiService,
   GoogleParserService,
+  GooglePuppeteerParser,
 ];
