@@ -18,7 +18,7 @@ export class FeedbackRepository extends Repository<FeedbackEntity> {
       .insert()
       .into(FeedbackEntity)
       .values(items)
-      .onConflict('("date", "author") DO NOTHING')
+      .onConflict('("text", "author") DO NOTHING')
       .execute();
   }
 

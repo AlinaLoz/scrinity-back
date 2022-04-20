@@ -4,7 +4,7 @@ import { Institution } from './institution.entity';
 import { PublicPlatformEntity } from './public-platform.entity';
 import { BaseEntity } from './base.entity';
 
-@Unique(['date', 'author'])
+@Unique(['text', 'author'])
 @Entity({ name: 'feedback' })
 export class FeedbackEntity extends BaseEntity<FeedbackEntity> {
   @PrimaryGeneratedColumn()
