@@ -4,7 +4,7 @@ import { Expose, Type } from 'class-transformer';
 
 import { ERRORS } from '@libs/constants';
 import { ConstructableDTO } from '@libs/dtos/constructable.dto';
-import { FileDTO } from '@libs/dtos';
+import { FileDTO, LINK_CHANNEL } from '@libs/dtos';
 
 export class GetInstitutionParamDTO {
   @ApiProperty()
@@ -66,4 +66,8 @@ export class GetInstitutionResponseDTO extends ConstructableDTO<GetInstitutionRe
   @Type(() => CriterionDTO)
   @Expose()
   criterions: CriterionDTO[];
+
+  @ApiProperty({ enum: LINK_CHANNEL })
+  @Expose()
+  linkChannel: LINK_CHANNEL;
 }

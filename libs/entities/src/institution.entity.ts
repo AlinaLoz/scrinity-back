@@ -1,12 +1,12 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { InstitutionPublicPlatformEntity } from '@libs/entities/institution-public-platform.entity';
+import { LINK_CHANNEL } from '@libs/dtos';
 import { Company } from './company.entity';
 import { CriterionGroup } from './criterion-group.entity';
 import { Manager } from './manager.entity';
 
-// todo разобраться с  synchronize: false
-@Entity({ synchronize: false })
+@Entity()
 export class Institution {
   @PrimaryGeneratedColumn()
   id: number;
@@ -39,4 +39,7 @@ export class Institution {
 
   @OneToMany(() => InstitutionPublicPlatformEntity, (item) => item.institution)
   publicPlatforms: InstitutionPublicPlatformEntity[];
+
+  @Column({ type: 'enum', enum: LINK_CHANNEL, default: LINK_CHANNEL.EMAIL })
+  linkChannel: LINK_CHANNEL;
 }
